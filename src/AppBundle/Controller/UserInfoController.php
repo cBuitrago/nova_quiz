@@ -310,7 +310,6 @@ class UserInfoController extends Controller {
                 if ($pswRandom) {
                     $tmpPsw = $this->createRandPsw();
                     $encoded = $encoder->encodePassword($tmpPsw);
-                    
                 } else {
                     $encoded = $encoder->encodePassword($data->password);
                 }
@@ -324,7 +323,6 @@ class UserInfoController extends Controller {
                         ->setAccountInfo($departmentInfo->getAccountInfo())
                         ->setForcePsw($force)
                         ->setRoles($roles);
-
                 $userInfoConflictUsername = $this->getDoctrine()
                         ->getRepository('AppBundle:UserInfo')
                         ->findByUsername($request->request->get('username'));
