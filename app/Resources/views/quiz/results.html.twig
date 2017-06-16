@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quiz</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quiz.id }}</td>
+            </tr>
+            <tr>
+                <th>Quizid</th>
+                <td>{{ quiz.quizId }}</td>
+            </tr>
+            <tr>
+                <th>Lockedoncompletion</th>
+                <td>{% if quiz.lockedOnCompletion %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Timetocomplete</th>
+                <td>{{ quiz.timeToComplete }}</td>
+            </tr>
+            <tr>
+                <th>Quizdata</th>
+                <td>{{ quiz.quizData }}</td>
+            </tr>
+            <tr>
+                <th>Isusercandisplaychart</th>
+                <td>{% if quiz.isUserCanDisplayChart %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isusercandisplayqa</th>
+                <td>{% if quiz.isUserCanDisplayQa %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{% if quiz.isEnabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isuserseegoodanswer</th>
+                <td>{% if quiz.isUserSeeGoodAnswer %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Answerjson</th>
+                <td>{{ quiz.answerJson }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul>
+        <li>
+            <a href="{{ path('quiz_index', { 'account': account }) }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('quiz_edit', { 'id': quiz.id, 'account': account }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

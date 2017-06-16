@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
+{% block content %}
+    {% set page = {'active': 'new'} %}
+    <ul class="nav nav-tabs">
+        {% include 'userinfo/navbar.html.twig' with page %}
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" >
+            <div class="addItem">
+                <h1>Ajouter Utilisateur</h1>
+                <form method="POST" >
+                    {{ forms.input("username", null, "text", null, "Nom d'utilisateur", null, "name", null) }}
+                    {{ forms.input("email", null, "text", null, "Courriel", null, "email", null) }}
+                    {{ forms.double_input("firstname", null, "text", null, "Prénom", null, null, "name", "name", null, "text", null, "Nom de famille", null, null, "name") }}
+                    {{ forms.input("password", null, "password", null, "Mot de passe", null, "password", null) }}
+                    {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "Changer mot de passe?", "none", null) }}
+                    {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "Administrateur", "none", null) }}
+                    <h2>Department</h2>
+                    <div class="start-tree">
+                        {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                    </div>
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "ajouter utilisateur", "Créér utilisateur") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+{% endblock %}

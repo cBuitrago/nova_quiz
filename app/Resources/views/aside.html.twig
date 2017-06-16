@@ -1,0 +1,40 @@
+<ul>
+    {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('user_index', { 'account': account }) }}" class="active">
+                <span class="nv-glyphicon nv-glyphicon-user"></span><br>
+                <span class="text">Utilisateur</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('accountinfo_index', { 'account': account }) }}" class="active">
+                <span class="nv-glyphicon nv-glyphicon-corpo"></span><br>
+                <span class="text">Comptes</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('departmentinfo_index', { 'account': account }) }}" class="active">
+                <span class="nv-glyphicon nv-glyphicon-groupe"></span><br>
+                <span class="text">Groupes</span>
+            </a>
+        </li>
+    {% endif %}
+    <li>
+        <a href="{{ path('quiz_index', { 'account': account }) }}" class="active">
+            <span class="nv-glyphicon nv-glyphicon-edit"></span><br>
+            <span class="text">Quiz</span>
+        </a>
+    </li>
+    {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('report_index', { 'account': account }) }}" class="active">
+                <span class="nv-glyphicon nv-glyphicon-report"></span><br>
+                <span class="text">Rapports</span>
+            </a>
+        </li>
+    {% endif %}
+</ul>

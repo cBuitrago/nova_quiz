@@ -1,0 +1,11 @@
+Options -Indexes
+# BEGIN ROUTING
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+# END ROUTING
+
+<Files *.*>
+    Order Allow,Deny
+    Allow from all
+</Files>

@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('Resources/public/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type='text/css' />
+{% endblock %}
+{% block content %}
+    {% set page = {'active': ''} %}
+    <ul class="nav nav-tabs">
+        {% include 'accountinfo/navbar.html.twig' with page %}
+        <li class="active">
+            <a href="{{ path('user_index', { 'account': account }) }}">Éditer Compte</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" >
+            <h1>Éditer Account</h1>
+            <form method="POST" >
+                <div class="containerEdit">
+                    {{ forms.label_input("name", accountInfo.name, "text", null, null, "editNomAccount", "Nom de la compagnie", "name", null) }}
+                    <div class="double-input">
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "editer le nom du corpo", "Éditer") }}
+                    </div>
+                </div>
+            </form>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="containerEdit">
+                    <h2>changer Logo</h2>
+                    {{ forms.single_input("imgCompany", null, "file", null, null, "imgCompany", "file") }}
+                    <div class="double-input">
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "changer image corpo", "Ajouter Image") }}
+                    </div>
+                </div>
+            </form>
+            <form method="POST" >
+                <div class="containerEdit">
+                    <h2>Éditer des couleurs</h2>
+                    <div class="double-input">
+                        <div>
+                            <label for="c1">btn-cancel</label>
+                            <div id="btn-cancel" class="input-group colorpicker-component">
+                                {{ forms.input("btn_cancel", settings.colors.btn_cancel, "text", null, null, "c1", "color", "form-control") }}
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="c2">btn</label>
+                            <div id="btn" class="input-group colorpicker-component">
+                                {{ forms.input("principal", settings.colors.principal, "text", null, null, "c2", "color", "form-control") }}
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-input">
+                        <label for="c3">Aside</label>
+                        <div id="color-aside" class="input-group colorpicker-component">
+                            {{ forms.input("aside", settings.colors.aside, "text", null, null, "c3", "color", "form-control") }}
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+                    <div class="double-input">
+                        <div>
+                            <label for="c4">Nav</label>
+                            <div id="nav" class="input-group colorpicker-component">
+                                {{ forms.input("nav", settings.colors.nav, "text", null, null, "c4", "color", "form-control") }}
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="c5">Nav 2</label>
+                            <div id="nav2" class="input-group colorpicker-component">
+                                {{ forms.input("nav2", settings.colors.nav2, "text", null, null, "c5", "color", "form-control") }}
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="double-input">
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "changer couleurs", "Éditer") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script>
+        window.addEventListener("load", function () {
+            $(function () {
+                $('#btn-cancel').colorpicker().on('changeColor', function (e) {
+                    $('.cancel').each(function () {
+                        $(this)[0].style.backgroundColor = e.color.toString('rgba');
+                    });
+                });
+            });
+            $(function () {
+                $('#btn').colorpicker().on('changeColor', function (e) {
+                    $('.nv-btn-default').each(function () {
+                        $(this)[0].style.backgroundColor = e.color.toString('rgba');
+                    });
+                });
+            });
+            $(function () {
+                $('#color-aside').colorpicker().on('changeColor', function (e) {
+                    $('article.aside')[0].style.backgroundColor = e.color.toString('rgba');
+                });
+            });
+            $(function () {
+                $('#nav').colorpicker().on('changeColor', function (e) {
+                    $('nav')[0].style.backgroundColor = e.color.toString('rgba');
+                    $('nav div.image')[0].style.backgroundColor = e.color.toString('rgba');
+                });
+            });
+            $(function () {
+                $('#nav2').colorpicker().on('changeColor', function (e) {
+                    $('ul.nav-tabs')[0].style.backgroundColor = e.color.toString('rgba');
+                });
+            });
+        });
+    </script>
+{% endblock %}

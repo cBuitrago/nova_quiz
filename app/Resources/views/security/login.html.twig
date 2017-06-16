@@ -1,0 +1,31 @@
+{% extends 'login_base.html.twig' %}
+{% block body_class 'login' %}
+    {% block body %}
+        <nav>
+            <div class="image">
+                <img src="{{ asset('Resources/public/media/images/logoCompany_Nova.png') }}">
+            </div>
+            <div class="text-login">
+                <h1>Ouverture de session</h1>
+            </div>
+        </nav>
+        <article class="content-login">
+            {% if error %}
+                <div class="login_failed hidden_failed">
+                    <p>Connexion échoué!</p>
+                </div>
+            {% endif %}
+            <form action="{{ path('login', {'account': account}) }}" method="post">
+                <div>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Courriel" />
+                </div>
+                <div>
+                    <input type="password" id="password" name="_password" placeholder="Mot de Passe" />
+                </div>
+                <input type="hidden" name="_target_path" value="/{{ account }}/user/profile" />
+                <input type="hidden" name="_failure_path" value="/{{ account }}" />
+                <hr>
+                <button type="submit">login</button>
+            </form>
+        </article>
+    {% endblock %}

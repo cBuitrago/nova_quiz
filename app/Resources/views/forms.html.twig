@@ -1,0 +1,32 @@
+{% macro double_input(name1, value1, type1, size1, placeholder1, id1, class1, data_validation1, name2, value2, type2, size2, placeholder2, id2, class2, data_validation2) %}
+    <div class="double-input">
+        <input type="{{ type1|default('text') }}" name="{{ name1 }}" {% if class1 %} class="{{ value1 }}" {% endif %} {% if value1 %} value="{{ value1 }}" {% endif %} {% if size1 %} size="{{ size1 }}" {% endif %} {% if placeholder1 %} placeholder="{{ placeholder1 }}" {% endif %} {% if id1 %} id="{{ id1 }}" {% endif %} data-validation="{{ data_validation1 }}" />
+        <input type="{{ type2|default('text') }}" name="{{ name2 }}" {% if class2 %} class="{{ value2 }}" {% endif %} {% if value2 %} value="{{ value2 }}" {% endif %} {% if size2 %} size="{{ size2 }}" {% endif %} {% if placeholder2 %} placeholder="{{ placeholder2 }}" {% endif %} {% if id2 %} id="{{ id2 }}" {% endif %} data-validation="{{ data_validation2 }}" />
+    </div>
+{% endmacro %}
+{% macro single_input(name, value, type, size, placeholder, id, data_validation) %}
+    <div class="single-input">
+        <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" />    
+    </div>
+{% endmacro %}
+{% macro input(name, value, type, size, placeholder, id, data_validation, class) %}
+    <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" class="{{ class }}"/>
+{% endmacro %}
+{% macro input_label(name, value, type, size, placeholder, id, label_text, data_validation, checked) %}
+    <div>
+        <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" {% if checked %} checked="checked" {% endif %} />    
+        <label {% if id %} for="{{ id }}" {% endif %} >{{ label_text|capitalize }}</label>
+    </div>
+{% endmacro %}
+{% macro label_input(name, value, type, size, placeholder, id, label_text, data_validation, checked) %}
+    <div>
+        <label {% if id %} for="{{ id }}" {% endif %} >{{ label_text|capitalize }}</label>
+        <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" {% if checked %} checked="checked" {% endif %}/>    
+    </div>
+{% endmacro %}
+{% macro button_form(type, class, id, data_toogle, data_placement, title, text) %}
+    <button type="{{ type|default('submit') }}" {% if class %} class="{{ class }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} 
+            {% if data_toogle %} data-toggle="{{ data_toogle }}" {% endif %} {% if data_placement %} data-placement="{{ data_placement }}" {% endif %}
+            {% if title %} title="{{ title }}" {% endif %} >{{ text|capitalize }}
+    </button>
+{% endmacro %}

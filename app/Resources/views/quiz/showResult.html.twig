@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('Resources/public/css/animate.css') }}" rel="stylesheet" type='text/css' />
+{% endblock %}
+{% import "forms.html.twig" as forms %}
+{% block content %}
+    {% set page = {'active': 'result'} %}
+    <ul class="nav nav-tabs">
+        {% include 'quiz/navbar.html.twig' with page %}
+        <li class="{% if page.active == 'index' %}active{% endif %}">
+            <a href="">{{ quiz.quizId }}</a>
+        </li>
+    </ul>
+    {% if quizResult.getProgressId().getId() == 3 %}
+        <form id='quizResultsSelf'>
+            <input type="hidden" name='idQuiz' value="{{ quiz.id }}">
+            <button type="button" class="nv-btn-default nv-principal-color" id="onUserReport" data-type='{{ quiz.quizType.name }}'
+                    data-toggle="tooltip" data-placement="left" title="userResult">
+                Telecharger resultats PDF
+            </button>
+        </form>
+    {% else %}
+        <h3>Vous n'avez pas bien fini votre Quiz!</h3>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>var account = "{{ account }}";</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script src="{{ asset('Resources/public/js/jspdf_1_2_61.debug.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/jspdf.plugin.autotable_2_0_22.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/utils.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/pdf_generator.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/pdf_generator_cfc.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/generator_report.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
+{% block content %}
+    {% set page = {'active': 'new'} %}
+    <ul class="nav nav-tabs">
+        {% include 'departmentinfo/navbar.html.twig' with page %}
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" >
+            <div class="addItem">
+                <h1>Ajouter Groupe</h1>
+                <form method="POST" >
+                    {{ forms.input("name", null, "text", null, "Nom du groupe", null, "name", null) }}
+                    <h2>Department</h2>
+                    <div class="start-tree">
+                        {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                    </div>
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "ajouter utilisateur", "Créér utilisateur") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+{% endblock %}

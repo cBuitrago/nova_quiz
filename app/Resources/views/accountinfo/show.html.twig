@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div>
+        <ul class="nav nav-tabs">
+            {% set page = {'active': ''} %}
+            {% include 'accountinfo/navbar.html.twig' with page %}
+            <li class="active">
+                <a href="{{ path('user_index', { 'account': account }) }}">Compte</a>
+            </li>
+        </ul>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ accountInfo.id }}</td>
+                </tr>
+                <tr>
+                    <th>Isactive</th>
+                    <td>{% if accountInfo.isActive %}Yes{% else %}No{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ accountInfo.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ accountInfo.description }}</td>
+                </tr>
+                <tr>
+                    <th>Createdon</th>
+                    <td>{% if accountInfo.createdOn %}{{ accountInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            {% if is_granted('ROLE_GOD') or is_granted('ROLE_PROVIDER') %}
+                <li>
+                    <a href="{{ path('accountinfo_index', { 'account': account }) }}">Back to the list</a>
+                </li>
+                <li>
+                    <a href="{{ path('accountinfo_edit', { 'id': accountInfo.id , 'account': account }) }}">Edit</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}

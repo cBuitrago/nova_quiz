@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        {#<meta charset="UTF-8" />#}
+        <title>QUIZ</title>            
+        {% block stylesheets %}
+            <link href="{{ asset('Resources/public/css/animate.css') }}" rel="stylesheet" type='text/css' />
+            <link href="{{ asset('Resources/public/css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
+            <link href="{{ asset('Resources/public/css/bootstrap.css') }}" rel="stylesheet" type='text/css' />
+            <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css' />
+            <link href="{{ asset('Resources/public/css/main.css') }}" rel="stylesheet" type='text/css' />
+            <link href="{{ asset('Resources/public/css/style.css') }}" rel="stylesheet" type='text/css' />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <nav class="head">
+            <div class="image">
+                <img src="{{ asset('Resources/public/media/images/') ~ app.session.get('settings').logo }}" alt="">
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" id="profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{ app.token.user.firstName }} {{ app.token.user.name }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="profile-dropdown">
+                    <li><a href="{{ path('quiz_index', { 'account': account }) }}">Profile</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ path('logout', { 'account': account }) }}">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id="pageTitle">
+            <h2 style='text-align:left;' >{{ quizData.pageTitle }}</h2>
+        </div>
+        <article class="container">
+            <div class='container-fluid' id='quiz'>
+                <div id="quiz-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        {% for article in quizData.section %}
+                            {% set secc = loop.index - 1 %}
+                            <div class="item{% if secc == 0 %} active{% endif %}" data-slide-value='{{ secc }}'>
+                                <div id='rectangle' style="background-color:rgb({{ article.color.red}},{{ article.color.green }},{{ article.color.blue }})"></div>
+                                <div class ='row'>
+                                    <div class='col-md-12 helper_height'  id='section_{{ secc }}' >
+                                        <form id='myForm_{{ secc }}' class='moving-row' > 
+                                            <h2>
+                                                <small style="color:rgb({{ article.color.red}},{{ article.color.green }},{{ article.color.blue }})">{{ article.sectionTitle }}</small>
+                                            </h2>
+                                            {% for question in article.question %}
+                                                {% set quest = loop.index - 1 %}
+                                                <fieldset id= 'question_{{ quest }}' required><p><b>{{ question.questionTitle }}</p></b>
+                                                    {% for answer in question.answer %}
+                                                        {% set ans = loop.index - 1 %}
+                                                        <div class='radio radio-info'>
+                                                            <input type='radio' value='s{{ secc }}q{{ quest }}a{{ ans }}' id='s{{ secc }}q{{ quest }}a{{ ans }}' name='question_{{ quest }}' required>
+                                                            <label for='s{{ secc }}q{{ quest }}a{{ ans }}' >{{ answer.answerText }}</label></br>
+                                                        </div>
+                                                    {% endfor %}
+                                                </fieldset>
+                                            {% endfor %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id='quiz_name' value="{{ quiz.quizId }}">
+                    <a class="left carousel-control hidden" href="#quiz-carousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    {% set timerQuiz = ( app.session.get('quizStartTime') + 1200) - date().timestamp %}
+                    <p class="timer"></p>
+                    <script>
+                        var start_date
+                        = {{ app.session.get('quizStartTime') }};
+                        {% if quiz.timeToComplete == 0 %}
+                                    var timer_start = false;
+                            function f() {}
+                            ;
+                        {% else %}
+                            var timer_start = true;
+
+                            var a = parseInt({{ date().timestamp }}), f = function () {
+                                var t = !0, e =     {{ app.session.get('quizStartTime') }} + {{ quiz.timeToComplete }} -a
+                                a += 1
+                                var r = {e: Math.floor(e / 60), g: 60 == Math.round(e % 60) ? "00" : Math.round(e % 60)}, o = r.g < 10 ? "0" : ""
+                                $(".timer").text("Il vous reste : " + r.e + " : " + o + r.g), 0 >= e && (t = !1, nextForm(!0)), t === !0 && setTimeout(f, 1e3)
+                            }
+                        {% endif %}
+                    </script>
+                    <a class="right carousel-control hidden" href="#quiz-carousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+        <footer class="quiz">  
+            <a class="" href="#" role="button" id="previousSection">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span>Precedent</span>
+            </a>
+            <a class="" href="#" role="button" id='nextSection'>
+                <span>Suivant</span>
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </footer>
+        {% block javascripts %}
+            <script src="{{ asset('Resources/public/js/jquery.js') }}"></script>
+            <script src="{{ asset('Resources/public/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('Resources/public/js/utils.js') }}"></script>
+            <script src="{{ asset('Resources/public/js/quiz.js') }}"></script>
+            <script>
+                            var account = '{{ account }}';
+            </script>
+        {% endblock %}
+    </body>
+</html>

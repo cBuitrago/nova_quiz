@@ -1,0 +1,15 @@
+{% import "forms.html.twig" as forms %}
+<ul>
+    {% for department in departments %}
+        {% set check = false %}
+        {% if department.id == checked %} {% set check = true %} {% endif %}
+        <li class="{% if loop.last %}li-end{% endif %}">
+            <div class="{% if loop.last %}li-end{% else %}li-usual{% endif %}">
+                {{ forms.label_input("user_department", department.id, "radio", null, null, "department_"~department.id, department.name, "none", check) }}
+            </div>
+            {% if department.childrenCollection is not empty %}
+                {% include 'departmentTree.html.twig' with {'departments': department.childrenCollection, 'checked': checked} %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

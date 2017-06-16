@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
+{% block content %}
+    {% set page = {'active': ''} %}
+    <ul class="nav nav-tabs">
+        {% include 'departmentinfo/navbar.html.twig' with page %}
+        <li class="active">
+            <a href="{{ path('departmentinfo_index', { 'account': account }) }}">Éditer Groupe</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" >
+            <div class="addItem">
+                {#{{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+                {{ form_end(delete_form) }}#}
+                <h1>Éditer Groupe</h1>
+                <form method="POST" >
+                    {{ forms.input("name", departmentInfo.name, "text", null, "Nom du groupe", null, "name", null) }}
+                    <h2>Department</h2>
+
+                    {% if departmentInfo.parent != null %} 
+                        {% set checked = departmentInfo.parent.id %} 
+                    {% else %} 
+                        {% set checked = null %} 
+                    {% endif %}
+                    <div class="start-tree">
+                        {% include 'departmentTree.html.twig' with { 'departments': departments, 'checked': checked } %}
+                    </div>
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "ajouter utilisateur", "Créér utilisateur") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+{% endblock %}

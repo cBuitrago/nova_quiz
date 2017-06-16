@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div>
+        <ul class="nav nav-tabs">
+            {% set page = {'active': 'index'} %}
+            {% include 'departmentinfo/navbar.html.twig' with page %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <div class="start-tree">
+                    {% include 'departmentinfo/departmentTree.html.twig' with {'departments': departmentInfos, 'checked': null } %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

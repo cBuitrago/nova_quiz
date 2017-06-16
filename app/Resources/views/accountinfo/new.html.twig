@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
+{% block content %}
+    {% set page = {'active': 'new'} %}
+    <ul class="nav nav-tabs">
+        {% include 'accountinfo/navbar.html.twig' with page %}
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" >
+            <div class="addItem">
+                <h1>AJOUTER COMPTE</h1>
+                <form method="POST" >
+                    {{ forms.input("name", null, "text", null, "Nom de la compte", null, "name") }}
+                    {{ forms.input("description", null, "text", null, "Description", null, "text") }}
+                    {% if is_granted('ROLE_GOD') %}
+                        <select name="account_role" data-validation="none">
+                            <option value="IS_PROVIDER">Provider</option>
+                            <option value="IS_USUAL">Usual</option>
+                        </select>
+                    {% endif %}
+                    {{ forms.input_label("can_create_quiz", null, "checkbox", null, null, "can_create_quiz", "can create quiz?", "none", null) }}
+                    {{ forms.input_label("email_as_username", null, "checkbox", null, null, "email_as_username", "email as username?", "none", null) }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "creer compte", "Créér compte") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+{% endblock %}

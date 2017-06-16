@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quizgroupquizlist</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quizGroupQuizList.id }}</td>
+            </tr>
+            <tr>
+                <th>Quizgroupid</th>
+                <td>{{ quizGroupQuizList.quizGroupId }}</td>
+            </tr>
+            <tr>
+                <th>Quizid</th>
+                <td>{{ quizGroupQuizList.quizId }}</td>
+            </tr>
+            <tr>
+                <th>Ordernb</th>
+                <td>{{ quizGroupQuizList.orderNB }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quizgroupquizlist_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('quizgroupquizlist_edit', { 'id': quizGroupQuizList.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

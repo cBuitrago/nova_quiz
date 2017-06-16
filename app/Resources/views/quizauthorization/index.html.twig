@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quizauthorizations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quizAuthorization in quizAuthorizations %}
+            <tr>
+                <td><a href="{{ path('quizauthorization_show', { 'id': quizAuthorization.id }) }}">{{ quizAuthorization.id }}</a></td>
+                <td>{% if quizAuthorization.startDate %}{{ quizAuthorization.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if quizAuthorization.endDate %}{{ quizAuthorization.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quizauthorization_show', { 'id': quizAuthorization.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quizauthorization_edit', { 'id': quizAuthorization.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quizauthorization_new') }}">Create a new quizAuthorization</a>
+        </li>
+    </ul>
+{% endblock %}

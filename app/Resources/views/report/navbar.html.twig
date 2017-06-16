@@ -1,0 +1,9 @@
+<li class="{% if page.active == 'index' %}active{% endif %}">
+    <a href="{{ path('report_index', { 'account': account }) }}">Rapport</a>
+</li>
+<li class="{% if page.active == 'type_a' %}active{% endif %}">
+    <a href="{{ path('report_type', { 'account': account, 'type':'type_a'}) }}">Type A</a>
+</li>
+<li class="{% if page.active == 'type_b' %}active{% endif %}">
+    <a href="{{ path('report_type', { 'account': account, 'type':'type_b' }) }}">Type B</a>
+</li>

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quizgroupquizlists list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quizgroupid</th>
+                <th>Quizid</th>
+                <th>Ordernb</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quizGroupQuizList in quizGroupQuizLists %}
+            <tr>
+                <td><a href="{{ path('quizgroupquizlist_show', { 'id': quizGroupQuizList.id }) }}">{{ quizGroupQuizList.id }}</a></td>
+                <td>{{ quizGroupQuizList.quizGroupId }}</td>
+                <td>{{ quizGroupQuizList.quizId }}</td>
+                <td>{{ quizGroupQuizList.orderNB }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quizgroupquizlist_show', { 'id': quizGroupQuizList.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quizgroupquizlist_edit', { 'id': quizGroupQuizList.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quizgroupquizlist_new') }}">Create a new quizGroupQuizList</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="{{ asset('Resources/public/css/iframe.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Resources/public/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Resources/public/css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Resources/public/css/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/public/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/public/css/generator.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="load">
+        <div>
+            <img src="{{ asset('Resources/public/media/assets/loading.gif') }}">
+        </div>
+    </div>
+    <div>
+        <ul class="nav nav-tabs">
+            {% set page = {'active': 'type_a'} %}
+            {% include 'report/navbar.html.twig' with page %}
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div align="center" style="margin: 30px auto; padding: 0">
+            <div class="filters">
+                <h1>Filtrer les résultats</h1>
+                <div class="fil-select">
+                    <label for="filter_quiz_id">ID Quiz </label>
+                    <select class='select-filter' id="filter_quiz_id">
+                        <option value="all">Tous</option>
+                    </select>
+                </div>
+                <div class="fil-select">
+                    <label for="filter_corporate_id">ID Compagnie </label>
+                    <select class='select-filter' id="filter_corporate_id">
+                        <option value="all">Tous</option>
+                    </select>
+                </div>
+                <div class="fil-select right">
+                    <label for="filter_group_id">ID Groupe </label>
+                    <select class='select-filter' id="filter_group_id">
+                        <option value="all">Tous</option>
+                    </select>
+                </div>
+                <div class="fil-select right">
+                    <label for="filter_agency_id">ID Agence </label>
+                    <select class='select-filter' id="filter_agency_id">
+                        <option value="all">Tous</option>
+                    </select>
+                </div>
+                <div class="fil-select right">
+                    <label for="filter_quiz_progress">Progrès </label>
+                    <select class='select-filter' id="filter_quiz_progress">
+                        <option value="all">Tous</option>
+                    </select>
+                </div>
+            </div>
+            <table id="example" class="display" cellspacing="0"></table>
+            <div class="filters">
+                <div class="rapUsagerHead">
+                    <p>Générer les rapports usagers:</p>
+                </div>
+                <div class="rapUsagerBody">
+                    <div class="bodyFirstLabel">
+                        <input type="checkbox" id="show_graph" value="show_graph" checked>
+                        <label for="show_graph">Afficher le graphique de résultats</label><br>
+                        <input type="checkbox" id="show_answers" value="show_answers" checked>
+                        <label for="show_answers">Afficher les questions/réponses</label>
+                    </div>
+                    <div class="bodySelect">
+                        <label for="user_report_compare">Graphique résultats - Comparer usager(s) avec:</label>
+                        <select id="user_report_compare">
+                            <option value="none">Aucun</option>
+                            <option value="AGENCIES">Agence</option>
+                            <option value="CORPORATES">Compagnie</option>
+                        </select>
+                        <br>
+                        <input type="checkbox" id="show_answers_score" value="show_answers_score" checked>
+                        <label for="show_answers_score">Afficher les pointages obtenus aux questions</label><br>
+                        <input type="checkbox" id="show_best_answers" value="show_best_answers" checked>
+                        <label for="show_best_answers">Afficher les meilleures réponses aux questions</label><br>
+                    </div>
+                    <div class="bodyButton">
+                        <input type="button" class='btn_filters' value="Générer rapport(s) usager(s)" 
+                               id="GenerateUsersReports" data-type="type_a" />
+                    </div>
+                </div>
+            </div>
+            <div class="filters">
+                <div class="bodyEntete">
+                    <p>Générer les rapports de participation:</p>
+                </div>
+                <div class="bodyButton">
+                    <input type="button" class='btn_filters' value="Générer rapport de participation" 
+                           id="GenerateParticipationReport"/>
+                </div>
+            </div>
+            <div class="filters">
+                <div class="rapUsagerHead">
+                    <p>Générer les rapports de statistics:</p>
+                </div>
+                <div class="rapUsagerBody">
+                    <div class="bodyFirstLabel">
+                        <p></p>
+                    </div>
+                    <div class="bodySelect">
+                        <label style="margin: 0;" for="statistic_report_compare">Graphique résultats - Comparer quiz avec:</label>
+                        <select id="statistic_report_compare">
+                            <option value="AGENCIES">Agence</option>
+                            <option value="CORPORATES">Compagnie</option>
+                        </select>
+                    </div>
+                    <div class="bodyButton">
+                        <input type="button" class='btn_filters' value="Générer rapport de statistics" 
+                               id="GenerateStatisticReport" data-type="statistics_type_a"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/ellipsis.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/dataTables.select.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/dataTables.buttons.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/utils.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/jspdf_1_2_61.debug.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/jspdf.plugin.autotable_2_0_22.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/pdf_generator.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/generator.js') }}"></script>
+    <script type="text/javascript" >
+        var account = "{{ account }}";
+        $(document).ready(function () {
+            var table = $('#all_accounts').DataTable();
+            GetAllQuizInfoFromServer('POLYHEDRON');
+        });
+    </script>
+{% endblock %}

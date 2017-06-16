@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+{% endblock %}
+{% block content %}
+    <div>
+        <ul class="nav nav-tabs">
+            {% set page = {'active': 'index'} %}
+            {% include 'accountinfo/navbar.html.twig' with page %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <table id="all_accounts" class="display" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Description</th>
+                            <th>Createdon</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for accountInfo in accountInfos %}
+                            <tr>
+                                <td><a href="{{ path('accountinfo_show', { 'id': accountInfo.id, 'account': account }) }}">{{ accountInfo.name }}</a></td>
+                                <td><a href="{{ path('accountinfo_show', { 'id': accountInfo.id, 'account': account }) }}">{{ accountInfo.role }}</a></td>
+                                <td><a href="{{ path('accountinfo_show', { 'id': accountInfo.id, 'account': account }) }}">{{ accountInfo.description }}</a></td>
+                                <td><a href="{{ path('accountinfo_show', { 'id': accountInfo.id, 'account': account }) }}">{% if accountInfo.createdOn %}{{ accountInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</a></td>
+                                <td><a href="{{ path('accountinfo_edit', { 'id': accountInfo.id, 'account': account }) }}">edit</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" >
+        $(document).ready(function () {
+            var table = $('#all_accounts').DataTable();
+        });
+    </script>
+{% endblock %}

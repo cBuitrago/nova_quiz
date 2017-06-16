@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quizresult</h1>
+    {#
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quizResult.id }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{% if quizResult.startDate %}{{ quizResult.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+                <td>{% if quizResult.endDate %}{{ quizResult.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Answers</th>
+                <td>{{ quizResult.answers }}</td>
+            </tr>
+            <tr>
+                <th>Quizscore</th>
+                <td>{{ quizResult.quizScore }}</td>
+            </tr>
+            <tr>
+                <th>Previousanswers</th>
+                <td>{{ quizResult.previousAnswers }}</td>
+            </tr>
+            <tr>
+                <th>Previousscores</th>
+                <td>{{ quizResult.previousScores }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quizresults_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('quizresults_edit', { 'id': quizResult.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>#}
+{% endblock %}

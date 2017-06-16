@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <ul class="nav nav-tabs">
+            {% set page = {'active': 'index'} %}
+            {% include 'userinfo/navbar.html.twig' with page %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <table id="all_users" class="display" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Prenom</th>
+                            <th>Nom de Famille</th>
+                                {% if is_granted('ROLE_GOD') == true %}
+                                <th>Compte</th> 
+                                {% endif %}
+                            <th>Department</th>
+                            <th style="text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for userInfo in userInfos %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('user_show', { 'id': userInfo.id, 'account': account }) }}">{{ userInfo.name|capitalize }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('user_show', { 'id': userInfo.id, 'account': account }) }}">{{ userInfo.firstName|capitalize }}</a>
+                                </td>
+                                {% if is_granted('ROLE_GOD') == true %}
+                                    <td>
+                                        {{ userInfo.accountInfo.name }}
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    {{ userInfo.departmentAuthorization.departmentInfo.name }}
+                                </td>
+                                <td style="text-align: center">
+                                    <a href="{{ path('user_edit', { 'id': userInfo.id, 'account': account  }) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" >
+        $(document).ready(function () {
+            var table = $('#all_users').DataTable();
+        });
+    </script>
+{% endblock %}

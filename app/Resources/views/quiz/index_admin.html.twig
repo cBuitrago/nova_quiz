@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <ul class="nav nav-tabs">
+            {% set page = {'active': 'admin'} %}
+            {% include 'quiz/navbar.html.twig' with page %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <table id='all_quizzes'>
+                    <thead>
+                        <tr>
+                            <th>Quiz Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quiz in quizzes %}
+                            <tr>
+                                <td><a href="{{ path('quiz_edit', { 'id': quiz.id, 'account': account }) }}">{{ quiz.id }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" >
+        $(document).ready(function () {
+            var table = $('#all_quizzes').DataTable();
+
+            /*$('#example tbody').on('click', 'tr', function () {
+             var data = table.row(this).data();
+             
+             });*/
+        });
+    </script>
+{% endblock %}

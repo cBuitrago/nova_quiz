@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Departmentauthorization</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Isrecursive</th>
+                <td>{% if departmentAuthorization.isRecursive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createdon</th>
+                <td>{% if departmentAuthorization.createdOn %}{{ departmentAuthorization.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('departmentauthorization_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('departmentauthorization_edit', { 'userInfo': departmentAuthorization.userInfo }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

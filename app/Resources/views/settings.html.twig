@@ -1,0 +1,46 @@
+<style>
+    {% set settings = app.session.get('settings') %}
+    article.aside {
+        background-color: {{ settings['accountAside'] }};
+    }
+    nav div.image {
+        background-color: {{ settings['accountNav'] }};
+    }
+    
+    button.add, input[type=button].btn_filters, a.dt-button {
+        background-color: {{ settings['accountPrincipal'] }};
+        border-color: {{ settings['accountPrincipal'] }};
+    }
+    button.cancel {
+        background-color: {{ settings['accountBtnCancel'] }};
+        border-color: {{ settings['accountBtnCancel'] }};
+    }
+    div.tab-content .dataTables_wrapper .dt-buttons a.dt-button.black {
+        background-color: {{ settings['accountPrincipal'] }};
+        border-color: {{ settings['accountPrincipal'] }};
+    }
+    .nv-principal-color {
+        background-color: {{ settings['accountPrincipal'] }};
+    }
+    ul.nav-tabs {
+        background-color: {{ settings['accountNav2'] }};
+    }
+    nav {
+        background-color: {{ settings['accountNav'] }};
+    }
+    article.center ul.nav-tabs li.active a { 
+        background-color: {{ settings['accountNav2'] }};
+        border-color: {{ settings['accountNav2'] }};
+        border-bottom-color: {{ settings['accountPrincipal'] }};
+    }
+    article.center ul.nav-tabs li.active a:hover {
+        background-color: {{ settings['accountNav2'] }};
+        border-color: {{ settings['accountNav2'] }};
+        border-bottom-color: {{ settings['accountPrincipal'] }};
+    }
+    article.center ul.nav-tabs li a:hover {
+        background-color: {{ settings['accountNav2'] }};
+        border-color: {{ settings['accountNav2'] }};
+        border-bottom-color: {{ settings['accountPrincipal'] }};
+    }
+</style>

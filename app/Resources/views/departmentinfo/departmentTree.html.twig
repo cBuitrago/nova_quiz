@@ -1,0 +1,13 @@
+{% import "forms.html.twig" as forms %}
+<ul>
+    {% for department in departments %}
+        <li class="{% if loop.last %}li-end{% endif %}">
+            <div class="{% if loop.last %}li-end{% else %}li-usual{% endif %}">
+                <a href="{{ path('departmentinfo_show', { 'id': department.id, 'account': account }) }}">{{ department.name }}</a>
+            </div>
+            {% if department.childrenCollection is not empty %}
+                {% include 'departmentinfo/departmentTree.html.twig' with {'departments': department.childrenCollection } %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

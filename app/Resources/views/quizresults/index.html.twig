@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quizresults list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Answers</th>
+                <th>Quizscore</th>
+                <th>Previousanswers</th>
+                <th>Previousscores</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quizResult in quizResults %}
+            <tr>
+                <td><a href="{{ path('quizresults_show', { 'id': quizResult.id }) }}">{{ quizResult.id }}</a></td>
+                <td>{% if quizResult.startDate %}{{ quizResult.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if quizResult.endDate %}{{ quizResult.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ quizResult.answers }}</td>
+                <td>{{ quizResult.quizScore }}</td>
+                <td>{{ quizResult.previousAnswers }}</td>
+                <td>{{ quizResult.previousScores }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quizresults_show', { 'id': quizResult.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quizresults_edit', { 'id': quizResult.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quizresults_new') }}">Create a new quizResult</a>
+        </li>
+    </ul>
+{% endblock %}

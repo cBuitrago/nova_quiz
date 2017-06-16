@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Departmentauthorizations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Isrecursive</th>
+                <th>Createdon</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for departmentAuthorization in departmentAuthorizations %}
+            <tr>
+                <td><a href="{{ path('departmentauthorization_show', { 'userInfo': departmentAuthorization.userInfo }) }}">{{ departmentAuthorization.isRecursive }}</a></td>
+                <td>{% if departmentAuthorization.createdOn %}{{ departmentAuthorization.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('departmentauthorization_show', { 'userInfo': departmentAuthorization.userInfo }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('departmentauthorization_edit', { 'userInfo': departmentAuthorization.userInfo }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('departmentauthorization_new') }}">Create a new departmentAuthorization</a>
+        </li>
+    </ul>
+{% endblock %}
