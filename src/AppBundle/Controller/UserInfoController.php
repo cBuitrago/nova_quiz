@@ -335,8 +335,6 @@ class UserInfoController extends Controller {
                     throw new ConflictHttpException('User Already Exists!');
                 }
 
-
-
                 $em->persist($userInfo);
                 $em->flush();
 
