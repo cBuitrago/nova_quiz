@@ -71,7 +71,7 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
-    host: '%mailer_host%'
+    #host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
@@ -81,3 +81,14 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /var/www/html/nova_quiz/vendor/bin/wkhtmltopdf-amd64
+        options:    []
+    image:
+        enabled:    true
+        binary:     /var/www/html/nova_quiz/vendor/bin/wkhtmltoimage-amd64
+        options:    []
+    temporary_folder: %kernel.cache_dir%/snappy

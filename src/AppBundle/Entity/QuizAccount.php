@@ -86,4 +86,28 @@ class QuizAccount {
         return $this->account;
     }
 
+
+    /**
+     * Set accountInfo
+     *
+     * @param \AppBundle\Entity\AccountInfo $accountInfo
+     *
+     * @return QuizAccount
+     */
+    public function setAccountInfo(\AppBundle\Entity\AccountInfo $accountInfo)
+    {
+        $this->accountInfo = $accountInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get accountInfo
+     *
+     * @return \AppBundle\Entity\AccountInfo
+     */
+    public function getAccountInfo()
+    {
+        return $this->accountInfo;
+    }
 }

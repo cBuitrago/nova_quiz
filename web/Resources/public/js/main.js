@@ -777,8 +777,7 @@ function GetAllUsersAgencyFromServer() {
         data: id.value,
         dataType: "text",
         success: function (return_data) {
-            if (return_data == "FALSE")
-            {
+            if (return_data == "FALSE") {
                 alert("ERREUR: base de donn\351es innaccessible...");
                 return;
             } else {
@@ -787,8 +786,7 @@ function GetAllUsersAgencyFromServer() {
                 LoadDataTableAgency();
             }
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown)
-        {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("ERROR !");
         }
     });

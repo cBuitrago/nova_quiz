@@ -1200,7 +1200,7 @@ function GeneratePDF(doc, current_record) {
             doc.setFontType("normal");
             doc.setTextColor(0);
             doc.PrintPageHeader(PDF_Title, "Réponses aux questions");
-//		        doc.PrintPageFooter(CurrentPageNumber, total_nb_Pages);
+            //doc.PrintPageFooter(CurrentPageNumber, total_nb_Pages);
 
             //Add page if needed
             if (i < PDF_Sections.length - 1) {

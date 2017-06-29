@@ -1215,6 +1215,16 @@ div.start-tree li.li-end {
 div.start-tree div {
   padding-left: 30px;
 }
+.popover-content {
+  padding: 15px 10px;
+  font-size: 14px;
+}
+textarea {
+  width: 100%;
+  max-width: 100%;
+  float: none;
+  min-height: 200px;
+}
 @media (min-width: 1200px) {
   article.container {
     width: 100%;

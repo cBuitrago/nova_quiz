@@ -5,55 +5,58 @@
             {% set page = {'active': ''} %}
             {% include 'userinfo/navbar.html.twig' with page %}
             <li class="active">
-                <a href="{{ path('user_index', { 'account': account }) }}">Utilisateur</a>
+                <a href="{{ path('user_index', { 'account': account }) }}">{{ userInfo.firstName }} {{ userInfo.name }}</a>
             </li>
         </ul>
-        <table class="table table-hover table-responsive">
-            <tbody>
-                <tr>
-                    <th>Username</th>
-                    <td>{{ userInfo.username }}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ userInfo.name }}</td>
-                </tr>
-                <tr>
-                    <th>Firstname</th>
-                    <td>{{ userInfo.firstName }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ userInfo.email }}</td>
-                </tr>
-                <tr>
-                    <th>Usager actif ?</th>
-                    <td>{% if userInfo.isActive %}Yes{% else %}No{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Changer mot de passe</th>
-                    <td>{% if userInfo.isActive %}Yes{% else %}No{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Department</th>
-                    <td>{{ userInfo.departmentAuthorization.departmentInfo.name}}</td>
-                </tr>
-                <tr>
-                    <th>Createdon</th>
-                    <td>{% if userInfo.createdOn %}{{ userInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Modifiedon</th>
-                    <td>{% if userInfo.modifiedOn %}{{ userInfo.modifiedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="tab-content">
+            <table class="table table-hover table-responsive">
+                <tbody>
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <td>{{ userInfo.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom</th>
+                        <td>{{ userInfo.firstName }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom de Famille</th>
+                        <td>{{ userInfo.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Courriel</th>
+                        <td>{{ userInfo.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Usager actif ?</th>
+                        <td>{% if userInfo.isActive %}Oui{% else %}No{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Changer mot de passe?</th>
+                        <td>{% if userInfo.forcePsw %}Oui{% else %}No{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Groupe</th>
+                        <td>{{ userInfo.departmentAuthorization.departmentInfo.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Créé</th>
+                        <td>{% if userInfo.createdOn %}{{ userInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Modifié</th>
+                        <td>{% if userInfo.modifiedOn %}{{ userInfo.modifiedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn-default add" href="{{ path('user_edit', { 'id': userInfo.id, 'account': account }) }}">Éditer {{ userInfo.firstName }} {{ userInfo.name }}</a>
+        </div>
         <ul>
             {#<li>
                 <a href="{{ path('user_index', { 'account': account }) }}">Back to the list</a>
             </li>#}
             <li>
-                <a href="{{ path('user_edit', { 'id': userInfo.id, 'account': account }) }}">Éditer</a>
+
             </li>
             {#<li>
                 {{ form_start(delete_form) }}

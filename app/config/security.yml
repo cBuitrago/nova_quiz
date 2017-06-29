@@ -23,16 +23,16 @@ security:
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             form_login:
-                login_path: login
                 check_path: login
-                default_target_path: default_security_target
+                login_path: quiz_index
+                #default_target_path: default_security_target
                 #target_path_parameter: login_success
                 #failure_path_parameter: login_fail
             pattern: ^/
             provider: user_info_provider
             logout: 
                 path:   logout
-                target: logout
+                target: login
             anonymous: ~
             
     access_control:

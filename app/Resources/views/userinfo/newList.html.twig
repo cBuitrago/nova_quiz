@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
+{% block content %}
+    {% set page = {'active': 'list'} %}
+    <ul class="nav nav-tabs">
+        {% include 'userinfo/navbar.html.twig' with page %}
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" >
+            <div class="addItem">
+                <h1>Ajouter Utilisateur 
+                    <a tabindex="0" class="" role="button" data-animation="true"
+                       data-toggle="popover" data-trigger="focus"
+                       title="Info ajouter users" 
+                       data-content="Separer les utilisateurs par une virgule. 
+                       Si Notification inserez de courriels valides. 
+                       Si mot de passe aleatoire, sans notification, un document pdf sera généré avec la liste des usagers créés.
+                       Username : courriel valide ou text 6-30 characteres">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </a>
+                </h1>
+                <form method="POST" >
+                    {{ forms.input_label("notification", null, "checkbox", null, null, "notification", "Envoyer Notification?", "none", null) }}
+                    {{ forms.label_textarea("users_list", null, "Separer les usager par (,)", "users_list", "Liste d'utilisateurs : ", "none") }}
+                    {{ forms.input_label("rdm_psw", null, "checkbox", null, null, "rdm_psw", "Créér mot de passe aléatoire", "none", true) }}
+                    <div class="js-psw hide">
+                        {{ forms.input("password", null, "password", null, "Mot de passe", "password", "password", null) }}
+                    </div>
+                    <h2>Department</h2>
+                    <div class="start-tree">
+                        {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                    </div>
+                    {{ forms.button_form("button", "add", "usersList", "tooltip", "left", "ajouter utilisateur", "Créér utilisateurs") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>var account = "{{ account }}";</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/jspdf_1_2_61.debug.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('Resources/public/js/jspdf.plugin.autotable_2_0_22.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/listusers.js') }}"></script>
+{% endblock %}

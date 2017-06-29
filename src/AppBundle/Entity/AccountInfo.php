@@ -231,7 +231,7 @@ class AccountInfo {
     }
 
     public function getData($includes = NULL) {
-        
+
         if ($includes === NULL)
             $includes = array();
 
@@ -353,35 +353,44 @@ class AccountInfo {
 
         return FALSE;
     }
-    
-    /**
-     * Verifier Cette function juste pour admin
-     * @param type $quiz
-     * @return boolean
-     */
+
     public function validateQuizAccount($quiz) {
-        
+
         foreach ($this->quiz as $selfQuiz) {
             if ($selfQuiz === $quiz) {
                 return TRUE;
             }
         }
-        
+
         foreach ($this->quizAccountCollection as $quizAccount) {
             if ($quizAccount->getQuiz() === $quiz) {
                 return TRUE;
             }
         }
-        
+
         return FALSE;
     }
-    
+
     public function setSettingsDefault() {
 
         $settings = '{"logo":"logoCompanyDefault.png","colors":{"aside":"#000000","nav":"rgba(250,250,250,0.99)","principal":"#327546","btn_cancel":"#993f44","nav2":"#eeeeee"}}';
 
         $this->settings = $settings;
         return $this;
+    }
+
+    public function addQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection) {
+        $this->quizAccountCollection[] = $quizAccountCollection;
+
+        return $this;
+    }
+
+    public function removeQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection) {
+        $this->quizAccountCollection->removeElement($quizAccountCollection);
+    }
+
+    public function getQuizAccountCollection() {
+        return $this->quizAccountCollection;
     }
 
 }

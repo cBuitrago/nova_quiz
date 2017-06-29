@@ -5,8 +5,8 @@ parameters:
     database_name: nova_quiz
     database_user: root
     database_password: nova
-    mailer_transport: smtp
+    mailer_transport: gmail
     mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_user: dev.nova2017@gmail.com
+    mailer_password: novaadmin
     secret: bec8653a77db7029cf1dd28bf4060714cbda91f9

@@ -27,6 +27,12 @@
 {% macro button_form(type, class, id, data_toogle, data_placement, title, text) %}
     <button type="{{ type|default('submit') }}" {% if class %} class="{{ class }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} 
             {% if data_toogle %} data-toggle="{{ data_toogle }}" {% endif %} {% if data_placement %} data-placement="{{ data_placement }}" {% endif %}
-            {% if title %} title="{{ title }}" {% endif %} >{{ text|capitalize }}
+            {% if title %} title="{{ title }}" {% endif %} autocomplete="off" >{{ text|capitalize }}
     </button>
+{% endmacro %}
+{% macro label_textarea(name, value, placeholder, id, label_text, data_validation) %}
+    <div>
+        <label {% if id %} for="{{ id }}" {% endif %} >{{ label_text|capitalize }}</label>
+        <textarea name="{{ name }}"{% if value %} value="{{ value }}" {% endif %}{% if placeholder %} placeholder="{{ placeholder }}" {% endif %}{% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" ></textarea>    
+    </div>
 {% endmacro %}

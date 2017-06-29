@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Userinfo controller.
@@ -32,6 +34,9 @@ class UserInfoController extends Controller {
         $usr = $this->get('security.token_storage')->getToken()->getUser();
         if (!$usr->getAccountInfo()->validateAccount($account)) {
             throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+        if ($usr->getForcePsw()) {
+            return $this->redirectToRoute('user_change_psw', array('account' => $account));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -69,30 +74,31 @@ class UserInfoController extends Controller {
      */
     public function profileAction(Request $request, $account) {
 
-        $usr = $this->get('security.token_storage')->getToken()->getUser();
-        if (!$usr->getAccountInfo()->validateAccount($account)) {
+        $userInfo = $this->get('security.token_storage')->getToken()->getUser();
+        if (!$userInfo->getAccountInfo()->validateAccount($account)) {
             throw $this->createAccessDeniedException('You cannot access this page!');
         }
 
-        if ($usr->getForcePsw()) {
-            return $this->redirectToRoute('user_change_psw', array('account' => $account));
+        if (count($request->request) > 0) {
+            $encoder = $this->container->get('security.password_encoder');
+            if (trim($request->request->get('n1password')) !== trim($request->request->get('n2password'))) {
+                return $this->render('security/password.html.twig', array(
+                            
+                ));
+            }
+            $newEncoded = $encoder->encodePassword($userInfo, trim($request->request->get('n1password')));
+            $userInfo->setName($request->request->get('name'))
+                    ->setFirstName($request->request->get('firstname'))
+                    ->setPassword($newEncoded)
+                    ->setForcePsw(FALSE);
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($userInfo);
+            $em->flush();
+
+            return $this->redirectToRoute("quiz_index", array('account' => $account));
         }
 
-        $userInfo = $this->get('security.token_storage')->getToken()->getUser();
-        $deleteForm = $this->createDeleteForm($userInfo, $account);
-        $editForm = $this->createForm('AppBundle\Form\UserInfoType', $userInfo);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('user_edit', array('id' => $userInfo->getId(), 'account' => $account));
-        }
-
-        return $this->render('userinfo/edit.html.twig', array(
-                    'userInfo' => $userInfo,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+        return $this->render('userinfo/profile.html.twig', array(
                     'account' => $account,
         ));
     }
@@ -111,20 +117,26 @@ class UserInfoController extends Controller {
             throw $this->createAccessDeniedException('You cannot access this page!');
         }
 
-        $deleteForm = $this->createDeleteForm($userInfo, $account);
-        $editForm = $this->createForm('AppBundle\Form\UserInfoPswType', $userInfo);
-        $editForm->handleRequest($request);
+        if (count($request->request) > 0) {
+            $encoder = $this->container->get('security.password_encoder');
+            if (trim($request->request->get('n1password')) !== trim($request->request->get('n2password'))) {
+                return $this->render('security/password.html.twig', array(
+                            
+                ));
+            }
+            $newEncoded = $encoder->encodePassword($userInfo, trim($request->request->get('n1password')));
+            $userInfo->setName($request->request->get('name'))
+                    ->setFirstName($request->request->get('firstname'))
+                    ->setPassword($newEncoded)
+                    ->setForcePsw(FALSE);
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($userInfo);
+            $em->flush();
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('user_edit', array('id' => $userInfo->getId(), 'account' => $account));
+            return $this->redirectToRoute("quiz_index", array('account' => $account));
         }
 
-        return $this->render('userinfo/edit.html.twig', array(
-                    'userInfo' => $userInfo,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+        return $this->render('userinfo/password.html.twig', array(
                     'account' => $account,
         ));
     }
@@ -232,6 +244,47 @@ class UserInfoController extends Controller {
      */
     public function newListAction(Request $request, $account) {
 
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        if (!$usr->getAccountInfo()->validateAccount($account)) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $departments = array();
+        if ($usr->isGod() && $usr->getAccountInfo()->hasRole('IS_GOD')) {
+            $departments = $em->getRepository('AppBundle:DepartmentInfo')
+                    ->getAllParentsDepartments();
+        } elseif ($usr->getAccountInfo()->hasRole('IS_PROVIDER') &&
+                $usr->getDepartmentInfo()->isAccountDepartment()) {
+            array_push($departments, $usr->getdepartmentInfo());
+            foreach ($usr->getAccountInfo()->getChildrenCollection() as $accountChild) {
+                array_push($departments, $em->getRepository('AppBundle:DepartmentInfo')
+                                ->getAccountDepartment($accountChild));
+            }
+        } else {
+            array_push($departments, $usr->getDepartmentInfo());
+        }
+
+        if (!isset($departments)) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+
+        return $this->render('userinfo/newList.html.twig', array(
+                    'account' => $account,
+                    'user' => $usr,
+                    'departments' => $departments
+        ));
+    }
+
+    /**
+     * Creates a new userInfo List entity.
+     *
+     * @Route("/newListAjax", name="user_new_list_ajax")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Method({"GET", "POST"})
+     */
+    public function newListAjaxAction(Request $request, $account) {
+
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'false'), 400);
         }
@@ -242,10 +295,10 @@ class UserInfoController extends Controller {
         }
 
         $em = $this->getDoctrine()->getManager();
-
         $data = json_decode($request->getContent());
         $notification = $data->notification;
-        $users = explode(',', $data->users);
+        $users = $data->users;
+
         if ($notification) {
             $pattern = '/^.{2,30}@.{2,30}\.[a-zA-Z]{2,6}$/';
             foreach ($users as $user) {
@@ -255,19 +308,22 @@ class UserInfoController extends Controller {
             }
         }
 
+        $pswRandom = $data->rdm_psw ? true : false;
         $force = TRUE;
         $roles = array('ROLE_USER');
         $departmentInfo = $this->getDoctrine()
                 ->getRepository('AppBundle:DepartmentInfo')
-                ->find(intval($request->request->get('user_department')));
+                ->find(intval($data->department));
         if (!$departmentInfo) {
             return new JsonResponse(array('message' => 'false'), 400);
         }
         $reponse_users = [];
         $reponse_users['created'] = [];
         $reponse_users['failed'] = [];
+        $reponse_users['department'] = $departmentInfo->getName();
+        $encoder = $this->container->get('security.password_encoder');
         foreach ($users as $user) {
-
+            $user = trim($user);
             $userInfoConflictUsername = $this->getDoctrine()
                     ->getRepository('AppBundle:UserInfo')
                     ->findByUsername($user);
@@ -280,9 +336,21 @@ class UserInfoController extends Controller {
             }
 
             $userInfo = new UserInfo();
-            $encoder = $this->container->get('security.password_encoder');
             if ($notification) {
-                $encoded = $encoder->encodePassword("");
+                if ($pswRandom) {
+                    $tmpPsw = $this->createRandPsw();
+                    $encoded = $encoder->encodePassword($userInfo, $tmpPsw);
+                } else {
+                    $encoded = $encoder->encodePassword($userInfo, $data->password);
+                }
+
+                do {
+                    $userKey = bin2hex(openssl_random_pseudo_bytes(16));
+                    $userInfoConflictKey = $this->getDoctrine()
+                            ->getRepository('AppBundle:UserInfo')
+                            ->findByActivationKey($userKey);
+                } while ($userInfoConflictKey);
+
                 $userInfo->setPassword($encoded)
                         ->setUsername($user)
                         ->setName('')
@@ -291,7 +359,8 @@ class UserInfoController extends Controller {
                         ->setIsActive(FALSE)
                         ->setAccountInfo($departmentInfo->getAccountInfo())
                         ->setForcePsw($force)
-                        ->setRoles($roles);
+                        ->setRoles($roles)
+                        ->setActivationKey($userKey);
                 $em->persist($userInfo);
                 $em->flush();
 
@@ -299,43 +368,53 @@ class UserInfoController extends Controller {
                 $departmentAuthorization->setUserInfo($userInfo)
                         ->setDepartmentInfo($departmentInfo)
                         ->setIsRecursive(TRUE);
-
                 $em->persist($departmentAuthorization);
                 $userInfo->setDepartmentAuthorization($departmentAuthorization);
                 $em->flush();
-                
+
                 //SEND MAIL
-                
+                $message = new \Swift_Message('Registration Email');
+                $message->setFrom('dev.nova2017@gmail.com')
+                        ->setTo($userInfo->getEmail())
+                        ->setBody(
+                                $this->renderView(
+                                        'emails/registration.html.twig', array(
+                                    'userInfo' => $userInfo,
+                                    'psw' => $tmpPsw
+                                        )
+                                ), 'text/html');
+                $this->get('mailer')->send($message);
+                array_push($reponse_users['created'], $userInfo->getUsername());
             } else {
                 if ($pswRandom) {
                     $tmpPsw = $this->createRandPsw();
-                    $encoded = $encoder->encodePassword($tmpPsw);
+                    $encoded = $encoder->encodePassword($userInfo, $tmpPsw);
                 } else {
-                    $encoded = $encoder->encodePassword($data->password);
+                    $encoded = $encoder->encodePassword($userInfo, $data->password);
                 }
-                
+
                 $userInfo->setPassword($encoded)
-                        ->setUsername($request->request->get('username'))
-                        ->setName($request->request->get('name'))
-                        ->setFirstName($request->request->get('firstname'))
-                        ->setEmail($request->request->get('email'))
+                        ->setUsername($user)
+                        ->setName('')
+                        ->setFirstName('')
+                        ->setEmail(NULL)
                         ->setIsActive(TRUE)
                         ->setAccountInfo($departmentInfo->getAccountInfo())
                         ->setForcePsw($force)
                         ->setRoles($roles);
                 $userInfoConflictUsername = $this->getDoctrine()
                         ->getRepository('AppBundle:UserInfo')
-                        ->findByUsername($request->request->get('username'));
+                        ->findByUsername($user);
                 $userInfoConflictEmail = $this->getDoctrine()
                         ->getRepository('AppBundle:UserInfo')
-                        ->findByEmail($request->request->get('email'));
+                        ->findByEmail($user);
                 if ($userInfoConflictUsername || $userInfoConflictEmail) {
-                    throw new ConflictHttpException('User Already Exists!');
+                    array_push($reponse_users['failed'], $user);
+                    continue;
                 }
 
                 $em->persist($userInfo);
                 $em->flush();
-
                 $departmentAuthorization = new DepartmentAuthorization();
                 $departmentAuthorization->setUserInfo($userInfo)
                         ->setDepartmentInfo($departmentInfo)
@@ -344,9 +423,12 @@ class UserInfoController extends Controller {
                 $em->persist($departmentAuthorization);
                 $userInfo->setDepartmentAuthorization($departmentAuthorization);
                 $em->flush();
+
+                array_push($reponse_users['created'], array($userInfo->getUsername(), $tmpPsw));
             }
         }
-        return new JsonResponse(array('message' => 'true'), 201);
+
+        return new JsonResponse(array('message' => $reponse_users), 201);
     }
 
     /**
@@ -483,6 +565,18 @@ class UserInfoController extends Controller {
                         ->setMethod('DELETE')
                         ->getForm()
         ;
+    }
+
+    public function createRandPsw() {
+
+        $selectRandom = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%^?><*()A";
+        $reponse = '';
+
+        for ($i = 0; $i < 7; $i++) {
+            $reponse .= substr($selectRandom, rand(0, 73), 1);
+        }
+
+        return $reponse;
     }
 
 }

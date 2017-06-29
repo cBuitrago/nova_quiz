@@ -13,22 +13,18 @@
             <div class="addItem">
                 <h1>Éditer Utilisateur</h1>
                 <form method="POST" >
-                    {{ forms.input("username", userInfo.username, "text", null, "Nom d'utilisateur", null, "name") }}
+                    {{ forms.input("username", userInfo.username, "text", null, "Nom d'utilisateur", null, "text") }}
                     {{ forms.input("email", userInfo.email, "text", null, "Courriel", null, "email") }}
                     {{ forms.double_input("firstname", userInfo.firstName, "text", null, "Prénom", null, null, "name", "name", userInfo.name, "text", null, "Nom de famille", null, null, "name") }}
                     {{ forms.input_label("isActive", null, "checkbox", null, null, "isActive", "Usager actif ?", "none", userInfo.isActive) }}
                     {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "Changer mot de passe?", "none", userInfo.forcePsw) }}
                     {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "Administrateur", "none", userInfo.isAdmin) }}
                     <h2>Department</h2>
-                    {#{% set user_department = {'department': app.token.user.departmentAuthorization.departmentInfo} %}#}
                     <div class="start-tree">
                         {% include 'departmentTree.html.twig' with {'departments': departments, 'checked':userInfo.departmentAuthorization.departmentInfo.id} %}
                     </div>
                     {{ forms.button_form("submit", "add", null, "tooltip", "left", "editer utilisateur", "Editer utilisateur") }}
                 </form>
-                {#{{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-                {{ form_end(delete_form) }}#}
             </div>
         </div>
     </div>

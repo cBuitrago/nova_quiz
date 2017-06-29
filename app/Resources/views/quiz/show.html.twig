@@ -50,7 +50,16 @@
                                             </h2>
                                             {% for question in article.question %}
                                                 {% set quest = loop.index - 1 %}
-                                                <fieldset id= 'question_{{ quest }}' required><p><b>{{ question.questionTitle }}</p></b>
+                                                <fieldset id= 'question_{{ quest }}' required>
+                                                    <p>
+                                                        <b>
+                                                            <a tabindex="0" class="" role="button" data-animation="true"
+                                                               data-toggle="popover" data-trigger="focus"
+                                                               title="Répondre à cette question" 
+                                                               data-content="Choisissez parmi les reponses suivantes, s.v.p">{{ question.questionTitle }}
+                                                            </a>         
+                                                        </b>
+                                                    </p>
                                                     {% for answer in question.answer %}
                                                         {% set ans = loop.index - 1 %}
                                                         <div class='radio radio-info'>
@@ -84,7 +93,7 @@
                             var timer_start = true;
 
                             var a = parseInt({{ date().timestamp }}), f = function () {
-                                var t = !0, e =     {{ app.session.get('quizStartTime') }} + {{ quiz.timeToComplete }} -a
+                                var t = !0, e =       {{ app.session.get('quizStartTime') }} + {{ quiz.timeToComplete }} -a
                                 a += 1
                                 var r = {e: Math.floor(e / 60), g: 60 == Math.round(e % 60) ? "00" : Math.round(e % 60)}, o = r.g < 10 ? "0" : ""
                                 $(".timer").text("Il vous reste : " + r.e + " : " + o + r.g), 0 >= e && (t = !1, nextForm(!0)), t === !0 && setTimeout(f, 1e3)

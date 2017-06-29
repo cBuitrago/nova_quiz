@@ -428,4 +428,38 @@ class Quiz {
         return $this->catalogueCollection;
     }
 
+
+    /**
+     * Add quizAccountCollection
+     *
+     * @param \AppBundle\Entity\QuizAccount $quizAccountCollection
+     *
+     * @return Quiz
+     */
+    public function addQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection)
+    {
+        $this->quizAccountCollection[] = $quizAccountCollection;
+
+        return $this;
+    }
+
+    /**
+     * Remove quizAccountCollection
+     *
+     * @param \AppBundle\Entity\QuizAccount $quizAccountCollection
+     */
+    public function removeQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection)
+    {
+        $this->quizAccountCollection->removeElement($quizAccountCollection);
+    }
+
+    /**
+     * Get quizAccountCollection
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuizAccountCollection()
+    {
+        return $this->quizAccountCollection;
+    }
 }

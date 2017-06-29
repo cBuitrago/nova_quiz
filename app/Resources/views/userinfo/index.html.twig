@@ -15,13 +15,13 @@
                 <table id="all_users" class="display" width="100%">
                     <thead>
                         <tr>
-                            <th>Prenom</th>
-                            <th>Nom de Famille</th>
+                            <th>Prénom</th>
+                            <th>Nom de famille</th>
                                 {% if is_granted('ROLE_GOD') == true %}
                                 <th>Compte</th> 
                                 {% endif %}
-                            <th>Department</th>
-                            <th style="text-align: center"></th>
+                            <th>Groupe</th>
+                            <th style="text-align: center">Modifier</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,20 @@
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
     <script type="text/javascript" >
         $(document).ready(function () {
-            var table = $('#all_users').DataTable();
+            var table = $('#all_users').DataTable({
+                language: {
+                    sProcessing: "Traitement en cours...",
+                    sSearch: "",
+                    sLengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+                    sInfo: "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    sInfoEmpty: "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                    sInfoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    sInfoPostFix: "",
+                    sLoadingRecords: "Chargement en cours...",
+                    sZeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    sEmptyTable: "Aucune donn&eacute;e disponible dans le tableau",
+                }
+            })
         });
     </script>
 {% endblock %}

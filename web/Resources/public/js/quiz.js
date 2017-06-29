@@ -1,5 +1,6 @@
 var counter = 0;
 var totalSections;
+var delayClosePopover = 3500;
 
 $(document).ready(function () {
     $('#quiz-carousel').carousel({
@@ -14,6 +15,10 @@ $(document).ready(function () {
         nextForm(false);
     });
     totalSections = document.getElementById('quiz-carousel').querySelectorAll('.item').length;
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
 
     f();
 });
@@ -41,6 +46,9 @@ function nextForm(failed) {
         var idCurrField = $(this).attr('id');
         if ($(this).find('input:radio[name=' + idCurrField + ']:checked').val() == undefined) {
             $(this).find('input')[0].focus();
+            $(this).find('a[data-toggle="popover"]').on('shown.bs.popover', closePopover);
+            $(this).find('a[data-toggle="popover"]').popover('show');
+
             tester = false;
             if (failed === true) {
                 sendData();
@@ -59,6 +67,11 @@ function nextForm(failed) {
     }
 }
 
+function closePopover(e) {
+    setTimeout(function () {
+        $(e.target).popover('hide');
+    }, delayClosePopover);
+}
 var onQuizResultsAddComplete = function (data) {
     if (JSON.parse(data.responseText).message !== "false") {
         var newUrl = '/' + account + '/quiz';

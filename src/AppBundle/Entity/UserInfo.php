@@ -35,6 +35,11 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
     private $username;
 
     /**
+     * @ORM\Column(name="activation_key", type="string", length=32, nullable=true, unique=true)
+     */
+    private $activationKey;
+
+    /**
      * @ORM\Column(name="email", type="string", length=256, nullable=true)
      */
     private $email;
@@ -160,7 +165,7 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
     public function getDepartmentAuthorization() {
         return $this->departmentAuthorization;
     }
-    
+
     public function getDepartmentInfo() {
         return $this->getDepartmentAuthorization()->getDepartmentInfo();
     }
@@ -205,6 +210,16 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
         return $this;
     }
 
+    public function setActivationKey($activationKey) {
+        $this->activationKey = $activationKey;
+
+        return $this;
+    }
+
+    public function getActivationKey() {
+        return $this->activationKey;
+    }
+
     public function eraseCredentials() {
         
     }
@@ -216,7 +231,7 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
             $this->username,
             $this->isActive,
                 // see section on salt below
-// $this->salt,
+                // $this->salt,
         ));
     }
 
@@ -227,7 +242,7 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
                 $this->username,
                 $this->isActive,
                 // see section on salt below
-// $this->salt
+                // $this->salt
                 ) = unserialize($serialized);
     }
 
@@ -235,7 +250,6 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
     public function onPrePersist() {
         $this->createdOn = new DateTime();
         $this->modifiedOn = new DateTime();
-        $this->isActive = TRUE;
     }
 
     /** @ORM\PreUpdate */
@@ -316,12 +330,6 @@ class UserInfo implements AdvancedUserInterface, \Serializable {
         return false;
     }
 
-    /**
-     * 
-     * @param type DepartmentInfo Collection
-     * @param type UserInfo
-     * @return boolean
-     */
     public function isRecursiveChildUser($departmentInfoCollection, $userInfo) {
 
         foreach ($departmentInfoCollection as $departmentInfo) {

@@ -23,9 +23,9 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="profile-dropdown">
-                        <li><a href="{{ path('quiz_index', { 'account': account }) }}">Profile</a></li>
+                        <li><a href="{{ path('user_profile', { 'account': account }) }}">Profile</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{{ path('logout', { 'account': account }) }}">Logout</a></li>
+                        <li><a href="/{{ account }}/logout">Logout</a></li>
                     </ul>
                 </div>
             </nav>
