@@ -8,19 +8,19 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>Ajouter Utilisateur</h1>
+                <h1>Ajouter un utilisateur</h1>
                 <form method="POST" >
                     {{ forms.input("username", null, "text", null, "Nom d'utilisateur", null, "text", null) }}
                     {{ forms.input("email", null, "text", null, "Courriel", null, "email", null) }}
                     {{ forms.double_input("firstname", null, "text", null, "Prénom", null, null, "name", "name", null, "text", null, "Nom de famille", null, null, "name") }}
                     {{ forms.input("password", null, "password", null, "Mot de passe", null, "password", null) }}
                     {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "Changer mot de passe?", "none", null) }}
-                    {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "Administrateur", "none", null) }}
-                    <h2>Department</h2>
+                    {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "Administrateur?", "none", null) }}
+                    <h2 class="text-center">Groupe</h2>
                     <div class="start-tree">
                         {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
                     </div>
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "ajouter utilisateur", "Créér utilisateur") }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "ajouter utilisateur", "Créer utilisateur") }}
                 </form>
             </div>
         </div>

@@ -9,15 +9,15 @@
     <ul class="nav nav-tabs">
         {% include 'accountinfo/navbar.html.twig' with page %}
         <li class="active">
-            <a href="{{ path('user_index', { 'account': account }) }}">Éditer Compte</a>
+            <a href="{{ path('user_index', { 'account': account }) }}">Éditer compte</a>
         </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" >
-            <h1>Éditer Account</h1>
+            <h1>Éditer {{ accountInfo.name }}</h1>
             <form method="POST" >
                 <div class="containerEdit">
-                    {{ forms.label_input("name", accountInfo.name, "text", null, null, "editNomAccount", "Nom de la compagnie", "name", null) }}
+                    {{ forms.label_input("name", accountInfo.name, "text", null, null, "editNomAccount", "Nom de la compagnie", "nameaccount", null) }}
                     <div class="double-input">
                         {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
                         {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "editer le nom du corpo", "Éditer") }}

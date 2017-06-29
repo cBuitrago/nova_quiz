@@ -8,9 +8,9 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>AJOUTER COMPTE</h1>
+                <h1>Ajouter compte</h1>
                 <form method="POST" >
-                    {{ forms.input("name", null, "text", null, "Nom de la compte", null, "name") }}
+                    {{ forms.input("name", null, "text", null, "Nom de la compte", null, "nameaccount") }}
                     {{ forms.input("description", null, "text", null, "Description", null, "text") }}
                     {% if is_granted('ROLE_GOD') %}
                         <select name="account_role" data-validation="none">
@@ -18,9 +18,9 @@
                             <option value="IS_USUAL">Usual</option>
                         </select>
                     {% endif %}
-                    {{ forms.input_label("can_create_quiz", null, "checkbox", null, null, "can_create_quiz", "can create quiz?", "none", null) }}
-                    {{ forms.input_label("email_as_username", null, "checkbox", null, null, "email_as_username", "email as username?", "none", null) }}
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "creer compte", "Créér compte") }}
+                    {{ forms.input_label("can_create_quiz", null, "checkbox", null, null, "can_create_quiz", "créer quiz?", "none", null) }}
+                    {{ forms.input_label("email_as_username", null, "checkbox", null, null, "email_as_username", "courriel comme nom d'utilisateur ?", "none", null) }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "créer compte", "Créer compte") }}
                 </form>
             </div>
         </div>

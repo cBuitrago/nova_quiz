@@ -157,19 +157,17 @@ class QuizController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Quiz $quiz, $account) {
-        $deleteForm = $this->createDeleteForm($quiz);
-        $editForm = $this->createForm('AppBundle\Form\QuizType', $quiz);
-        $editForm->handleRequest($request);
+        $deleteForm = $this->createDeleteForm($quiz, $account);
+        //$editForm = $this->createForm('AppBundle\Form\QuizType', $quiz);
+        //$editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('quiz_edit', array('id' => $quiz->getId(), 'account' => $account));
-        }
+        //if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //$this->getDoctrine()->getManager()->flush();
+            //return $this->redirectToRoute('quiz_edit', array('id' => $quiz->getId(), 'account' => $account));
+        //}
 
         return $this->render('quiz/edit.html.twig', array(
                     'quiz' => $quiz,
-                    'edit_form' => $editForm->createView(),
                     'account' => $account,
                     'delete_form' => $deleteForm->createView(),
         ));

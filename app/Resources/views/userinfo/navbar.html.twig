@@ -3,9 +3,9 @@
     <a href="{{ path('user_index', { 'account': account }) }}">Liste des utilisateurs</a>
 </li>
 <li class="{% if page.active == 'new' %}active{% endif %}">
-    <a href="{{ path('user_new', { 'account': account }) }}">Créér utilisateur</a>
+    <a href="{{ path('user_new', { 'account': account }) }}">Créer utilisateur</a>
 </li>
 <li class="{% if page.active == 'list' %}active{% endif %}">
-    <a href="{{ path('user_new_list', { 'account': account }) }}">Créér Liste des utilisateur</a>
+    <a href="{{ path('user_new_list', { 'account': account }) }}">Créer liste des utilisateurs</a>
 </li>
 {% endif %}

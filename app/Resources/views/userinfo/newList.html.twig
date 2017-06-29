@@ -8,29 +8,29 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>Ajouter Utilisateur 
+                <h1>Ajouter des utilisateurs  
                     <a tabindex="0" class="" role="button" data-animation="true"
                        data-toggle="popover" data-trigger="focus"
-                       title="Info ajouter users" 
-                       data-content="Separer les utilisateurs par une virgule. 
-                       Si Notification inserez de courriels valides. 
-                       Si mot de passe aleatoire, sans notification, un document pdf sera généré avec la liste des usagers créés.
-                       Username : courriel valide ou text 6-30 characteres">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                       title="Information ajouter utilisateurs" 
+                       data-content="Séparer les utilisateurs par une virgule. 
+                       Si vous choisissez d'envoyer des notifications, inserez de courriels valides. 
+                       Si vous choisissez créer des mots de passe aleatoire,sans notification, un document .pdf sera généré avec la liste des utilisateurs créés.
+                       Mot de passe : courriel valide ou text 6-30 characters">
+                       <span class="glyphicon glyphicon-info-sign"></span>
                     </a>
                 </h1>
                 <form method="POST" >
-                    {{ forms.input_label("notification", null, "checkbox", null, null, "notification", "Envoyer Notification?", "none", null) }}
-                    {{ forms.label_textarea("users_list", null, "Separer les usager par (,)", "users_list", "Liste d'utilisateurs : ", "none") }}
-                    {{ forms.input_label("rdm_psw", null, "checkbox", null, null, "rdm_psw", "Créér mot de passe aléatoire", "none", true) }}
+                    {{ forms.input_label("notification", null, "checkbox", null, null, "notification", "Envoyer notification?", "none", null) }}
+                    {{ forms.label_textarea("users_list", null, "Séparer les utilisateurs par des virgules", "users_list", "Liste d'utilisateurs : ", "none") }}
+                    {{ forms.input_label("rdm_psw", null, "checkbox", null, null, "rdm_psw", "Créer mot de passe aléatoire?", "none", true) }}
                     <div class="js-psw hide">
                         {{ forms.input("password", null, "password", null, "Mot de passe", "password", "password", null) }}
                     </div>
-                    <h2>Department</h2>
+                    <h2 class="text-center">Groupe</h2>
                     <div class="start-tree">
                         {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
                     </div>
-                    {{ forms.button_form("button", "add", "usersList", "tooltip", "left", "ajouter utilisateur", "Créér utilisateurs") }}
+                    {{ forms.button_form("button", "add", "usersList", "tooltip", "left", "ajouter utilisateur", "Créer utilisateurs") }}
                 </form>
             </div>
         </div>

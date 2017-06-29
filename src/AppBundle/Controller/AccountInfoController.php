@@ -291,7 +291,7 @@ class AccountInfoController extends Controller {
                 $em->merge($accountInfo);
                 $em->flush();
             }
-            
+
             $session = $this->get('session');
             $settingsAccountInfo = json_decode($usr->getAccountInfo()->getSettings());
             $session->set('settings', array(
@@ -317,6 +317,16 @@ class AccountInfoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->merge($accountInfo);
             $em->flush();
+            $session = $this->get('session');
+            $settingsAccountInfo = json_decode($usr->getAccountInfo()->getSettings());
+            $session->set('settings', array(
+                'accountAside' => $settingsAccountInfo->colors->aside,
+                'accountNav' => $settingsAccountInfo->colors->nav,
+                'accountPrincipal' => $settingsAccountInfo->colors->principal,
+                'accountBtnCancel' => $settingsAccountInfo->colors->btn_cancel,
+                'accountNav2' => $settingsAccountInfo->colors->nav2,
+                'logo' => $settingsAccountInfo->logo,
+            ));
         }
 
         $settings = json_decode($accountInfo->getSettings());

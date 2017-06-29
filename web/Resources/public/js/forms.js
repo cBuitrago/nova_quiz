@@ -67,6 +67,9 @@ function validateFormInput(inpt) {
     if (pattern_name === 'name') {
         var pattern = /^[a-zA-Z0-9ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ_-\s]{2,256}$/;
     }
+    if (pattern_name === 'nameaccount') {
+        var pattern = /^[a-zA-Z0-9_\-]{2,256}$/;
+    }
     if (pattern_name === 'email') {
         var pattern = /^.{2,30}@.{2,30}\.[a-zA-Z]{2,6}$/;
     }

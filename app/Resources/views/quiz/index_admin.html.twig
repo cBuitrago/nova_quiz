@@ -3,9 +3,7 @@
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 {% endblock %}
-
 {% block content %}
-
     <div>
         <ul class="nav nav-tabs">
             {% set page = {'active': 'admin'} %}
@@ -22,7 +20,7 @@
                     <tbody>
                         {% for quiz in quizzes %}
                             <tr>
-                                <td><a href="{{ path('quiz_edit', { 'id': quiz.id, 'account': account }) }}">{{ quiz.id }}</a></td>
+                                <td><a href="{{ path('quiz_edit', { 'id': quiz.quiz.id, 'account': account }) }}">{{ quiz.quiz.quizId }}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

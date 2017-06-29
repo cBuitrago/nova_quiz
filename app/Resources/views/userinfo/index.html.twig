@@ -21,7 +21,7 @@
                                 <th>Compte</th> 
                                 {% endif %}
                             <th>Groupe</th>
-                            <th style="text-align: center">Modifier</th>
+                            <th class="text-center">Modifier</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +41,7 @@
                                 <td>
                                     {{ userInfo.departmentAuthorization.departmentInfo.name }}
                                 </td>
-                                <td style="text-align: center">
+                                <td class="text-center">
                                     <a href="{{ path('user_edit', { 'id': userInfo.id, 'account': account  }) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 </td>
                             </tr>
@@ -70,6 +70,23 @@
                     sLoadingRecords: "Chargement en cours...",
                     sZeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
                     sEmptyTable: "Aucune donn&eacute;e disponible dans le tableau",
+                    oPaginate: {
+                        sFirst: "Premier",
+                        sPrevious: "< Pr&eacute;c&eacute;dent",
+                        sNext: "Suivant >",
+                        sLast: "Dernier"
+                    },
+                    oAria: {
+                        sSortAscending: ": activer pour trier la colonne par ordre croissant",
+                        sSortDescending: ": activer pour trier la colonne par ordre d&eacute;croissant"
+                    },
+                    select: {
+                        rows: {
+                            _: "&nbsp; %d lignes s&eacute;lectionn&eacute;es",
+                            0: "&nbsp; Cliquez pour s&eacute;lectionner une ligne",
+                            1: "&nbsp; 1 ligne s&eacute;lectionn&eacute;e"
+                        }
+                    }
                 }
             })
         });
