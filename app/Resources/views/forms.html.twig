@@ -9,8 +9,8 @@
         <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" />    
     </div>
 {% endmacro %}
-{% macro input(name, value, type, size, placeholder, id, data_validation, class) %}
-    <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" class="{{ class }}"/>
+{% macro input(name, value, type, size, placeholder, id, data_validation, class, readonly) %}
+    <input type="{{ type|default('text') }}" name="{{ name }}" {% if value %} value="{{ value }}" {% endif %} {% if size %} size="{{ size }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder }}" {% endif %} {% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" class="{{ class }}" {% if readonly %} readonly {% endif %}/>
 {% endmacro %}
 {% macro input_label(name, value, type, size, placeholder, id, label_text, data_validation, checked) %}
     <div>

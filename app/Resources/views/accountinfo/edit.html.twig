@@ -9,7 +9,7 @@
     <ul class="nav nav-tabs">
         {% include 'accountinfo/navbar.html.twig' with page %}
         <li class="active">
-            <a href="{{ path('user_index', { 'account': account }) }}">Éditer compte</a>
+            <a href="{{ path('user_index', { 'account': account }) }}">{{ "modifier.compte"|trans }}</a>
         </li>
     </ul>
     <div class="tab-content">

@@ -72,6 +72,7 @@ function closePopover(e) {
         $(e.target).popover('hide');
     }, delayClosePopover);
 }
+
 var onQuizResultsAddComplete = function (data) {
     if (JSON.parse(data.responseText).message !== "false") {
         var newUrl = '/' + account + '/quiz';

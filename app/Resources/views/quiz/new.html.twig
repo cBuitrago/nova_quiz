@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "forms.html.twig" as forms %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('Resources/public/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type='text/css' />
@@ -22,7 +23,6 @@
             </div>
             <div class="single-input">
                 <label for="QUIZ_DATA">Données du quiz</label>
-                <!--<textarea name="QUIZ_DATA" id="QUIZ_DATA"></textarea>-->
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#startDataQuiz">
                     Commencer
                 </button>
@@ -51,14 +51,9 @@
                 <label for="ANSWER_JSON">Résponses</label>
                 <textarea name="ANSWER_JSON" id="ANSWER_JSON"></textarea>
             </div>
-            <h1>Ajouter Agences</h1>
-            <div>
-                {foreach from=$data->agencies item=agency}
-                <div class="single-input">
-                    <input type="checkbox" id="agency_{$agency->id}" name="agency_quiz" value="{$agency->id}" >
-                    <label for="agency_{$agency->id}"> {$agency->name}</label>
-                </div>
-                {/foreach}
+            <h2 class="text-center">Ajouter Groupes</h2>
+            <div class="start-tree">
+                {% include 'departmentTreeCheckBox.html.twig' with {'departments': departments, 'checked': null} %}
             </div>
             <div>
                 <button type="button" class="nv-btn-default nv-principal-color" id="onAddQuiz" 
@@ -168,5 +163,6 @@
         });
     </script>
     <script src="{{ asset('Resources/public/js/forms.js') }}"></script>
+    <script src="{{ asset('Resources/public/js/addquiz.js') }}"></script>
 {% endblock %}
 

@@ -1322,4 +1322,16 @@ textarea {
     float: right;
   }
 }
+@media (max-width: 1400px) {
+  article.aside ul li {
+    height: 80px;
+  }
+  article.aside ul li a span {
+    font-size: 20px;
+  }
+  article.aside ul li a span.text {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+}
 /*# sourceMappingURL=main.css.map */

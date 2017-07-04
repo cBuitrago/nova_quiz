@@ -93,6 +93,7 @@ class SecurityController extends Controller {
                     trim($request->request->get('n1password')) !== trim($request->request->get('n2password'))) {
                 return $this->render('security/activation.html.twig', array(
                             'userInfo' => $userInfo,
+                            'error' => true
                 ));
             }
             $newEncoded = $encoder->encodePassword($userInfo, trim($request->request->get('n1password')));
@@ -110,6 +111,7 @@ class SecurityController extends Controller {
 
         return $this->render('security/activation.html.twig', array(
                     'userInfo' => $userInfo,
+                    'error' => false
         ));
     }
 

@@ -10,8 +10,13 @@
         </div>
     </nav>
     <article class="content-login">
+        {% if error %}
+            <div>
+                <p>Les données ne sont pas valides</p>
+            </div>
+        {% endif %}
         <form method="POST">
-            {{ forms.input("username", null, "text", null, "Nom d'utilisateur", null, "text", null) }}
+            {{ forms.input("username", userInfo.username, "text", null, "Nom d'utilisateur", null, "text", null, true) }}
             {{ forms.double_input("firstname", null, "text", null, "Prénom", null, null, "name", "name", null, "text", null, "Nom de famille", null, "name", "name") }}
             {{ forms.input("password", null, "password", null, "Mot de passe", null, "password", null) }}
             {{ forms.input("n1password", null, "password", null, "Nouveau mot de passe", null, "password", null) }}

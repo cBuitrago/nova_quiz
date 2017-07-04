@@ -76,11 +76,17 @@ class QuizController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, $account) {
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        if (!$usr->getAccountInfo()->validateAccount($account)) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+        $em = $this->getDoctrine()->getManager();
+
         $quiz = new Quiz();
         $form = $this->createForm('AppBundle\Form\QuizType', $quiz);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($quiz);
             $em->flush();
@@ -89,12 +95,32 @@ class QuizController extends Controller {
                         'id' => $quiz->getId(),
                         'account' => $account)
             );
+        }*/
+
+        $departments = array();
+        if ($usr->isGod() && $usr->getAccountInfo()->hasRole('IS_GOD')) {
+            $departments = $em->getRepository('AppBundle:DepartmentInfo')
+                    ->getAllParentsDepartments();
+        } elseif ($usr->getAccountInfo()->hasRole('IS_PROVIDER') &&
+                $usr->getDepartmentInfo()->isAccountDepartment()) {
+            array_push($departments, $usr->getdepartmentInfo());
+            foreach ($usr->getAccountInfo()->getChildrenCollection() as $accountChild) {
+                array_push($departments, $em->getRepository('AppBundle:DepartmentInfo')
+                                ->getAccountDepartment($accountChild));
+            }
+        } else {
+            array_push($departments, $usr->getDepartmentInfo());
+        }
+
+        if (!isset($departments)) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
         }
 
         return $this->render('quiz/new.html.twig', array(
                     'quiz' => $quiz,
                     'form' => $form->createView(),
                     'account' => $account,
+                    'departments' => $departments,
         ));
     }
 
@@ -160,10 +186,9 @@ class QuizController extends Controller {
         $deleteForm = $this->createDeleteForm($quiz, $account);
         //$editForm = $this->createForm('AppBundle\Form\QuizType', $quiz);
         //$editForm->handleRequest($request);
-
         //if ($editForm->isSubmitted() && $editForm->isValid()) {
-            //$this->getDoctrine()->getManager()->flush();
-            //return $this->redirectToRoute('quiz_edit', array('id' => $quiz->getId(), 'account' => $account));
+        //$this->getDoctrine()->getManager()->flush();
+        //return $this->redirectToRoute('quiz_edit', array('id' => $quiz->getId(), 'account' => $account));
         //}
 
         return $this->render('quiz/edit.html.twig', array(
