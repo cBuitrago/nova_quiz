@@ -192,7 +192,7 @@ function ApplyFilters() {
     }
 }
 
-$('#submitBtn').click(function () {
+/*$('#submitBtn').click(function () {
     alert($('#form').serialize());
     $.ajax({
         url: "nova_api_add.php",
@@ -216,7 +216,7 @@ $('#submitBtn').click(function () {
             alert("ERROR !");
         }
     });
-});
+});*/
 
 function GetAllQuizInfoFromServer(type) {
 

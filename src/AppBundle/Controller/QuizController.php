@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Quiz controller.
@@ -43,7 +44,7 @@ class QuizController extends Controller {
     public function indexAdminAction($account) {
 
         $usr = $this->get('security.token_storage')->getToken()->getUser();
-        $quizzes = $usr->getDepartmentAuthorization()->getDepartmentInfo()->getQuizAuthorizationCollection();
+        $quizzes = $usr->getAccountInfo()->getQuiz();
 
         return $this->render('quiz/index_admin.html.twig', array(
                     'quizzes' => $quizzes,
@@ -80,22 +81,10 @@ class QuizController extends Controller {
         if (!$usr->getAccountInfo()->validateAccount($account)) {
             throw $this->createAccessDeniedException('You cannot access this page!');
         }
+        if (!$usr->getAccountInfo()->getCanCreateQuiz()) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
         $em = $this->getDoctrine()->getManager();
-
-        $quiz = new Quiz();
-        $form = $this->createForm('AppBundle\Form\QuizType', $quiz);
-        $form->handleRequest($request);
-
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($quiz);
-            $em->flush();
-
-            return $this->redirectToRoute('quiz_show', array(
-                        'id' => $quiz->getId(),
-                        'account' => $account)
-            );
-        }*/
 
         $departments = array();
         if ($usr->isGod() && $usr->getAccountInfo()->hasRole('IS_GOD')) {
@@ -117,11 +106,45 @@ class QuizController extends Controller {
         }
 
         return $this->render('quiz/new.html.twig', array(
-                    'quiz' => $quiz,
-                    'form' => $form->createView(),
                     'account' => $account,
                     'departments' => $departments,
         ));
+    }
+
+    /**
+     * Creates a new quiz entity.
+     *
+     * @Route("/addquiz", name="quiz_add")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Method("POST")
+     */
+    public function addQuizAction(Request $request, $account) {
+
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'false'), 400);
+        }
+
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        if (!$usr->getAccountInfo()->validateAccount($account)) {
+            return new JsonResponse(array('message' => 'false'), 400);
+        }
+
+        $requestContent = json_decode($request->getContent());
+
+        $quizType = $em->getRepository('AppBundle:QuizType')
+                ->findOneByName($requestContent->quizType);
+
+        $quiz = new Quiz();
+        $quiz->setQuizType($quizType)
+                ->setAccountInfo($usr->getAccountInfo())
+                ->mapPostData($requestContent);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($quiz);
+        $em->flush();
+
+        return new JsonResponse(array('message' => 'ok'), 200);
     }
 
     /**
@@ -183,18 +206,51 @@ class QuizController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Quiz $quiz, $account) {
+
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        if (!$usr->getAccountInfo()->validateAccount($account) ||
+                !$usr->getAccountInfo()->getCanCreateQuiz() ||
+                !$usr->getAccountInfo()->getQuiz()->contains($quiz) ||
+                $usr->getAccountInfo() !== $quiz->getAccountInfo()) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+        $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($quiz, $account);
-        //$editForm = $this->createForm('AppBundle\Form\QuizType', $quiz);
-        //$editForm->handleRequest($request);
-        //if ($editForm->isSubmitted() && $editForm->isValid()) {
-        //$this->getDoctrine()->getManager()->flush();
-        //return $this->redirectToRoute('quiz_edit', array('id' => $quiz->getId(), 'account' => $account));
-        //}
+
+        $departments = array();
+        if ($usr->isGod() && $usr->getAccountInfo()->hasRole('IS_GOD')) {
+            $departments = $em->getRepository('AppBundle:DepartmentInfo')
+                    ->getAllParentsDepartments();
+        } elseif ($usr->getAccountInfo()->hasRole('IS_PROVIDER') &&
+                $usr->getDepartmentInfo()->isAccountDepartment()) {
+            array_push($departments, $usr->getdepartmentInfo());
+            foreach ($usr->getAccountInfo()->getChildrenCollection() as $accountChild) {
+                array_push($departments, $em->getRepository('AppBundle:DepartmentInfo')
+                                ->getAccountDepartment($accountChild));
+            }
+        } else {
+            array_push($departments, $usr->getDepartmentInfo());
+        }
+
+        if (!isset($departments)) {
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+        
+        $goodAnswers = explode("|", $quiz->getAnswerJson());
+        for ($j = 0; $j < count($goodAnswers); $j++) {
+            $goodAnswers[$j] = explode(";", $goodAnswers[$j]);
+            for ($m = 0; $m < count($goodAnswers[$j]); $m++) {
+                $goodAnswers[$j][$m] = explode(",", $goodAnswers[$j][$m]);
+            }
+        }
 
         return $this->render('quiz/edit.html.twig', array(
                     'quiz' => $quiz,
                     'account' => $account,
                     'delete_form' => $deleteForm->createView(),
+                    'departments' => $departments,
+                    'data' => json_decode($quiz->getQuizData()),
+                    'goodAnswers' => $goodAnswers,
         ));
     }
 

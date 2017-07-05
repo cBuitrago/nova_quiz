@@ -12,6 +12,7 @@
     </ul>
     <h1>Ajouter Quiz</h1>
     <form method="POST" id="add_quiz_form">
+        <input type="hidden" name="QUIZ_TYPE" value="TYPE_A">
         <div class="containerEdit">
             <div class="single-input">
                 <label for="QUIZ_ID">Nom du quiz</label>
@@ -46,10 +47,6 @@
             <div class="single-input">
                 <input type="checkbox" name="IS_USER_SEE_GOOD_ANSWER" id="IS_USER_SEE_GOOD_ANSWER" >
                 <label for="IS_USER_SEE_GOOD_ANSWER">Rapport avec visualisation des bonnes réponses</label>
-            </div>
-            <div class="single-input">
-                <label for="ANSWER_JSON">Résponses</label>
-                <textarea name="ANSWER_JSON" id="ANSWER_JSON"></textarea>
             </div>
             <h2 class="text-center">Ajouter Groupes</h2>
             <div class="start-tree">
@@ -155,6 +152,7 @@
     {{ parent() }}
     <script src="{{ asset('Resources/public/js/bootstrap-colorpicker.min.js') }}"></script>
     <script>
+        var account = "{{ account }}";
         $(function () {
             $('#cp3').colorpicker({
                 color: '#AA3399',

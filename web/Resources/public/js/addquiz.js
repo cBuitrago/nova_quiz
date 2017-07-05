@@ -17,10 +17,10 @@ window.addEventListener("load", function () {
 });
 
 var onQuizAddComplete = function (data) {
-
-    if (data.responseText === "true") {
-        location.reload();
-    }
+    console.log(data);
+    /*if (data.responseText === "true") {
+     location.reload();
+     }*/
 
 }
 
@@ -463,27 +463,27 @@ function onAddQuiz() {
     } else {
         return false;
     }
-
+    
+    data['quizType'] = form["QUIZ_TYPE"].value;
     data['lockedOnCompletion'] = form["LOCKED_ON_COMPLETION"].checked;
     data['isUserCanDisplayChart'] = form["IS_USER_CAN_DISPLAY_CHART"].checked;
     data['isUserCanDisplayQa'] = form["IS_USER_CAN_DISPLAY_QA"].checked;
     data['isEnabled'] = form["IS_ENABLED"].checked;
     data['isUserSeeGoodAnswer'] = form["IS_USER_SEE_GOOD_ANSWER"].checked;
     data['agencies'] = [];
-    for (var i = 0; i < form['agency_quiz'].length; i++) {
-        if (form['agency_quiz'][i].checked === true) {
-            data.agencies.push(form['agency_quiz'][i].value);
+    for (var i = 0, c = form['user_department'].length; i < c; i++) {
+        if (form['user_department'][i].checked === true) {
+            data.agencies.push(form['user_department'][i].value);
         }
     }
-
     if (data.agencies.length == 0) {
-        $("input:radio[name='agency_quiz']").focus();
+        $("input:checkbox[name='user_department']").focus();
         return false;
     }
 
     $.ajax({
         method: "POST",
-        url: baseUrl + "/php/quiz_add_ajax.php",
+        url: "/" + account + "/quiz/addquiz",
         processData: false,
         dataType: "json",
         contentType: "application/json",

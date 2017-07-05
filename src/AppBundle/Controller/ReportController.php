@@ -82,7 +82,8 @@ class ReportController extends Controller {
 
         $requestContent = json_decode($request->getContent());
         $this->GetUniqueID(json_decode($requestContent->data));
-        $reportType = $em->getRepository('AppBundle:ReportType')->findOneByName($requestContent->reportType);
+        $reportType = $em->getRepository('AppBundle:ReportType')
+                ->findOneByName($requestContent->reportType);
         if (NULL === $reportType) {
             return new JsonResponse(array('message' => 'false'), 400);
         }
@@ -233,9 +234,9 @@ class ReportController extends Controller {
 
         $data = [];
         $reportType = $em->getRepository('AppBundle:ReportType')->findOneByName('SQUARE_25');
-            
+
         foreach ($requestContent as $key => $group) {
-            
+
             $quizInfo = $em->getRepository('AppBundle:Quiz')->find(intval($key));
             if (!$quizInfo) {
                 return new JsonResponse(array('message' => 'false'), 400);
@@ -243,7 +244,7 @@ class ReportController extends Controller {
             if (!$reportType->supportQuiz($quizInfo)) {
                 return new JsonResponse(array('message' => 'false'), 400);
             }
-            
+
             foreach ($group as $value) {
                 $agencyInfo = $em->getRepository('AppBundle:DepartmentInfo')->find(intval($value));
                 if (!$agencyInfo) {

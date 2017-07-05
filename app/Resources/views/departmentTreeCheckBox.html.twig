@@ -8,7 +8,7 @@
                 {{ forms.label_input("user_department", department.id, "checkbox", null, null, "department_"~department.id, department.name, "none", check) }}
             </div>
             {% if department.childrenCollection is not empty %}
-                {% include 'departmentTreeCheckBox.html.twig' with {'departments': department.childrenCollection, 'checked': checked} %}
+                {% include 'departmentTreeCheckBox.html.twig' with { 'departments': department.childrenCollection, 'checked': checked } %}
             {% endif %}
         </li>
     {% endfor %}
