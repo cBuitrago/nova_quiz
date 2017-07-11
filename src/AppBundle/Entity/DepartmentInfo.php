@@ -408,5 +408,18 @@ class DepartmentInfo {
         
         return FALSE;
     }
+    
+    public function containsQuiz($quiz) {
+
+        foreach ($this->getQuizAuthorizationCollection() as $departmentArray) {
+            foreach ($quiz->getQuizAuthorizationCollection() as $quizArray) {
+                if ($departmentArray === $quizArray) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 }

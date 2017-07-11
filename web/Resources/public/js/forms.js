@@ -19,6 +19,7 @@ function validateForm(e) {
     var validator = false;
     $(e.target).find('input').each(function () {
         if (!validateFormInput($(this)[0])) {
+            
             validator = true;
             return false;
         }

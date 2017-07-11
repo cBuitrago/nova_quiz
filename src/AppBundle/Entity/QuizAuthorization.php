@@ -87,15 +87,6 @@ class QuizAuthorization {
         return $this->departmentInfo;
     }
 
-    public function setQuizInfo($quiz) {
-        $this->quiz = $quiz;
-        return $this;
-    }
-
-    public function getQuizInfo() {
-        return $this->quiz;
-    }
-
     /** @ORM\PrePersist */
     public function onPrePersist() {
         
@@ -144,24 +135,11 @@ class QuizAuthorization {
         return strval($this->id);
     }
 
-    /**
-     * Set quiz
-     *
-     * @param \AppBundle\Entity\Quiz $quiz
-     *
-     * @return QuizAuthorization
-     */
     public function setQuiz(\AppBundle\Entity\Quiz $quiz = null) {
         $this->quiz = $quiz;
-
         return $this;
     }
 
-    /**
-     * Get quiz
-     *
-     * @return \AppBundle\Entity\Quiz
-     */
     public function getQuiz() {
         return $this->quiz;
     }

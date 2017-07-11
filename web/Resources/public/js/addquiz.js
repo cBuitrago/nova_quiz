@@ -5,6 +5,10 @@ window.addEventListener("load", function () {
     var addQuiz = document.getElementById("onAddQuiz");
     if (addQuiz)
         addQuiz.addEventListener("click", onAddQuiz);
+    
+    var editQuiz = document.getElementById("onEditQuiz");
+    if (editQuiz)
+        editQuiz.addEventListener("click", onEditQuiz);
 
     $(".js_quizTitle").click(onQuizTitle);
     $(".js_add_answer").click(onAddAnswer);
@@ -17,10 +21,13 @@ window.addEventListener("load", function () {
 });
 
 var onQuizAddComplete = function (data) {
-    console.log(data);
-    /*if (data.responseText === "true") {
-     location.reload();
-     }*/
+console.log(data);
+    /*var texte = JSON.parse(data.responseText);
+    if (texte.message === "ok") {
+        window.location.assign("/" + account + "/quiz/index");
+    } else if (texte.message === "conflict") {
+        alert("changez le nom du quiz s.v.p");
+    }*/
 
 }
 
@@ -463,7 +470,7 @@ function onAddQuiz() {
     } else {
         return false;
     }
-    
+
     data['quizType'] = form["QUIZ_TYPE"].value;
     data['lockedOnCompletion'] = form["LOCKED_ON_COMPLETION"].checked;
     data['isUserCanDisplayChart'] = form["IS_USER_CAN_DISPLAY_CHART"].checked;
@@ -471,19 +478,67 @@ function onAddQuiz() {
     data['isEnabled'] = form["IS_ENABLED"].checked;
     data['isUserSeeGoodAnswer'] = form["IS_USER_SEE_GOOD_ANSWER"].checked;
     data['agencies'] = [];
-    for (var i = 0, c = form['user_department'].length; i < c; i++) {
-        if (form['user_department'][i].checked === true) {
-            data.agencies.push(form['user_department'][i].value);
+    for (var i = 0, c = form['quiz_department[]'].length; i < c; i++) {
+        if (form['quiz_department[]'][i].checked === true) {
+            data.agencies.push(form['quiz_department[]'][i].value);
+        }
+    }
+    if (form['quiz_account'].length > 0) {
+        data['accounts'] = [];
+        for (var j = 0, d = form['quiz_account'].length; j < d; j++) {
+            if (form['quiz_account'][j].checked === true) {
+                data.accounts.push(form['quiz_account'][j].value);
+            }
         }
     }
     if (data.agencies.length == 0) {
-        $("input:checkbox[name='user_department']").focus();
+        $("input:checkbox[name='quiz_department']").focus();
         return false;
     }
 
     $.ajax({
         method: "POST",
         url: "/" + account + "/quiz/addquiz",
+        processData: false,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        complete: onQuizAddComplete
+    });
+}
+
+function onEditQuiz() {
+
+    var data = {};
+    var form = document.getElementById('add_quiz_form');
+    if (validateInput(form["QUIZ_ID"], 'name')) {
+        data['quizId'] = form["QUIZ_ID"].value;
+    } else {
+        return false;
+    }
+    if (validateInput(form["TIME_TO_COMPLETE"], 'number')) {
+        data['timeToComplete'] = form["TIME_TO_COMPLETE"].value;
+    } else {
+        return false;
+    }
+    if (true) {
+        var dataAndScore = validateDataQuiz();
+        data['quizData'] = JSON.stringify(dataAndScore[0]);
+        data['answerJson'] = dataAndScore[1];
+    } else {
+        return false;
+    }
+
+    data['quizType'] = form["QUIZ_TYPE"].value;
+    data['lockedOnCompletion'] = form["LOCKED_ON_COMPLETION"].checked;
+    data['isUserCanDisplayChart'] = form["IS_USER_CAN_DISPLAY_CHART"].checked;
+    data['isUserCanDisplayQa'] = form["IS_USER_CAN_DISPLAY_QA"].checked;
+    data['isEnabled'] = form["IS_ENABLED"].checked;
+    data['isUserSeeGoodAnswer'] = form["IS_USER_SEE_GOOD_ANSWER"].checked;
+    console.log(data);
+    $.ajax({
+        method: "POST",
+        url: "/" + account + "/quiz/editquiz",
         processData: false,
         dataType: "json",
         contentType: "application/json",

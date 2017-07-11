@@ -65,29 +65,6 @@ class QuizAccount {
     }
 
     /**
-     * Set account
-     *
-     * @param integer $account
-     *
-     * @return QuizAccount
-     */
-    public function setAccount($account) {
-        $this->account = $account;
-
-        return $this;
-    }
-
-    /**
-     * Get account
-     *
-     * @return int
-     */
-    public function getAccount() {
-        return $this->account;
-    }
-
-
-    /**
      * Set accountInfo
      *
      * @param \AppBundle\Entity\AccountInfo $accountInfo

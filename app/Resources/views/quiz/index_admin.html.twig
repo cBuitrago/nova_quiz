@@ -15,12 +15,26 @@
                     <thead>
                         <tr>
                             <th>Quiz Name</th>
+                            <th>Modifier</th>
+                            <th>Gestion de groupes</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for quiz in quizzes %}
                             <tr>
-                                <td><a href="{{ path('quiz_edit', { 'id': quiz.id, 'account': account }) }}">{{ quiz.quizId }}</a></td>
+                                <td>{{ quiz.quizId }}</td>
+                                <td>
+                                    {% if quiz.getAccountInfo() == app.user.getAccountInfo() %}
+                                        <a href="{{ path('quiz_edit', { 'id': quiz.id, 'account': account }) }}">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('quiz_authorization', { 'id': quiz.id, 'account': account }) }}">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

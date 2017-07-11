@@ -428,7 +428,6 @@ class Quiz {
         return $this->catalogueCollection;
     }
 
-
     /**
      * Add quizAccountCollection
      *
@@ -436,8 +435,7 @@ class Quiz {
      *
      * @return Quiz
      */
-    public function addQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection)
-    {
+    public function addQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection) {
         $this->quizAccountCollection[] = $quizAccountCollection;
 
         return $this;
@@ -448,8 +446,7 @@ class Quiz {
      *
      * @param \AppBundle\Entity\QuizAccount $quizAccountCollection
      */
-    public function removeQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection)
-    {
+    public function removeQuizAccountCollection(\AppBundle\Entity\QuizAccount $quizAccountCollection) {
         $this->quizAccountCollection->removeElement($quizAccountCollection);
     }
 
@@ -458,8 +455,8 @@ class Quiz {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getQuizAccountCollection()
-    {
+    public function getQuizAccountCollection() {
         return $this->quizAccountCollection;
     }
+
 }

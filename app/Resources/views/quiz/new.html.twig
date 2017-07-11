@@ -48,13 +48,25 @@
                 <input type="checkbox" name="IS_USER_SEE_GOOD_ANSWER" id="IS_USER_SEE_GOOD_ANSWER" >
                 <label for="IS_USER_SEE_GOOD_ANSWER">Rapport avec visualisation des bonnes réponses</label>
             </div>
+            {% if accountInfos %}
+                <h2 class="text-center">Lier compte</h2>
+                {% for accountInfo in accountInfos %}
+                    {% if accountInfo != app.user.getAccountInfo() %}
+                        <div class="single-input">
+                            <input type="checkbox" name="quiz_account" id="quiz_account_{{ accountInfo.id }}" value="{{ accountInfo.id }}">
+                            <label for="quiz_account_{{ accountInfo.id }}">{{ accountInfo.name }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             <h2 class="text-center">Ajouter Groupes</h2>
             <div class="start-tree">
                 {% include 'departmentTreeCheckBox.html.twig' with {'departments': departments, 'checked': null} %}
             </div>
+
             <div>
                 <button type="button" class="nv-btn-default nv-principal-color" id="onAddQuiz" 
-                        data-toggle="tooltip" data-placement="left" title="ajouter quiz">
+                        data-toggle="tooltip" data-placement="left" title="ajouter quiz" >
                     Ajouter Quiz
                 </button>
             </div>

@@ -2,10 +2,10 @@
 <ul>
     {% for department in departments %}
         {% set check = false %}
-        {% if department.id == checked %} {% set check = true %} {% endif %}
+        {% if checked %} {% if department.containsQuiz(checked) %} {% set check = true %} {% endif %} {% endif %}
         <li class="{% if loop.last %}li-end{% endif %}">
             <div class="{% if loop.last %}li-end{% else %}li-usual{% endif %}">
-                {{ forms.label_input("user_department", department.id, "checkbox", null, null, "department_"~department.id, department.name, "none", check) }}
+                {{ forms.label_input("quiz_department[]", department.id, "checkbox", null, null, "department_"~department.id, department.name, "none", check) }}
             </div>
             {% if department.childrenCollection is not empty %}
                 {% include 'departmentTreeCheckBox.html.twig' with { 'departments': department.childrenCollection, 'checked': checked } %}

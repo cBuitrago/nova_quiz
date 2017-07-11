@@ -393,4 +393,17 @@ class AccountInfo {
         return $this->quizAccountCollection;
     }
 
+    public function containsQuiz($quiz) {
+
+        foreach ($this->getQuizAccountCollection() as $accountArray) {
+            foreach ($quiz->getQuizAccountCollection() as $quizArray) {
+                if ($accountArray === $quizArray) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
