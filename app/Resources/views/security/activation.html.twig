@@ -6,22 +6,23 @@
             <img src="{{ asset('Resources/public/media/images/logoCompany_Nova.png') }}">
         </div>
         <div class="text-login">
-            <h1>Ouverture de session</h1>
+            <h1>{{ "activation.activateUser"|trans|capitalize }}</h1>
         </div>
     </nav>
     <article class="content-login">
         {% if error %}
             <div>
-                <p>Les données ne sont pas valides</p>
+                <p>{{ "activation.errorMsg"|trans|capitalize }}</p>
             </div>
         {% endif %}
         <form method="POST">
-            {{ forms.input("username", userInfo.username, "text", null, "Nom d'utilisateur", null, "text", null, true) }}
-            {{ forms.double_input("firstname", null, "text", null, "Prénom", null, null, "name", "name", null, "text", null, "Nom de famille", null, "name", "name") }}
-            {{ forms.input("password", null, "password", null, "Mot de passe", null, "password", null) }}
-            {{ forms.input("n1password", null, "password", null, "Nouveau mot de passe", null, "password", null) }}
-            {{ forms.input("n2password", null, "password", null, "Confirmer nouveau mot de passe", null, "password", null) }}
-            {{ forms.button_form("submit", "add", null, "tooltip", "left", "activer utilisateur", "Activer utilisateur") }}
+            {{ forms.input("username", userInfo.username, "text", null, "user.username"|trans|capitalize, null, "text", null, true) }}
+            {{ forms.double_input("firstname", null, "text", null, "user.firstname"|trans|capitalize, null, null, "name", "name", null,
+                    "text", null, "user.lastname"|trans|capitalize, null, "name", "name") }}
+            {{ forms.input("password", null, "password", null, "user.psw"|trans|capitalize, null, "password", null) }}
+            {{ forms.input("n1password", null, "password", null, "user.psw.newpsw"|trans|capitalize, null, "password", null) }}
+            {{ forms.input("n2password", null, "password", null, "user.psw.confirmnewpsw"|trans|capitalize, null, "password", null) }}
+            {{ forms.button_form("submit", "add", null, "tooltip", "left", "activer utilisateur", "activation.activateUser"|trans|capitalize) }}
         </form>
     </article>
 {% endblock %}

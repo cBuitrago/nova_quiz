@@ -222,47 +222,47 @@ class Quiz {
     }
 
     public function mergePostData($requestData) {
-        if (isset($requestData->QUIZ_ID))
-            $this->setQuizID($requestData->QUIZ_ID);
+        if (isset($requestData->quizId))
+            $this->setQuizID($requestData->quizId);
 
-        if (isset($requestData->LOCKED_ON_COMPLETION)) {
-            $this->setLockedOnCompletion($requestData->LOCKED_ON_COMPLETION);
+        if (isset($requestData->lockedOnCompletion)) {
+            $this->setLockedOnCompletion($requestData->lockedOnCompletion);
         } else {
             $this->setLockedOnCompletion(FALSE);
         }
 
-        if (isset($requestData->TIME_TO_COMPLETE))
-            $this->setTimeToComplete($requestData->TIME_TO_COMPLETE);
+        if (isset($requestData->timeToComplete))
+            $this->setTimeToComplete($requestData->timeToComplete);
 
-        if (isset($requestData->QUIZ_DATA))
-            $this->setQuizData($requestData->QUIZ_DATA);
+        if (isset($requestData->quizData))
+            $this->setQuizData($requestData->quizData);
 
-        if (isset($requestData->IS_USER_CAN_DISPLAY_CHART)) {
-            $this->setIsUserCanDisplayChart($requestData->IS_USER_CAN_DISPLAY_CHART);
+        if (isset($requestData->isUserCanDisplayChart)) {
+            $this->setIsUserCanDisplayChart($requestData->isUserCanDisplayChart);
         } else {
             $this->setIsUserCanDisplayChart(FALSE);
         }
 
-        if (isset($requestData->IS_USER_CAN_DISPLAY_QA)) {
-            $this->setIsUserCanDisplayQa($requestData->IS_USER_CAN_DISPLAY_QA);
+        if (isset($requestData->isUserCanDisplayQa)) {
+            $this->setIsUserCanDisplayQa($requestData->isUserCanDisplayQa);
         } else {
             $this->setIsUserCanDisplayQa(FALSE);
         }
 
-        if (isset($requestData->IS_ENABLED)) {
-            $this->setIsEnabled($requestData->IS_ENABLED);
+        if (isset($requestData->isEnabled)) {
+            $this->setIsEnabled($requestData->isEnabled);
         } else {
             $this->setIsEnabled(FALSE);
         }
 
-        if (isset($requestData->IS_USER_SEE_GOOD_ANSWER)) {
-            $this->setIsUserSeeGoodAnswer($requestData->IS_USER_SEE_GOOD_ANSWER);
+        if (isset($requestData->isUserSeeGoodAnswer)) {
+            $this->setIsUserSeeGoodAnswer($requestData->isUserSeeGoodAnswer);
         } else {
             $this->setIsUserSeeGoodAnswer(FALSE);
         }
 
-        if (isset($requestData->ANSWER_JSON))
-            $this->setAnswerJson($requestData->ANSWER_JSON);
+        if (isset($requestData->answerJson))
+            $this->setAnswerJson($requestData->answerJson);
     }
 
     public function getData($includes = NULL) {

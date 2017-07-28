@@ -25,7 +25,7 @@ function generateReportTypeA() {
     var form = document.getElementById('quizResultsSelf');
     var idQuiz = form['idQuiz'].value;
     $.ajax({
-        url: "/" + account + "/quizresults/getDataTypeA",
+        url: "/" + account + "/fr/quizresults/getDataTypeA",
         type: 'post',
         async: true,
         headers: {"cache-control": "no-cache"},
@@ -58,7 +58,7 @@ function generateReportTypeB() {
     var form = document.getElementById('quizResultsSelf');
     var idQuiz = form['idQuiz'].value;
     $.ajax({
-        url: "/" + account + "/quizresults/getDataTypeB",
+        url: "/" + account + "/fr/quizresults/getDataTypeB",
         type: 'post',
         async: true,
         headers: {"cache-control": "no-cache"},

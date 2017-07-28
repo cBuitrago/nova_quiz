@@ -1,11 +1,11 @@
 <li class="{% if page.active == 'index' %}active{% endif %}">
-    <a href="{{ path('quiz_index', { 'account': account }) }}">Quiz</a>
+    <a href="{{ path('quiz_index', { 'account': account }) }}">{{ "quiz.nav.quizList"|trans|capitalize }}</a>
 </li>
 {% if is_granted('ROLE_ADMIN') %}
     <li class="{% if page.active == 'admin' %}active{% endif %}">
-        <a href="{{ path('quiz_index_admin', { 'account': account }) }}">Gestion des quiz</a>
+        <a href="{{ path('quiz_index_admin', { 'account': account }) }}">{{ "quiz.nav.gestion"|trans|capitalize }}</a>
     </li>
     <li class="{% if page.active == 'new' %}active{% endif %}">
-        <a href="{{ path('quiz_new', { 'account': account }) }}">Créer quiz</a>
+        <a href="{{ path('quiz_new', { 'account': account }) }}">{{ "quiz.nav.quizCreate"|trans|capitalize }}</a>
     </li>
 {% endif %}

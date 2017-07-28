@@ -3,7 +3,6 @@
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 {% endblock %}
-
 {% block content %}
     <div>
         <ul class="nav nav-tabs">
@@ -15,13 +14,13 @@
                 <table id="all_users" class="display" width="100%">
                     <thead>
                         <tr>
-                            <th>Prénom</th>
-                            <th>Nom de famille</th>
+                            <th>{{ "user.firstname"|trans|capitalize }}</th>
+                            <th>{{ "user.lastname"|trans|capitalize }}</th>
                                 {% if is_granted('ROLE_GOD') == true %}
-                                <th>Compte</th> 
+                                <th>{{ "general.account"|trans|capitalize }}</th> 
                                 {% endif %}
-                            <th>Groupe</th>
-                            <th class="text-center">Modifier</th>
+                            <th>{{ "general.group"|trans|capitalize }}</th>
+                            <th class="text-center">{{ "general.edit"|trans|capitalize }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +41,10 @@
                                     {{ userInfo.departmentAuthorization.departmentInfo.name }}
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ path('user_edit', { 'id': userInfo.id, 'account': account  }) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a href="{{ path('user_edit', { 'id': userInfo.id, 'account': account  }) }}">
+                                        <span class="glyphicon glyphicon-edit">
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -60,31 +62,31 @@
         $(document).ready(function () {
             var table = $('#all_users').DataTable({
                 language: {
-                    sProcessing: "Traitement en cours...",
+                    sProcessing: "{{ "dataTable.sProcessing"|trans|capitalize }}",
                     sSearch: "",
-                    sLengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
-                    sInfo: "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                    sInfoEmpty: "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                    sInfoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    sLengthMenu: "{{ "dataTable.sLengthMenu1"|trans|capitalize }} _MENU_ {{ "dataTable.elements"|trans }}",
+                    sInfo: "{{ "dataTable.sInfo1"|trans|capitalize }} _START_ {{ "dataTable.sInfo2"|trans }} _END_ {{ "dataTable.sInfo3"|trans }} _TOTAL_ {{ "dataTable.elements"|trans }}",
+                    sInfoEmpty: "{{ "dataTable.sInfoEmpty"|trans|capitalize }}",
+                    sInfoFiltered: "{{ "dataTable.sInfoFiltered1"|trans }} _MAX_ {{ "dataTable.sInfoFiltered2"|trans }}",
                     sInfoPostFix: "",
-                    sLoadingRecords: "Chargement en cours...",
-                    sZeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    sEmptyTable: "Aucune donn&eacute;e disponible dans le tableau",
+                    sLoadingRecords: "{{ "dataTable.sLoadingRecords"|trans|capitalize }}",
+                    sZeroRecords: "{{ "dataTable.sZeroRecords"|trans|capitalize }}",
+                    sEmptyTable: "{{ "dataTable.sEmptyTable"|trans|capitalize }}",
                     oPaginate: {
-                        sFirst: "Premier",
-                        sPrevious: "< Pr&eacute;c&eacute;dent",
-                        sNext: "Suivant >",
-                        sLast: "Dernier"
+                        sFirst: "{{ "dataTable.paginate.sFirst"|trans|capitalize }}",
+                        sPrevious: "< {{ "dataTable.paginate.sPrevious"|trans|capitalize }}",
+                        sNext: "{{ "dataTable.paginate.sNext"|trans|capitalize }} >",
+                        sLast: "{{ "dataTable.paginate.sLast"|trans|capitalize }}"
                     },
                     oAria: {
-                        sSortAscending: ": activer pour trier la colonne par ordre croissant",
-                        sSortDescending: ": activer pour trier la colonne par ordre d&eacute;croissant"
+                        sSortAscending: "{{ "dataTable.aria.sSortAscending"|trans|capitalize }}",
+                        sSortDescending: "{{ "dataTable.aria.sSortDescending"|trans|capitalize }}"
                     },
                     select: {
                         rows: {
-                            _: "&nbsp; %d lignes s&eacute;lectionn&eacute;es",
+                            _: "&nbsp; %d {{ "dataTable.select.rows"|trans }}",
                             0: "&nbsp;",
-                            1: "&nbsp; 1 ligne s&eacute;lectionn&eacute;e"
+                            1: "&nbsp; {{ "dataTable.select.rows1"|trans }}"
                         }
                     }
                 }

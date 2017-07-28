@@ -18,7 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Userinfo controller.
  *
- * @Route("{account}/user")
+ * @Route("{account}/{_locale}/user", 
+ *      defaults={"_locale":"fr"},
+ *      requirements={
+ *          "_locale": "fr|en|es"
+ *      })
  */
 class UserInfoController extends Controller {
 
@@ -83,7 +87,6 @@ class UserInfoController extends Controller {
             $encoder = $this->container->get('security.password_encoder');
             if (trim($request->request->get('n1password')) !== trim($request->request->get('n2password'))) {
                 return $this->render('security/password.html.twig', array(
-                            
                 ));
             }
             $newEncoded = $encoder->encodePassword($userInfo, trim($request->request->get('n1password')));
@@ -121,7 +124,6 @@ class UserInfoController extends Controller {
             $encoder = $this->container->get('security.password_encoder');
             if (trim($request->request->get('n1password')) !== trim($request->request->get('n2password'))) {
                 return $this->render('security/password.html.twig', array(
-                            
                 ));
             }
             $newEncoded = $encoder->encodePassword($userInfo, trim($request->request->get('n1password')));

@@ -7,7 +7,7 @@
         background-color: {{ settings['accountNav'] }};
     }
     
-    button.add, input[type=button].btn_filters, a.dt-button {
+    button.add, a.add, input[type=button].btn_filters, a.dt-button {
         background-color: {{ settings['accountPrincipal'] }};
         border-color: {{ settings['accountPrincipal'] }};
     }
@@ -42,5 +42,11 @@
         background-color: {{ settings['accountNav2'] }};
         border-color: {{ settings['accountNav2'] }};
         border-bottom-color: {{ settings['accountPrincipal'] }};
+    }
+    div.tab-content .dataTables_wrapper .dt-buttons a.dt-button.black {
+        background-color: {{ settings['accountPrincipal'] }} !important;
+    }
+    div.tab-content .dataTables_wrapper .dt-buttons a.dt-button.black:hover {
+        background-color: {{ settings['accountPrincipal'] }} !important;
     }
 </style>

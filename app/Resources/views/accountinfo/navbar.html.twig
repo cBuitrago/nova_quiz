@@ -1,6 +1,6 @@
 <li class="{% if page.active == 'index' %}active{% endif %}">
-    <a href="{{ path('accountinfo_index', { 'account': account }) }}">Liste des comptes</a>
+    <a href="{{ path('accountinfo_index', { 'account': account }) }}">{{ "account.nav.accountsListe"|trans|capitalize }}</a>
 </li>
 <li class="{% if page.active == 'new' %}active{% endif %}">
-    <a href="{{ path('accountinfo_new', { 'account': account }) }}">Créer une compte</a>
+    <a href="{{ path('accountinfo_new', { 'account': account }) }}">{{ "account.nav.accountCreate"|trans|capitalize }}</a>
 </li>

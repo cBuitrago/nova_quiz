@@ -14,9 +14,9 @@
                 <table id='all_quizzes'>
                     <thead>
                         <tr>
-                            <th>Quiz Name</th>
-                            <th>Modifier</th>
-                            <th>Gestion de groupes</th>
+                            <th>{{ "quiz.name"|trans|capitalize }}</th>
+                            <th>{{ "quiz.edit"|trans|capitalize }}</th>
+                            <th>{{ "quiz.index.groups"|trans|capitalize }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +49,37 @@
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
     <script type="text/javascript" >
         $(document).ready(function () {
-            var table = $('#all_quizzes').DataTable();
+            var table = $('#all_quizzes').DataTable({
+                language: {
+                    sProcessing: "{{ "dataTable.sProcessing"|trans|capitalize }}",
+                    sSearch: "",
+                    sLengthMenu: "{{ "dataTable.sLengthMenu1"|trans|capitalize }} _MENU_ {{ "dataTable.elements"|trans }}",
+                    sInfo: "{{ "dataTable.sInfo1"|trans|capitalize }} _START_ {{ "dataTable.sInfo2"|trans }} _END_ {{ "dataTable.sInfo3"|trans }} _TOTAL_ {{ "dataTable.elements"|trans }}",
+                    sInfoEmpty: "{{ "dataTable.sInfoEmpty"|trans|capitalize }}",
+                    sInfoFiltered: "{{ "dataTable.sInfoFiltered1"|trans }} _MAX_ {{ "dataTable.sInfoFiltered2"|trans }}",
+                    sInfoPostFix: "",
+                    sLoadingRecords: "{{ "dataTable.sLoadingRecords"|trans|capitalize }}",
+                    sZeroRecords: "{{ "dataTable.sZeroRecords"|trans|capitalize }}",
+                    sEmptyTable: "{{ "dataTable.sEmptyTable"|trans|capitalize }}",
+                    oPaginate: {
+                        sFirst: "{{ "dataTable.paginate.sFirst"|trans|capitalize }}",
+                        sPrevious: "< {{ "dataTable.paginate.sPrevious"|trans|capitalize }}",
+                        sNext: "{{ "dataTable.paginate.sNext"|trans|capitalize }} >",
+                        sLast: "{{ "dataTable.paginate.sLast"|trans|capitalize }}"
+                    },
+                    oAria: {
+                        sSortAscending: "{{ "dataTable.aria.sSortAscending"|trans|capitalize }}",
+                        sSortDescending: "{{ "dataTable.aria.sSortDescending"|trans|capitalize }}"
+                    },
+                    select: {
+                        rows: {
+                            _: "&nbsp; %d {{ "dataTable.select.rows"|trans }}",
+                            0: "&nbsp;",
+                            1: "&nbsp; {{ "dataTable.select.rows1"|trans }}"
+                        }
+                    }
+                }
+            });
         });
     </script>
 {% endblock %}

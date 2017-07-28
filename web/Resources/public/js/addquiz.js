@@ -21,13 +21,13 @@ window.addEventListener("load", function () {
 });
 
 var onQuizAddComplete = function (data) {
-console.log(data);
-    /*var texte = JSON.parse(data.responseText);
+
+    var texte = JSON.parse(data.responseText);
     if (texte.message === "ok") {
-        window.location.assign("/" + account + "/quiz/index");
+        window.location.assign("/" + account + "/fr/quiz/index");
     } else if (texte.message === "conflict") {
         alert("changez le nom du quiz s.v.p");
-    }*/
+    }
 
 }
 
@@ -54,9 +54,11 @@ function onManageSections() {
     } else {
         $("a[href='#collapse_" + next_section + "']").click();
     }
+    
 }
 
 function onDeleteSection() {
+    
     var parentPanelGroup = $(this).parents('.panel-group');
     var sections = parentPanelGroup.find('div.panel.panel-default.js_section');
 
@@ -74,10 +76,12 @@ function onDeleteSection() {
 }
 
 function onDeleteQuestion() {
+    
     var parentPanelGroup = $(this).parents('div.question');
     var questions = parentPanelGroup.find('div.question_body');
 
     if (questions.length > 1) {
+
         $(this).parents('div.question_body')[0].remove();
         var newQuestions = parentPanelGroup.find('div.question_body');
 
@@ -86,9 +90,11 @@ function onDeleteQuestion() {
             newQuestions[i].querySelector('input.js_curr_question').value = cur_number + '.';
         }
     }
+
 }
 
 function onDeleteAnswer() {
+    
     var parentPanelGroup = $(this).parents('div.answer');
     var answers = parentPanelGroup.find('div.item');
 
@@ -453,12 +459,12 @@ function onAddQuiz() {
 
     var data = {};
     var form = document.getElementById('add_quiz_form');
-    if (validateInput(form["QUIZ_ID"], 'name')) {
+    if (validateFormInput(form["QUIZ_ID"])) {
         data['quizId'] = form["QUIZ_ID"].value;
     } else {
         return false;
     }
-    if (validateInput(form["TIME_TO_COMPLETE"], 'number')) {
+    if (validateFormInput(form["TIME_TO_COMPLETE"])) {
         data['timeToComplete'] = form["TIME_TO_COMPLETE"].value;
     } else {
         return false;
@@ -498,7 +504,7 @@ function onAddQuiz() {
 
     $.ajax({
         method: "POST",
-        url: "/" + account + "/quiz/addquiz",
+        url: "/" + account + "/fr/quiz/addquiz",
         processData: false,
         dataType: "json",
         contentType: "application/json",
@@ -510,7 +516,7 @@ function onAddQuiz() {
 function onEditQuiz() {
 
     var data = {};
-    var form = document.getElementById('add_quiz_form');
+    var form = document.getElementById('edit_quiz_form');
     if (validateInput(form["QUIZ_ID"], 'name')) {
         data['quizId'] = form["QUIZ_ID"].value;
     } else {
@@ -529,16 +535,15 @@ function onEditQuiz() {
         return false;
     }
 
-    data['quizType'] = form["QUIZ_TYPE"].value;
     data['lockedOnCompletion'] = form["LOCKED_ON_COMPLETION"].checked;
     data['isUserCanDisplayChart'] = form["IS_USER_CAN_DISPLAY_CHART"].checked;
     data['isUserCanDisplayQa'] = form["IS_USER_CAN_DISPLAY_QA"].checked;
     data['isEnabled'] = form["IS_ENABLED"].checked;
     data['isUserSeeGoodAnswer'] = form["IS_USER_SEE_GOOD_ANSWER"].checked;
-    console.log(data);
+
     $.ajax({
         method: "POST",
-        url: "/" + account + "/quiz/editquiz",
+        url: "/" + account + "/fr/quiz/"+ form["id"].value + "/editquiz" ,
         processData: false,
         dataType: "json",
         contentType: "application/json",
@@ -563,60 +568,6 @@ function defineValueLabelNumber(el) {
 
     return new_val + ".";
 
-}
-
-function onEditQuiz(e) {
-    e.preventDefault();
-    var data = {};
-
-    var form = document.getElementById('edit_quiz_form');
-
-    data['ID'] = form["ID"].value;
-    if (validateInput(form["QUIZ_ID"], 'name')) {
-        data['QUIZ_ID'] = form["QUIZ_ID"].value;
-    } else {
-        return false;
-    }
-    if (validateInput(form["TIME_TO_COMPLETE"], 'number')) {
-        data['timeToComplete'] = form["TIME_TO_COMPLETE"].value;
-    } else {
-        return false;
-    }
-    if (true) {
-        var dataAndScore = validateDataQuiz();
-        data['QUIZ_DATA'] = JSON.stringify(dataAndScore[0]);
-        data['ANSWER_JSON'] = dataAndScore[1];
-    } else {
-        return false;
-    }
-
-    data['LOCKED_ON_COMPLETION'] = form["LOCKED_ON_COMPLETION"].checked;
-    data['IS_USER_CAN_DISPLAY_CHART'] = form["IS_USER_CAN_DISPLAY_CHART"].checked;
-    data['IS_USER_CAN_DISPLAY_QA'] = form["IS_USER_CAN_DISPLAY_QA"].checked;
-    data['IS_ENABLED'] = form["IS_ENABLED"].checked;
-    data['IS_USER_SEE_GOOD_ANSWER'] = form["IS_USER_SEE_GOOD_ANSWER"].checked;
-    data['AGENCY_QUIZ'] = [];
-
-    for (var i = 0; i < form['AGENCY_QUIZ[]'].length; i++) {
-        if (form['AGENCY_QUIZ[]'][i].checked === true) {
-            data.AGENCY_QUIZ.push(form['AGENCY_QUIZ[]'][i].value);
-        }
-    }
-
-    if (data.AGENCY_QUIZ.length == 0) {
-        $("input:radio[name='agency_quiz']").focus();
-        return false;
-    }
-
-    $.ajax({
-        method: "POST",
-        url: baseUrl + "/php/quiz_edit_ajax.php",
-        processData: false,
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(data),
-        complete: onQuizAddComplete
-    });
 }
 
 function validateDataQuiz() {

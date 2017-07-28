@@ -6,7 +6,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
     images_directory: '%kernel.root_dir%/../web/Resources/public/media/images'
 
 framework:
@@ -41,6 +41,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    exception_controller: AppBundle:Exception:showException
 
 # Doctrine Configuration
 doctrine:
@@ -93,4 +94,4 @@ knp_snappy:
         enabled:    true
         binary:     /var/www/html/nova_quiz/vendor/bin/wkhtmltoimage-amd64
         options:    []
-    temporary_folder: %kernel.cache_dir%/snappy
+    #temporary_folder: %kernel.cache_dir%/snappy

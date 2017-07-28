@@ -14,9 +14,13 @@ use Symfony\Component\HttpFoundation\Request;
 class SecurityController extends Controller {
 
     /**
-     * @Route("/", name="login")
+     * @Route("/{_locale}", name="login",
+     *      defaults={"_locale":"fr"},
+     *      requirements={
+     *          "_locale": "fr|en|es"
+     *      })
      */
-    public function loginAction(Request $request, $account = "") {
+    public function loginAction(Request $request, $account = "", $_locale) {
 
         $em = $this->getDoctrine()->getManager();
         $accountInfo = $em->getRepository('AppBundle:AccountInfo')
@@ -127,6 +131,21 @@ class SecurityController extends Controller {
      */
     public function failAction($account = "") {
         
+    }
+
+    /**
+     * @Route("/", name="index")
+     */
+    public function indexAction(Request $request, $account = "") {
+        $em = $this->getDoctrine()->getManager();
+        $accountInfo = $em->getRepository('AppBundle:AccountInfo')
+                ->findOneByName($account);
+
+        if (!$accountInfo) {
+            throw $this->createNotFoundException($account . ' does not exist');
+        }
+
+        return $this->redirectToRoute("login", array('account' => $account, '_locale' => 'fr'));
     }
 
 }

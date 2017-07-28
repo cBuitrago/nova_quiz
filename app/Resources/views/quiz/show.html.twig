@@ -24,10 +24,16 @@
                     {{ app.token.user.firstName }} {{ app.token.user.name }}
                     <span class="caret"></span>
                 </button>
+                {% set route = app.request.attributes.get('_route') %}
+                {% set route_params = app.request.attributes.get('_route_params') %}
                 <ul class="dropdown-menu" aria-labelledby="profile-dropdown">
-                    <li><a href="{{ path('quiz_index', { 'account': account }) }}">Profile</a></li>
+                    <li><a href="{{ path('quiz_index', { 'account': account }) }}">{{ "general.profile"|trans|capitalize }}</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="{{ path('logout', { 'account': account }) }}">Logout</a></li>
+                    <li><a href="{{ path(route, route_params|merge({_locale: 'fr'})) }}">{{ "base.fr"|trans|upper }}</a></li>
+                    <li><a href="{{ path(route, route_params|merge({_locale: 'en'})) }}">{{ "base.en"|trans|upper }}</a></li>
+                    <li><a href="{{ path(route, route_params|merge({_locale: 'es'})) }}">{{ "base.es"|trans|upper }}</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ path('logout', { 'account': account }) }}">{{ "base.logout"|trans|capitalize }}</a></li>
                 </ul>
             </div>
         </nav>
@@ -76,44 +82,35 @@
                         {% endfor %}
                     </div>
                     <input type="hidden" id='quiz_name' value="{{ quiz.quizId }}">
-                    <a class="left carousel-control hidden" href="#quiz-carousel" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
+                    <a class="left carousel-control hidden" href="#quiz-carousel" role="button" data-slide="prev"></a>
                     {% set timerQuiz = ( app.session.get('quizStartTime') + 1200) - date().timestamp %}
                     <p class="timer"></p>
                     <script>
-                        var start_date
-                        = {{ app.session.get('quizStartTime') }};
+                        var start_date = {{ app.session.get('quizStartTime') }};
                         {% if quiz.timeToComplete == 0 %}
                                     var timer_start = false;
-                            function f() {}
-                            ;
+                            function f() {};
                         {% else %}
                             var timer_start = true;
-
                             var a = parseInt({{ date().timestamp }}), f = function () {
-                                var t = !0, e =       {{ app.session.get('quizStartTime') }} + {{ quiz.timeToComplete }} -a
+                                var t = !0, e =         {{ app.session.get('quizStartTime') }} + {{ quiz.timeToComplete }} -a
                                 a += 1
                                 var r = {e: Math.floor(e / 60), g: 60 == Math.round(e % 60) ? "00" : Math.round(e % 60)}, o = r.g < 10 ? "0" : ""
                                 $(".timer").text("Il vous reste : " + r.e + " : " + o + r.g), 0 >= e && (t = !1, nextForm(!0)), t === !0 && setTimeout(f, 1e3)
                             }
                         {% endif %}
                     </script>
-                    <a class="right carousel-control hidden" href="#quiz-carousel" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <a class="right carousel-control hidden" href="#quiz-carousel" role="button" data-slide="next"></a>
                 </div>
             </div>
         </article>
         <footer class="quiz">  
             <a class="" href="#" role="button" id="previousSection">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span>Precedent</span>
+                <span>{{ "quiz.previous"|trans|capitalize }}</span>
             </a>
             <a class="" href="#" role="button" id='nextSection'>
-                <span>Suivant</span>
+                <span>{{ "quiz.next"|trans|capitalize }}</span>
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             </a>
         </footer>
@@ -122,9 +119,7 @@
             <script src="{{ asset('Resources/public/js/bootstrap.js') }}"></script>
             <script src="{{ asset('Resources/public/js/utils.js') }}"></script>
             <script src="{{ asset('Resources/public/js/quiz.js') }}"></script>
-            <script>
-                            var account = '{{ account }}';
-            </script>
+            <script>var account = '{{ account }}';</script>
         {% endblock %}
     </body>
 </html>

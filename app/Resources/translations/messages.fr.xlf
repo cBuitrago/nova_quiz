@@ -2,9 +2,601 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="modifier.compte">
-                <source>modifier.compte</source>
+            <!-- BASE -->
+            <trans-unit id="base.fr">
+                <source>base.fr</source>
+                <target>FR</target>
+            </trans-unit>
+            <trans-unit id="base.en">
+                <source>base.en</source>
+                <target>EN</target>
+            </trans-unit>
+            <trans-unit id="base.es">
+                <source>base.es</source>
+                <target>ES</target>
+            </trans-unit>
+            <trans-unit id="base.logout">
+                <source>base.logout</source>
+                <target>Sortir</target>
+            </trans-unit>
+            <trans-unit id="base.footer">
+                <source>base.footer</source>
+                <target></target>
+            </trans-unit>
+            <!-- GENERAL -->
+            <trans-unit id="general.profile">
+                <source>general.profile</source>
+                <target>Profil</target>
+            </trans-unit>
+            <trans-unit id="general.user.plural">
+                <source>general.user.plural</source>
+                <target>Utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="general.account.plural">
+                <source>general.account.plural</source>
+                <target>Comptes</target>
+            </trans-unit>
+            <trans-unit id="general.group.plural">
+                <source>general.group.plural</source>
+                <target>Groupes</target>
+            </trans-unit>
+            <trans-unit id="general.quiz.plural">
+                <source>general.quiz.plural</source>
+                <target>Quiz</target>
+            </trans-unit>
+            <trans-unit id="general.report.plural">
+                <source>general.report.plural</source>
+                <target>Rapports</target>
+            </trans-unit>
+            <trans-unit id="general.account">
+                <source>general.account</source>
+                <target>Compte</target>
+            </trans-unit>
+            <trans-unit id="general.group">
+                <source>general.group</source>
+                <target>Groupe</target>
+            </trans-unit>
+            <trans-unit id="general.edit">
+                <source>general.edit</source>
+                <target>Modifier</target>
+            </trans-unit>
+            <trans-unit id="general.description">
+                <source>general.description</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="general.yes">
+                <source>general.yes</source>
+                <target>Oui</target>
+            </trans-unit>
+            <trans-unit id="general.no">
+                <source>general.no</source>
+                <target>Non</target>
+            </trans-unit>
+            <trans-unit id="general.created">
+                <source>general.created</source>
+                <target>Créé</target>
+            </trans-unit>
+            <trans-unit id="general.edited">
+                <source>general.edited</source>
+                <target>Modifié</target>
+            </trans-unit>
+            <trans-unit id="general.cancel">
+                <source>general.cancel</source>
+                <target>Annuler</target>
+            </trans-unit>
+            <trans-unit id="general.role">
+                <source>general.role</source>
+                <target>Rôle</target>
+            </trans-unit>
+            <trans-unit id="general.back">
+                <source>general.back</source>
+                <target>Retourner</target>
+            </trans-unit>
+            <!-- EXCEPTION -->
+            <trans-unit id="exception.not.found">
+                <source>exception.not.found</source>
+                <target>Page introuvable</target>
+            </trans-unit>
+            <!-- USER -->
+            <trans-unit id="user.nav.usersList">
+                <source>user.nav.usersList</source>
+                <target>Liste des utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="user.nav.userCreate">
+                <source>user.nav.userCreate</source>
+                <target>Créer un utilisateur</target>
+            </trans-unit>
+            <trans-unit id="user.nav.usersCreate">
+                <source>user.nav.usersCreate</source>
+                <target>Créer plusieurs utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="user.edit">
+                <source>user.edit</source>
+                <target>Modifier utilisateur</target>
+            </trans-unit>
+            <trans-unit id="user.create">
+                <source>user.create</source>
+                <target>Créer utilisateur</target>
+            </trans-unit>
+            <trans-unit id="user.firstname">
+                <source>user.firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="user.lastname">
+                <source>user.lastname</source>
+                <target>Nom de famille</target>
+            </trans-unit>
+            <trans-unit id="user.username">
+                <source>user.username</source>
+                <target>Nom d'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="user.psw">
+                <source>user.psw</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="user.email">
+                <source>user.email</source>
+                <target>Courriel</target>
+            </trans-unit>
+            <trans-unit id="user.actif">
+                <source>user.actif</source>
+                <target>Utilisateur actif ?</target>
+            </trans-unit>
+            <trans-unit id="user.forcePsw">
+                <source>user.forcePsw</source>
+                <target>Changer mot de passe ?</target>
+            </trans-unit>
+            <trans-unit id="user.isAdmin">
+                <source>user.isAdmin</source>
+                <target>Administrateur ?</target>
+            </trans-unit>
+            <trans-unit id="user.group">
+                <source>user.group</source>
+                <target>Groupe d'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="user.create.popover.title">
+                <source>user.create.popover.title</source>
+                <target>Information ajouter utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="user.create.popover.content">
+                <source>user.create.popover.content</source>
+                <target>Séparer les utilisateurs par une virgule. 
+                    Si vous choisissez d'envoyer des notifications, inserez de courriels valides. 
+                    Si vous choisissez créer des mots de passe aleatoire,sans notification, un document .pdf sera généré avec la liste des utilisateurs créés.
+                    Mot de passe : courriel valide ou text 6-30 characters
+                </target>
+            </trans-unit>
+            <trans-unit id="user.create.various">
+                <source>user.create.various</source>
+                <target>Créer des utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="user.create.various.notification">
+                <source>user.create.various.notification</source>
+                <target>Envoyer notification ? </target>
+            </trans-unit>
+            <trans-unit id="user.create.various.textarea.label">
+                <source>user.create.various.textarea.label</source>
+                <target>Liste de noms d'utilisateur : </target>
+            </trans-unit>
+            <trans-unit id="user.create.various.textarea.placeholder">
+                <source>user.create.various.textarea.placeholder</source>
+                <target>Séparer les utilisateurs par des virgules</target>
+            </trans-unit>
+            <trans-unit id="user.create.various.pswforce">
+                <source>user.create.various.pswforce</source>
+                <target>Créer mot de passe aléatoire ?</target>
+            </trans-unit> 
+            <trans-unit id="user.psw.change">
+                <source>user.psw.change</source>
+                <target>Changer mot de passe</target>
+            </trans-unit>
+            <trans-unit id="user.psw.newpsw">
+                <source>user.psw.newpsw</source>
+                <target>Nouveau mot de passe</target>
+            </trans-unit> 
+            <trans-unit id="user.psw.confirmnewpsw">
+                <source>user.psw.confirmnewpsw</source>
+                <target>Confirmer nouveau mot de passe</target>
+            </trans-unit>
+            <trans-unit id="user.profile.edit">
+                <source>user.profile.edit</source>
+                <target>Modifier profil</target>
+            </trans-unit>
+            <!-- ACCOUNT -->
+            <trans-unit id="account.edit">
+                <source>account.edit</source>
                 <target>Modifier compte</target>
+            </trans-unit>
+            <trans-unit id="account.create">
+                <source>account.create</source>
+                <target>Créer compte</target>
+            </trans-unit>
+            <trans-unit id="account.name">
+                <source>account.name</source>
+                <target>Nom de la compte</target>
+            </trans-unit>  
+            <trans-unit id="account.change.logo">
+                <source>account.change.logo</source>
+                <target>Modifier logo</target>
+            </trans-unit>  
+            <trans-unit id="account.change.bgImage">
+                <source>account.change.bgImage</source>
+                <target>Modifier image de l'arrière-plan</target>
+            </trans-unit>
+            <trans-unit id="account.change.colors">
+                <source>account.change.colors</source>
+                <target>Modifier les couleurs</target>
+            </trans-unit>
+            <trans-unit id="account.change.colors.cancelbtn">
+                <source>account.change.colors.cancelbtn</source>
+                <target>Bouton annuler</target>
+            </trans-unit> 
+            <trans-unit id="account.change.colors.principalbtn">
+                <source>account.change.colors.principalbtn</source>
+                <target>Bouton principal</target>
+            </trans-unit>
+            <trans-unit id="account.change.colors.aside">
+                <source>account.change.colors.aside</source>
+                <target>Barre de navigation de côté</target>
+            </trans-unit>
+            <trans-unit id="account.change.colors.principalnav">
+                <source>account.change.colors.principalnav</source>
+                <target>Arrière-plan du logo</target>
+            </trans-unit>
+            <trans-unit id="account.change.colors.nav">
+                <source>account.change.colors.nav</source>
+                <target>Barre de navigation</target>
+            </trans-unit>
+            <trans-unit id="account.nav.accountsListe">
+                <source>account.nav.accountsListe</source>
+                <target>Liste des comptes</target>
+            </trans-unit>
+            <trans-unit id="account.nav.accountCreate">
+                <source>account.nav.accountCreate</source>
+                <target>Créer une compte</target>
+            </trans-unit>
+            <trans-unit id="account.canCreateQuiz">
+                <source>account.canCreateQuiz</source>
+                <target>Autorisé à créer des quiz ?</target>
+            </trans-unit>
+            <trans-unit id="account.useEmailLikeUsername">
+                <source>account.useEmailLikeUsername</source>
+                <target>Utiliser le courriel comme nom d'utilisateur ?</target>
+            </trans-unit>
+            <trans-unit id="account.createAdmin">
+                <source>account.createAdmin</source>
+                <target>Créer administrateur de compte</target>
+            </trans-unit>
+            <trans-unit id="account.isActive">
+                <source>account.isActive</source>
+                <target>La compte est actif ?</target>
+            </trans-unit>
+            <!-- DEPARTMENT -->        
+            <trans-unit id="group.nav.groupsList">
+                <source>group.nav.groupsList</source>
+                <target>Liste des groupes</target>
+            </trans-unit>
+            <trans-unit id="group.nav.create">
+                <source>group.nav.create</source>
+                <target>Créer un groupe</target>
+            </trans-unit> 
+            <trans-unit id="group.edit">
+                <source>group.edit</source>
+                <target>Modifier groupe</target>
+            </trans-unit>
+            <trans-unit id="group.create">
+                <source>group.create</source>
+                <target>Créer groupe</target>
+            </trans-unit>
+            <trans-unit id="group.name">
+                <source>group.name</source>
+                <target>Nom du groupe</target>
+            </trans-unit> 
+            <trans-unit id="group.parent">
+                <source>group.parent</source>
+                <target>Groupe superieur</target>
+            </trans-unit>
+            <trans-unit id="group.isActive">
+                <source>group.isActive</source>
+                <target>Le groupe est actif ?</target>
+            </trans-unit>
+            <!-- QUIZ -->
+            <trans-unit id="quiz.name">
+                <source>quiz.name</source>
+                <target>Nom du quiz</target>
+            </trans-unit>
+            <trans-unit id="quiz.create">
+                <source>quiz.create</source>
+                <target>Créer quiz</target>
+            </trans-unit>
+            <trans-unit id="quiz.edit">
+                <source>quiz.edit</source>
+                <target>Modifier quiz</target>
+            </trans-unit>
+            <trans-unit id="quiz.index.groups">
+                <source>quiz.index.groups</source>
+                <target>Gestion des groupes</target>
+            </trans-unit> 
+            <trans-unit id="quiz.index.answer">
+                <source>quiz.index.answer</source>
+                <target>Répondre au quiz</target>
+            </trans-unit>
+            <trans-unit id="quiz.index.results">
+                <source>quiz.index.results</source>
+                <target>Résultats</target>
+            </trans-unit>
+            <trans-unit id="quiz.nav.quizList">
+                <source>quiz.nav.quizList</source>
+                <target>Liste des quiz</target>
+            </trans-unit>
+            <trans-unit id="quiz.nav.gestion">
+                <source>quiz.nav.gestion</source>
+                <target>Gestion des quiz</target>
+            </trans-unit>
+            <trans-unit id="quiz.nav.quizCreate">
+                <source>quiz.nav.quizCreate</source>
+                <target>Créer un quiz</target>
+            </trans-unit> 
+            <trans-unit id="quiz.addAccount">
+                <source>quiz.addAccount</source>
+                <target>Ajouter comptes</target>
+            </trans-unit>
+            <trans-unit id="quiz.addDepartment">
+                <source>quiz.addDepartment</source>
+                <target>Ajouter groupes</target>
+            </trans-unit> 
+            <trans-unit id="quiz.data">
+                <source>quiz.data</source>
+                <target>Données du quiz</target>
+            </trans-unit> 
+            <trans-unit id="quiz.btnData">
+                <source>quiz.btnData</source>
+                <target>Commencer</target>
+            </trans-unit> 
+            <trans-unit id="quiz.title">
+                <source>quiz.title</source>
+                <target>Titre du Quiz</target>
+            </trans-unit> 
+            <trans-unit id="quiz.updateGroups">
+                <source>quiz.updateGroups</source>
+                <target>Mettre à jour</target>
+            </trans-unit>
+            <trans-unit id="quiz.previous">
+                <source>quiz.previous</source>
+                <target>Précédent</target>
+            </trans-unit>
+            <trans-unit id="quiz.next">
+                <source>quiz.next</source>
+                <target>Suivant</target>
+            </trans-unit>
+            <trans-unit id="quizresults.errorMsg">
+                <source>quizresults.errorMsg</source>
+                <target>Vous n'avez pas bien fini votre Quiz!</target>
+            </trans-unit>
+            <trans-unit id="quizresults.download">
+                <source>quizresults.download</source>
+                <target>Télécharger résultats PDF</target>
+            </trans-unit>
+            <!-- ACTIVATION -->
+            <trans-unit id="activation.errorMsg">
+                <source>activation.errorMsg</source>
+                <target>Les données ne sont pas valides</target>
+            </trans-unit>
+            <trans-unit id="activation.activateUser">
+                <source>activation.activateUser</source>
+                <target>Activer utilisateur</target>
+            </trans-unit>
+            <!-- LOGIN -->
+            <trans-unit id="login.title">
+                <source>login.title</source>
+                <target>Ouverture de session</target>
+            </trans-unit>
+            <trans-unit id="login.errorMsg">
+                <source>login.errorMsg</source>
+                <target>Connexion échoué!</target>
+            </trans-unit>
+            <trans-unit id="login.login">
+                <source>login.login</source>
+                <target>Entrer</target>
+            </trans-unit>
+            <!-- REPORT -->
+            <trans-unit id="report.filter">
+                <source>report.filter</source>
+                <target>Filtrer les résultats</target>
+            </trans-unit>
+            <trans-unit id="report.progress">
+                <source>report.progress</source>
+                <target>Progrès</target>
+            </trans-unit>
+            <trans-unit id="report.all">
+                <source>report.all</source>
+                <target>Tous</target>
+            </trans-unit>
+            <trans-unit id="report.none">
+                <source>report.none</source>
+                <target>Aucun</target>
+            </trans-unit>
+            <trans-unit id="report.generate.users">
+                <source>report.generate.users</source>
+                <target>Générer les rapports utilisateurs : </target>
+            </trans-unit>
+            <trans-unit id="report.generate.groups">
+                <source>report.generate.groups</source>
+                <target>Générer les rapports de groupe : </target>
+            </trans-unit>
+            <trans-unit id="report.generate.participation">
+                <source>report.generate.participation</source>
+                <target>Générer les rapports de participation : </target>
+            </trans-unit>
+            <trans-unit id="report.generate.statistics">
+                <source>report.generate.statistics</source>
+                <target>Générer les rapports de statistics : </target>
+            </trans-unit>
+            <trans-unit id="report.generate.participation.btn">
+                <source>report.generate.participation.btn</source>
+                <target>Rapport de participation</target>
+            </trans-unit>
+            <trans-unit id="report.generate.users.btn">
+                <source>report.generate.users.btn</source>
+                <target>Rapports des utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="report.generate.groups.btn">
+                <source>report.generate.groups.btn</source>
+                <target>Rapport du groupe</target>
+            </trans-unit>
+            <trans-unit id="report.generate.statistics.btn">
+                <source>report.generate.statistics.btn</source>
+                <target>Rapport des statistics</target>
+            </trans-unit>
+            <trans-unit id="report.statistic_report_compare">
+                <source>report.statistic_report_compare</source>
+                <target>Comparer quiz avec : </target>
+            </trans-unit>
+            <trans-unit id="report.show_graph">
+                <source>report.show_graph</source>
+                <target>Afficher le graphique de résultats</target>
+            </trans-unit>
+            <trans-unit id="report.show_answers">
+                <source>report.show_answers</source>
+                <target>Afficher les questions/réponses</target>
+            </trans-unit>
+            <trans-unit id="report.user_report_compare">
+                <source>report.user_report_compare</source>
+                <target>Graphique résultats - Comparer usager(s) avec : </target>
+            </trans-unit>
+            <trans-unit id="report.show_answers_score">
+                <source>report.show_answers_score</source>
+                <target>Afficher les pointages obtenus aux questions</target>
+            </trans-unit>
+            <trans-unit id="report.show_best_answers">
+                <source>report.show_best_answers</source>
+                <target>Afficher les meilleures réponses aux questions</target>
+            </trans-unit>
+            <!-- FROM DATABASE -->
+            <trans-unit id="IS_USUAL">
+                <source>IS_USUAL</source>
+                <target>Compte habituel</target>
+            </trans-unit>
+            <trans-unit id="IS_PROVIDER">
+                <source>IS_PROVIDER</source>
+                <target>Compte fournisseur</target>
+            </trans-unit>
+            <trans-unit id="IS_GOD">
+                <source>IS_GOD</source>
+                <target>Compte principal</target>
+            </trans-unit>
+            <trans-unit id="IS_ACCOUNT_DEPARTMENT">
+                <source>IS_ACCOUNT_DEPARTMENT</source>
+                <target>Groupe principal</target>
+            </trans-unit>
+            <trans-unit id="IS_USUAL_DEPARTMENT">
+                <source>IS_USUAL_DEPARTMENT</source>
+                <target>Groupe habituel</target>
+            </trans-unit>
+            <trans-unit id="TIME_TO_COMPLETE">
+                <source>TIME_TO_COMPLETE</source>
+                <target>Temps aloué ( secondes )</target>
+            </trans-unit>
+            <trans-unit id="LOCKED_ON_COMPLETION">
+                <source>LOCKED_ON_COMPLETION</source>
+                <target>Vérouillé lorsque complété</target>
+            </trans-unit>
+            <trans-unit id="IS_USER_CAN_DISPLAY_CHART">
+                <source>IS_USER_CAN_DISPLAY_CHART</source>
+                <target>Rapport avec graphique de résultat</target>
+            </trans-unit>
+            <trans-unit id="IS_USER_CAN_DISPLAY_QA">
+                <source>IS_USER_CAN_DISPLAY_QA</source>
+                <target>Rapport avec questions/réponses</target>
+            </trans-unit>
+            <trans-unit id="IS_ENABLED">
+                <source>IS_ENABLED</source>
+                <target>Quiz actif ?</target>
+            </trans-unit>
+            <trans-unit id="IS_USER_SEE_GOOD_ANSWER">
+                <source>IS_USER_SEE_GOOD_ANSWER</source>
+                <target>Rapport avec visualisation des bonnes réponses</target>
+            </trans-unit>
+            <!-- DATATABLE -->                                                                                                                                                                                                                                                                                                                                                                                                                                       
+            <trans-unit id="dataTable.sProcessing">
+                <source>dataTable.sProcessing</source>
+                <target>Traitement en cours...</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sLengthMenu1">
+                <source>dataTable.sLengthMenu1</source>
+                <target>Afficher</target>
+            </trans-unit>
+            <trans-unit id="dataTable.elements">
+                <source>dataTable.elements</source>
+                <target>éléments</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sInfo1">
+                <source>dataTable.sInfo1</source>
+                <target>Affichage de l'élément </target>
+            </trans-unit>
+            <trans-unit id="dataTable.sInfo2">
+                <source>dataTable.sInfo2</source>
+                <target>à</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sInfo3">
+                <source>dataTable.sInfo3</source>
+                <target>sur</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sInfoEmpty">
+                <source>dataTable.sInfoEmpty</source>
+                <target>Affichage de l'élément 0 à 0 sur 0 élément</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sInfoFiltered1">
+                <source>dataTable.sInfoFiltered1</source>
+                <target>(filtré de </target>
+            </trans-unit>
+            <trans-unit id="dataTable.sInfoFiltered2">
+                <source>dataTable.sInfoFiltered2</source>
+                <target>éléments au total)</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sLoadingRecords">
+                <source>dataTable.sLoadingRecords</source>
+                <target>Chargement en cours...</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sZeroRecords">
+                <source>dataTable.sZeroRecords</source>
+                <target>Aucun élément à afficher</target>
+            </trans-unit>
+            <trans-unit id="dataTable.sEmptyTable">
+                <source>dataTable.sEmptyTable</source>
+                <target>Aucune donnée disponible dans le tableau</target>
+            </trans-unit>
+            <trans-unit id="dataTable.paginate.sFirst">
+                <source>dataTable.paginate.sFirst</source>
+                <target>Premier</target>
+            </trans-unit>
+            <trans-unit id="dataTable.paginate.sPrevious">
+                <source>dataTable.paginate.sPrevious</source>
+                <target>Précédent</target>
+            </trans-unit>
+            <trans-unit id="dataTable.paginate.sNext">
+                <source>dataTable.paginate.sNext</source>
+                <target>Suivant</target>
+            </trans-unit>
+            <trans-unit id="dataTable.paginate.sLast">
+                <source>dataTable.paginate.sLast</source>
+                <target>Dernier</target>
+            </trans-unit>
+            <trans-unit id="dataTable.aria.sSortAscending">
+                <source>dataTable.aria.sSortAscending</source>
+                <target>: activer pour trier la colonne par ordre croissant</target>
+            </trans-unit>
+            <trans-unit id="dataTable.aria.sSortDescending">
+                <source>dataTable.aria.sSortDescending</source>
+                <target>: activer pour trier la colonne par ordre décroissant</target>
+            </trans-unit>
+            <trans-unit id="dataTable.select.rows">
+                <source>dataTable.select.rows</source>
+                <target>lignes sélectionnées</target>
+            </trans-unit>
+            <trans-unit id="dataTable.select.rows1">
+                <source>dataTable.select.rows1</source>
+                <target>1 ligne sélectionnée</target>
             </trans-unit>
         </body>
     </file>

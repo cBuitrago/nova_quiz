@@ -21,7 +21,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Accountinfo controller.
  * @Security("has_role('ROLE_ADMIN')")
- * @Route("{account}/report")
+ * @Route("{account}/{_locale}/report", 
+ *      defaults={"_locale":"fr"},
+ *      requirements={
+ *          "_locale": "fr|en|es"
+ *      })
  */
 class ReportController extends Controller {
 
@@ -167,7 +171,6 @@ class ReportController extends Controller {
                 }
             }
         }
-
         if (array_search('CORPORATES', explode(",", $requestContent->compare)) !== FALSE) {
 
             foreach ($this->CorporateUniqueID as $corporate) {

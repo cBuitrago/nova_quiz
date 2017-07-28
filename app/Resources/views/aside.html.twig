@@ -2,39 +2,39 @@
 <ul>
     {% if is_granted('ROLE_ADMIN') %}
         <li>
-            <a href="{{ path('user_index', { 'account': account }) }}" {% if 'user' in app.request.attributes.get('_route') %}class="active"{% endif %}>
+            <a href="{{ path('user_index', { 'account': app.user.getAccountInfo().getName() }) }}" {% if 'user' in app.request.attributes.get('_route') %}class="active"{% endif %}>
                 <span class="nv-glyphicon nv-glyphicon-user"></span><br>
-                <span class="text">Utilisateur</span>
+                <span class="text">{{ "general.user.plural"|trans|capitalize }}</span>
             </a>
         </li>
     {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
         <li>
-            <a href="{{ path('accountinfo_index', { 'account': account }) }}" {% if 'account' in app.request.attributes.get('_route') %}class="active"{% endif %}>
+            <a href="{{ path('accountinfo_index', { 'account': app.user.getAccountInfo().getName() }) }}" {% if 'account' in app.request.attributes.get('_route') %}class="active"{% endif %}>
                 <span class="nv-glyphicon nv-glyphicon-corpo"></span><br>
-                <span class="text">Comptes</span>
+                <span class="text">{{ "general.account.plural"|trans|capitalize }}</span>
             </a>
         </li>
     {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
         <li>
-            <a href="{{ path('departmentinfo_index', { 'account': account }) }}" {% if 'department' in app.request.attributes.get('_route') %}class="active"{% endif %}>
+            <a href="{{ path('departmentinfo_index', { 'account': app.user.getAccountInfo().getName() }) }}" {% if 'department' in app.request.attributes.get('_route') %}class="active"{% endif %}>
                 <span class="nv-glyphicon nv-glyphicon-groupe"></span><br>
-                <span class="text">Groupes</span>
+                <span class="text">{{ "general.group.plural"|trans|capitalize }}</span>
             </a>
         </li>
     {% endif %}
     <li>
-        <a href="{{ path('quiz_index', { 'account': account }) }}" {% if 'quiz' in app.request.attributes.get('_route') %}class="active"{% endif %}>
+        <a href="{{ path('quiz_index', { 'account': app.user.getAccountInfo().getName() }) }}" {% if 'quiz' in app.request.attributes.get('_route') %}class="active"{% endif %}>
             <span class="nv-glyphicon nv-glyphicon-edit"></span><br>
-            <span class="text">Quiz</span>
+            <span class="text">{{ "general.quiz.plural"|trans|capitalize }}</span>
         </a>
     </li>
     {% if is_granted('ROLE_ADMIN') %}
         <li>
-            <a href="{{ path('report_index', { 'account': account }) }}" {% if 'report' in app.request.attributes.get('_route') %}class="active"{% endif %}>
+            <a href="{{ path('report_index', { 'account': app.user.getAccountInfo().getName() }) }}" {% if 'report' in app.request.attributes.get('_route') %}class="active"{% endif %}>
                 <span class="nv-glyphicon nv-glyphicon-report"></span><br>
-                <span class="text">Rapports</span>
+                <span class="text">{{ "general.report.plural"|trans|capitalize }}</span>
             </a>
         </li>
     {% endif %}

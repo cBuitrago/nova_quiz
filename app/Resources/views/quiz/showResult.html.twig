@@ -17,11 +17,11 @@
             <input type="hidden" name='idQuiz' value="{{ quiz.id }}">
             <button type="button" class="nv-btn-default nv-principal-color" id="onUserReport" data-type='{{ quiz.quizType.name }}'
                     data-toggle="tooltip" data-placement="left" title="userResult">
-                Telecharger resultats PDF
+                {{ "quizresults.download"|trans|capitalize }}
             </button>
         </form>
     {% else %}
-        <h3>Vous n'avez pas bien fini votre Quiz!</h3>
+        <h3>{{ "quizresults.errorMsg"|trans|capitalize }}</h3>
     {% endif %}
 {% endblock %}
 {% block javascripts %}

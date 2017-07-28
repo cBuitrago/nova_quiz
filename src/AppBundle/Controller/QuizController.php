@@ -15,7 +15,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Quiz controller.
  * @Security("has_role('ROLE_USER')")
- * @Route("{account}/quiz")
+ * @Route(
+ *      "{account}/{_locale}/quiz", 
+ *      defaults={"_locale":"fr"},
+ *      requirements={
+ *          "_locale": "fr|en|es"
+ *      })
  */
 class QuizController extends Controller {
 
@@ -235,47 +240,6 @@ class QuizController extends Controller {
                 $em->flush();
             }
         }
-
-        return new JsonResponse(array('message' => 'ok'), 200);
-    }
-    
-    /**
-     * Ajax : Edot a quiz entity.
-     * 
-     * @Route("/{id}/editquiz", name="quiz_edit")
-     * @Security("has_role('ROLE_ADMIN')")
-     * @Method("POST")
-     */
-    public function editQuizAction(Request $request, $quiz, $account) {
-
-        if (!$request->isXmlHttpRequest()) {
-            return new JsonResponse(array('message' => 'false'), 400);
-        }
-
-        $usr = $this->get('security.token_storage')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        if (!$usr->getAccountInfo()->validateAccount($account) ||
-                !$usr->getAccountInfo()->getCanCreateQuiz()) {
-            return new JsonResponse(array('message' => 'false'), 400);
-        }
-
-        $requestContent = json_decode($request->getContent());
-        $quizType = $em->getRepository('AppBundle:QuizType')
-                ->findOneByName($requestContent->quizType);
-        if (!$quizType) {
-            return new JsonResponse(array('message' => 'false'), 400);
-        }
-
-        $quizConflict = $em->getRepository('AppBundle:Quiz')
-                ->findByQuizId($requestContent->quizId);
-        if ($quizConflict) {
-            return new JsonResponse(array('message' => 'conflict'), 400);
-        }
-        $quiz->mergePostData($requestContent);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->merge($quiz);
-        $em->flush();
 
         return new JsonResponse(array('message' => 'ok'), 200);
     }
@@ -531,7 +495,7 @@ class QuizController extends Controller {
             }
         }
     }
-    
+
     private function manageQuizAccount($accounts, $quiz, $quizAccountArray) {
         $em = $this->getDoctrine()->getManager();
         foreach ($accounts as $account) {
@@ -576,6 +540,43 @@ class QuizController extends Controller {
                 $em->flush();
             }
         }
+    }
+
+    /**
+     * Ajax : Edit a quiz entity.
+     * 
+     * @Route("/{id}/editquiz", name="quiz_edit_ajax")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Method("POST")
+     */
+    public function editQuizAction(Request $request, Quiz $quiz, $account) {
+
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'false'), 400);
+        }
+
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        if (!$usr->getAccountInfo()->validateAccount($account) ||
+                !$usr->getAccountInfo()->getCanCreateQuiz() ||
+                $usr->getAccountInfo() !== $quiz->getAccountInfo()) {
+            return new JsonResponse(array('message' => 'false'), 400);
+        }
+
+        $requestContent = json_decode($request->getContent());
+
+        $quizConflict = $em->getRepository('AppBundle:Quiz')
+                ->findOneByQuizId($requestContent->quizId);
+        if ($quizConflict && $quizConflict !== $quiz) {
+            return new JsonResponse(array('message' => $quizConflict->getId()), 400);
+        }
+        $quiz->mergePostData($requestContent);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->merge($quiz);
+        $em->flush();
+
+        return new JsonResponse(array('message' => 'ok'), 200);
     }
 
 }

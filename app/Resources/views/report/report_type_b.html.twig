@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-    {{ parent() }}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="{{ asset('Resources/public/css/iframe.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Resources/public/css/jquery.dataTables.min.css') }}">
@@ -8,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Resources/public/css/select.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Resources/public/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Resources/public/css/generator.css') }}">
+    {{ parent() }}
 {% endblock %}
 
 {% block content %}
@@ -25,63 +25,57 @@
     <div class="tab-content">
         <div align="center" style="margin: 30px auto; padding: 0">
             <div class="filters">
-                <h1>Filtrer les résultats</h1>
+                <h1>{{ "report.filter"|trans|capitalize }}</h1>
                 <div class="fil-select">
-                    <label for="filter_quiz_id">ID Quiz </label>
+                    <label for="filter_quiz_id">{{ "general.quiz.plural"|trans|capitalize }} </label>
                     <select class='select-filter' id="filter_quiz_id">
-                        <option value="all">Tous</option>
+                        <option value="all">{{ "report.all"|trans|capitalize }}</option>
                     </select>
                 </div>
                 <div class="fil-select">
-                    <label for="filter_corporate_id">ID Compagnie </label>
+                    <label for="filter_corporate_id">{{ "general.account.plural"|trans|capitalize }} </label>
                     <select class='select-filter' id="filter_corporate_id">
-                        <option value="all">Tous</option>
+                        <option value="all">{{ "report.all"|trans|capitalize }}</option>
                     </select>
                 </div>
                 <div class="fil-select right">
-                    <label for="filter_group_id">ID Groupe </label>
-                    <select class='select-filter' id="filter_group_id">
-                        <option value="all">Tous</option>
-                    </select>
-                </div>
-                <div class="fil-select right">
-                    <label for="filter_agency_id">ID Agence </label>
+                    <label for="filter_agency_id">{{ "general.group.plural"|trans|capitalize }} </label>
                     <select class='select-filter' id="filter_agency_id">
-                        <option value="all">Tous</option>
+                        <option value="all">{{ "report.all"|trans|capitalize }}</option>
                     </select>
                 </div>
                 <div class="fil-select right">
-                    <label for="filter_quiz_progress">Progrès </label>
+                    <label for="filter_quiz_progress">{{ "report.progress"|trans|capitalize }} </label>
                     <select class='select-filter' id="filter_quiz_progress">
-                        <option value="all">Tous</option>
+                        <option value="all">{{ "report.all"|trans|capitalize }}</option>
                     </select>
                 </div>
             </div>
             <table id="example" class="display" cellspacing="0"></table>
             <div class="filters">
                 <div class="bodyEntete">
-                    <p>Générer les rapports usagers:</p>
+                    <p>{{ "report.generate.users"|trans|capitalize }}</p>
                 </div>
                 <div class="bodyButton">
-                    <input type="button" class='btn_filters' value="Générer rapport(s) usager(s)" 
+                    <input type="button" class='btn_filters' value="{{ "report.generate.users.btn"|trans|capitalize }}" 
                            id="GenerateUsersReports" data-type="type_b"/>
                 </div>
             </div>
             <div class="filters">
                 <div class="bodyEntete">
-                    <p>Générer les rapports de participation:</p>
+                    <p>{{ "report.generate.participation"|trans|capitalize }}</p>
                 </div>
                 <div class="bodyButton">
-                    <input type="button" class='btn_filters' value="Générer rapport de participation" 
+                    <input type="button" class='btn_filters' value="{{ "report.generate.participation.btn"|trans|capitalize }}" 
                            id="GenerateParticipationReport"/>
                 </div>
             </div>
             <div class="filters">
                 <div class="bodyEntete">
-                    <p>Générer les rapports de groupe:</p>
+                    <p>{{ "report.generate.groups"|trans|capitalize }}</p>
                 </div>
                 <div class="bodyButton">
-                    <input type="button" class='btn_filters' value="Générer rapport de groupe" 
+                    <input type="button" class='btn_filters' value="{{ "report.generate.groups.btn"|trans|capitalize }}" 
                            id="onGroupeReport"/>
                 </div>
             </div>

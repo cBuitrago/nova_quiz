@@ -6,26 +6,26 @@
                 <img src="{{ asset('Resources/public/media/images/logoCompany_Nova.png') }}">
             </div>
             <div class="text-login">
-                <h1>Ouverture de session</h1>
+                <h1>{{ "login.title"|trans|capitalize }}</h1>
             </div>
         </nav>
         <article class="content-login">
             {% if error %}
                 <div class="login_failed hidden_failed">
-                    <p>Connexion échoué!</p>
+                    <p>{{ "login.errorMsg"|trans|capitalize }}</p>
                 </div>
             {% endif %}
-            <form action="{{ path('login', {'account': account}) }}" method="post">
+            <form action="{{ path('login', { 'account': account, "_locale": app.request.locale }) }}" method="post">
                 <div>
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Courriel" />
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{ "user.username"|trans|capitalize }}" />
                 </div>
                 <div>
-                    <input type="password" id="password" name="_password" placeholder="Mot de Passe" />
+                    <input type="password" id="password" name="_password" placeholder="{{ "user.psw"|trans|capitalize }}" />
                 </div>
-                <input type="hidden" name="_target_path" value="/{{ account }}/user/profile" />
-                <input type="hidden" name="_failure_path" value="/{{ account }}" />
+                <input type="hidden" name="_target_path" value="/{{ account }}/{{ app.request.locale }}/user/profile" />
+                <input type="hidden" name="_failure_path" value="/{{ account }}/{{ app.request.locale }}" />
                 <hr>
-                <button type="submit">login</button>
+                <button type="submit">{{ "login.login"|trans|capitalize }}</button>
             </form>
         </article>
     {% endblock %}

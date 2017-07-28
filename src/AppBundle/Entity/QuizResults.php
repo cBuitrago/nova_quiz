@@ -33,7 +33,7 @@ class QuizResults {
      * @var UserInfo
      * @ORM\ManyToOne(targetEntity="UserInfo", inversedBy="quizResultsCollection")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="USER_ID", referencedColumnName="PK_id")
+     *   @ORM\JoinColumn(name="USER_ID", referencedColumnName="PK_id", onDelete="cascade")
      * })
      */
     private $userInfo;

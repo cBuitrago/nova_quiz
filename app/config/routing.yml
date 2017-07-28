@@ -3,4 +3,4 @@ app:
     type: annotation
     
 logout:
-    path: /{account}/logout
+    path: /{account}/{_locale}/logout

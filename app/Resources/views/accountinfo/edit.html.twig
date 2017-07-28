@@ -9,44 +9,37 @@
     <ul class="nav nav-tabs">
         {% include 'accountinfo/navbar.html.twig' with page %}
         <li class="active">
-            <a href="{{ path('user_index', { 'account': account }) }}">{{ "modifier.compte"|trans }}</a>
+            <a href="{{ path('user_index', { 'account': account }) }}">{{ "account.edit"|trans|capitalize }}</a>
         </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" >
-            <h1>Éditer {{ accountInfo.name }}</h1>
             <form method="POST" >
                 <div class="containerEdit">
-                    {{ forms.label_input("name", accountInfo.name, "text", null, null, "editNomAccount", "Nom de la compagnie", "nameaccount", null) }}
+                    {{ forms.label_input("name", accountInfo.name, "text", null, null, "editNomAccount", "account.name"|trans|capitalize, "nameaccount", null) }}
                     <div class="double-input">
-                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
-                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "editer le nom du corpo", "Éditer") }}
-                    </div>
-                </div>
-            </form>
-            <form method="POST" enctype="multipart/form-data">
-                <div class="containerEdit">
-                    <h2>changer Logo</h2>
-                    {{ forms.single_input("imgCompany", null, "file", null, null, "imgCompany", "file") }}
-                    <div class="double-input">
-                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
-                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "changer image corpo", "Ajouter Image") }}
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "general.cancel"|trans|capitalize, "general.cancel"|trans|capitalize) }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "account.edit"|trans|capitalize, "account.edit"|trans|capitalize) }}
                     </div>
                 </div>
             </form>
             <form method="POST" >
                 <div class="containerEdit">
-                    <h2>Éditer des couleurs</h2>
+                    <div class="single-input">
+                        <div>
+                            <label>{{ "account.change.colors"|trans|capitalize }}</label>
+                        </div>
+                    </div>
                     <div class="double-input">
                         <div>
-                            <label for="c1">btn-cancel</label>
+                            <label for="c1">{{ "account.change.colors.cancelbtn"|trans|capitalize }}</label>
                             <div id="btn-cancel" class="input-group colorpicker-component">
                                 {{ forms.input("btn_cancel", settings.colors.btn_cancel, "text", null, null, "c1", "color", "form-control") }}
                                 <span class="input-group-addon"><i></i></span>
                             </div>
                         </div>
                         <div>
-                            <label for="c2">btn</label>
+                            <label for="c2">{{ "account.change.colors.principalbtn"|trans|capitalize }}</label>
                             <div id="btn" class="input-group colorpicker-component">
                                 {{ forms.input("principal", settings.colors.principal, "text", null, null, "c2", "color", "form-control") }}
                                 <span class="input-group-addon"><i></i></span>
@@ -54,7 +47,7 @@
                         </div>
                     </div>
                     <div class="single-input">
-                        <label for="c3">Aside</label>
+                        <label for="c3">{{ "account.change.colors.aside"|trans|capitalize }}</label>
                         <div id="color-aside" class="input-group colorpicker-component">
                             {{ forms.input("aside", settings.colors.aside, "text", null, null, "c3", "color", "form-control") }}
                             <span class="input-group-addon"><i></i></span>
@@ -62,14 +55,14 @@
                     </div>
                     <div class="double-input">
                         <div>
-                            <label for="c4">Nav</label>
+                            <label for="c4">{{ "account.change.colors.principalnav"|trans|capitalize }}</label>
                             <div id="nav" class="input-group colorpicker-component">
                                 {{ forms.input("nav", settings.colors.nav, "text", null, null, "c4", "color", "form-control") }}
                                 <span class="input-group-addon"><i></i></span>
                             </div>
                         </div>
                         <div>
-                            <label for="c5">Nav 2</label>
+                            <label for="c5">{{ "account.change.colors.nav"|trans|capitalize }}</label>
                             <div id="nav2" class="input-group colorpicker-component">
                                 {{ forms.input("nav2", settings.colors.nav2, "text", null, null, "c5", "color", "form-control") }}
                                 <span class="input-group-addon"><i></i></span>
@@ -77,8 +70,26 @@
                         </div>
                     </div>
                     <div class="double-input">
-                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "Annuler", "Annuler") }}
-                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "changer couleurs", "Éditer") }}
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "general.cancel"|trans|capitalize, "general.cancel"|trans|capitalize) }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "account.change.colors"|trans|capitalize, "account.change.colors"|trans|capitalize) }}
+                    </div>
+                </div>
+            </form>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="containerEdit">
+                    {{ forms.label_input("imgCompany", null, "file", null, null, "imgCompany", "account.change.logo"|trans|capitalize, "file", null) }}
+                    <div class="double-input">
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "general.cancel"|trans|capitalize, "general.cancel"|trans|capitalize) }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "account.change.logo"|trans|capitalize, "account.change.logo"|trans|capitalize) }}
+                    </div>
+                </div>
+            </form>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="containerEdit">
+                    {{ forms.label_input("imgBg", null, "file", null, null, "imgBg", "account.change.bgImage"|trans|capitalize, "file", null) }}
+                    <div class="double-input">
+                        {{ forms.button_form("button", "cancel", null, "tooltip", "left", "general.cancel"|trans|capitalize, "general.cancel"|trans|capitalize) }}
+                        {{ forms.button_form("submit", "nv-btn-default nv-principal-color", null, "tooltip", "left", "account.change.bgImage"|trans|capitalize, "account.change.bgImage"|trans|capitalize) }}
                     </div>
                 </div>
             </form>

@@ -4,7 +4,7 @@
     {% set page = {'active': ''} %}
     <ul class="nav nav-tabs">
         <li class="active">
-            <a href="{{ path('user_index', { 'account': account }) }}">Profile</a>
+            <a href="{{ path('user_index', { 'account': account }) }}">{{ "general.profile"|trans|capitalize }}</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -12,10 +12,11 @@
             <div class="addItem">
                 <h1>{{ app.user.firstname }} {{ app.user.name }}</h1>
                 <form method="POST" >
-                    {{ forms.double_input("firstname", app.user.firstname, "text", null, "Prénom", null, null, "name", "name", app.user.name, "text", null, "Nom de famille", null, "name", "name") }}
-                    {{ forms.input("n1password", null, "password", null, "Nouveau mot de passe", null, "password", null) }}
-                    {{ forms.input("n2password", null, "password", null, "Confirmer nouveau mot de passe", null, "password", null) }}
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "éditer profile", "Éditer profile") }}
+                    {{ forms.double_input("firstname", app.user.firstname, "text", null, "user.firstname"|trans|capitalize, null, null, "name", 
+                            "name", app.user.name, "text", null, "user.lastname"|trans|capitalize, null, "name", "name") }}
+                    {{ forms.input("n1password", null, "password", null, "user.psw.newpsw"|trans|capitalize, null, "password", null) }}
+                    {{ forms.input("n2password", null, "password", null, "user.psw.confirmnewpsw"|trans|capitalize, null, "password", null) }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "user.profile.edit"|trans|capitalize, "user.profile.edit"|trans|capitalize) }}
                 </form>
             </div>
         </div>

@@ -17,7 +17,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("{account}/indexpanel", name="inex_panel")
+     * @Route("{account}/indexpanel", name="index_panel")
      */
     public function indexPanelAction(Request $request) {
         // replace this example code with whatever you need

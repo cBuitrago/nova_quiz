@@ -15,7 +15,11 @@ use stdClass;
 /**
  * Quizresult controller.
  * @Security("has_role('ROLE_USER')")
- * @Route("{account}/quizresults")
+ * @Route("{account}/{_locale}/quizresults", 
+ *      defaults={"_locale":"fr"},
+ *      requirements={
+ *          "_locale": "fr|en|es"
+ *      })
  */
 class QuizResultsController extends Controller {
 

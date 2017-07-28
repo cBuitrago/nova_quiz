@@ -5,16 +5,16 @@
     <ul class="nav nav-tabs">
         {% include 'departmentinfo/navbar.html.twig' with page %}
         <li class="active">
-            <a href="{{ path('departmentinfo_index', { 'account': account }) }}">Éditer groupe</a>
+            <a href="{{ path('departmentinfo_index', { 'account': account }) }}">{{ departmentInfo.name }}</a>
         </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>Éditer {{ departmentInfo.name }}</h1>
+                <h1>{{ "group.edit"|trans|capitalize }}</h1>
                 <form method="POST" >
-                    {{ forms.input("name", departmentInfo.name, "text", null, "Nom du groupe", null, "name", null) }}
-                    <h2>Groupe parent</h2>
+                    {{ forms.input("name", departmentInfo.name, "text", null, "group.name"|trans|capitalize, null, "name", null) }}
+                    <h2>{{ "group.parent"|trans|capitalize }}</h2>
                     {% if departmentInfo.parent != null %} 
                         {% set checked = departmentInfo.parent.id %} 
                     {% else %} 
@@ -23,7 +23,7 @@
                     <div class="start-tree">
                         {% include 'departmentTree.html.twig' with { 'departments': departments, 'checked': checked } %}
                     </div>
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "modifier groupe", "Éditer groupe") }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "group.edit"|trans|capitalize, "group.edit"|trans|capitalize) }}
                 </form>
             </div>
         </div>

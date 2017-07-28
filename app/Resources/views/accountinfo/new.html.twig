@@ -8,19 +8,19 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>Ajouter compte</h1>
+                <h1>{{ "account.create"|trans|capitalize }}</h1>
                 <form method="POST" >
-                    {{ forms.input("name", null, "text", null, "Nom de la compte", null, "nameaccount") }}
-                    {{ forms.input("description", null, "text", null, "Description", null, "text") }}
+                    {{ forms.input("name", null, "text", null, "account.name"|trans|capitalize, null, "nameaccount") }}
+                    {{ forms.input("description", null, "text", null, "general.description"|trans|capitalize, null, "text") }}
                     {% if is_granted('ROLE_GOD') %}
                         <select name="account_role" data-validation="none">
-                            <option value="IS_PROVIDER">Provider</option>
-                            <option value="IS_USUAL">Usual</option>
+                            <option value="IS_PROVIDER">{{ "IS_PROVIDER"|trans|capitalize }}</option>
+                            <option value="IS_USUAL">{{ "IS_USUAL"|trans|capitalize }}</option>
                         </select>
                     {% endif %}
-                    {{ forms.input_label("can_create_quiz", null, "checkbox", null, null, "can_create_quiz", "créer quiz?", "none", null) }}
-                    {{ forms.input_label("email_as_username", null, "checkbox", null, null, "email_as_username", "courriel comme nom d'utilisateur ?", "none", null) }}
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "créer compte", "Créer compte") }}
+                    {{ forms.input_label("can_create_quiz", null, "checkbox", null, null, "can_create_quiz", "account.canCreateQuiz"|trans|capitalize, "none", null) }}
+                    {{ forms.input_label("email_as_username", null, "checkbox", null, null, "email_as_username", "account.useEmailLikeUsername"|trans|capitalize, "none", null) }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "account.create"|trans|capitalize, "account.create"|trans|capitalize) }}
                 </form>
             </div>
         </div>

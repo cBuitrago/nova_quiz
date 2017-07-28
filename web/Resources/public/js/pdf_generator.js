@@ -400,7 +400,7 @@ function CreatePDF(json_data, options_data, quiz_data) {
 
     //We start by getting averages from server
     $.ajax({
-        url: "/" + account + "/report/average",
+        url: "/" + account + "/fr/report/average",
         type: 'post',
         async: true,
         headers: {"cache-control": "no-cache"},

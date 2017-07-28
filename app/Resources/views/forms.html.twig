@@ -36,3 +36,15 @@
         <textarea name="{{ name }}"{% if value %} value="{{ value }}" {% endif %}{% if placeholder %} placeholder="{{ placeholder }}" {% endif %}{% if id %} id="{{ id }}" {% endif %} data-validation="{{ data_validation }}" ></textarea>    
     </div>
 {% endmacro %}
+{% macro single_input_label_first(name, type, value, id, label_text, data_validation) %}
+    <div class="single-input">
+        <label for="{{ id }}">{{ label_text }}</label>
+        <input type="{{ type|default('text') }}" name="{{ name }}" id="{{ id }}" data-validation="{{ data_validation }}" value="{{ value }}" >
+    </div>
+{% endmacro %}
+{% macro single_input_label_last(name, type, value, id, label_text, data_validation, checked) %}
+    <div class="single-input">
+        <input type="{{ type|default('checkbox') }}" name="{{ name }}" id="{{ id }}" data-validation="{{ data_validation }}" value="{{ value }}" {% if checked %} checked="checked" {% endif %} >
+        <label for="{{ id }}">{{ label_text }}</label>
+    </div>
+{% endmacro %}

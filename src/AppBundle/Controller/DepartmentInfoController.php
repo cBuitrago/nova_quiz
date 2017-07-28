@@ -14,7 +14,11 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 /**
  * Departmentinfo controller.
  * @Security("has_role('ROLE_ADMIN')")
- * @Route("{account}/groups")
+ * @Route("{account}/{_locale}/groups", 
+ *      defaults={"_locale":"fr"},
+ *      requirements={
+ *          "_locale": "fr|en|es"
+ *      })
  */
 class DepartmentInfoController extends Controller {
 

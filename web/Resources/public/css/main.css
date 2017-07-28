@@ -878,7 +878,8 @@ label {
 .generalButton:hover {
   cursor: pointer;
 }
-button.add {
+button.add,
+a.add {
   display: block;
   border-width: 1px;
   border-radius: 2px;
@@ -900,8 +901,10 @@ button.add {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 18px;
+  text-align: center;
 }
-button.add:hover {
+button.add:hover,
+a.add:hover {
   cursor: pointer;
 }
 button.btnLangue {
@@ -1225,6 +1228,9 @@ textarea {
   float: none;
   min-height: 200px;
   padding: 8px;
+}
+th {
+  font-weight: 500;
 }
 @media (min-width: 1200px) {
   article.container {

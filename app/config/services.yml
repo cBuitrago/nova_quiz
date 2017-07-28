@@ -6,4 +6,9 @@ parameters:
 services:
     app.custom_security:
         class: AppBundle\CustomSecurity\CustomSecurity
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+        #arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.exception_listener:
+        class: AppBundle\EventListener\ExceptionListener
+        arguments: ['@templating']
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

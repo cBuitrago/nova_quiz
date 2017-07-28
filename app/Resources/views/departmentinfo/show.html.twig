@@ -8,31 +8,33 @@
                 <a href="{{ path('user_index', { 'account': account }) }}">{{ departmentInfo.name }}</a>
             </li>
         </ul>
-        <table>
-            <tbody>
-                <tr>
-                    <th>Nom du groupe</th>
-                    <td>{{ departmentInfo.name }}</td>
-                </tr>
-                <tr>
-                    <th>C'est actif ?</th>
-                    <td>{% if departmentInfo.isActive %}Oui{% else %}No{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ departmentInfo.description }}</td>
-                </tr>
-                <tr>
-                    <th>Créé</th>
-                    <td>{% if departmentInfo.createdOn %}{{ departmentInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
-        <ul>
-            <li>
-                <a href="{{ path('departmentinfo_edit', { 'id': departmentInfo.id, 'account': account }) }}">Modifier</a>
-            </li>
-        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" >
+                <div class="addItem">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>{{ "group.name"|trans|capitalize }}</th>
+                                <td>{{ departmentInfo.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "group.isActive"|trans|capitalize }}</th>
+                                <td>{% if departmentInfo.isActive %}{{ "general.yes"|trans|capitalize }}{% else %}{{ "general.no"|trans|capitalize }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "general.description"|trans|capitalize }}</th>
+                                <td>{{ departmentInfo.description|trans|capitalize }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "general.created"|trans|capitalize }}</th>
+                                <td>{% if departmentInfo.createdOn %}{{ departmentInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="add" href="{{ path('departmentinfo_edit', { 'id': departmentInfo.id, 'account': account }) }}">{{ "general.edit"|trans|capitalize }}</a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}

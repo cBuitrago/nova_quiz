@@ -18,7 +18,7 @@ var DB_QUIZ_RESULTS_PROGRESS_ID = 5;
 var DB_QUIZ_RESULTS_ANSWERS = 6;
 var DB_QUIZ_RESULTS_QUIZ_SCORE = 7;
 var DB_QUIZ_RESULTS_PREVIOUS_ANSWERS = 8;
-var DB_QUIZ_RESULTS_PREVIOUS_SCORES = 9
+var DB_QUIZ_RESULTS_PREVIOUS_SCORES = 9;
 var DB_QUIZ_RESULTS_QUIZ_NAME = 10;
 var DB_QUIZ_RESULTS_USER_NAME = 11;
 var DB_QUIZ_RESULTS_CORPORATE_ID = 12;
@@ -139,15 +139,15 @@ function GenerateUsersReports(e) {
         CreatePDF_Param_quiz_data = JSON.stringify(quiz_table);
         CreatePDF(CreatePDF_Param_json_data, CreatePDF_Param_options_data, CreatePDF_Param_quiz_data);
     }
-    
-    if (e.target.getAttribute('data-type') == 'type_b') { 
+
+    if (e.target.getAttribute('data-type') == 'type_b') {
         CreatePDF_Param_json_data = JSON.stringify(selected_array);
         CreatePDF_Param_options_data = '';
         CreatePDF_Param_quiz_data = JSON.stringify(quiz_table);
         CreatePDFCFC(CreatePDF_Param_json_data, CreatePDF_Param_options_data, CreatePDF_Param_quiz_data);
     }
-    
-    if (e.target.getAttribute('data-type') == 'statistics_type_a') { 
+
+    if (e.target.getAttribute('data-type') == 'statistics_type_a') {
         CreatePDF_Param_json_data = JSON.stringify(selected_array);
         //CreatePDF_Param_options_data = '';
         //CreatePDF_Param_quiz_data = JSON.stringify(quiz_table);
@@ -158,7 +158,7 @@ function GenerateUsersReports(e) {
 function ApplyFilters() {
     var quiz_select = document.getElementById("filter_quiz_id");
     var corporate_select = document.getElementById("filter_corporate_id");
-    var group_select = document.getElementById("filter_group_id");
+    //var group_select = document.getElementById("filter_group_id");
     var agency_select = document.getElementById("filter_agency_id");
     var completed_select = document.getElementById("filter_quiz_progress");
     if (quiz_select.options[quiz_select.selectedIndex].value == "all") {
@@ -173,11 +173,11 @@ function ApplyFilters() {
         table.column(table.column('CORPORATE_ID:name').index()).search('^\\b' + corporate_select.options[corporate_select.selectedIndex].value + '\\b$', true, false).draw();
     }
 
-    if (group_select.options[group_select.selectedIndex].value == "all") {
+    /*if (group_select.options[group_select.selectedIndex].value == "all") {
         table.column(table.column('GROUP_ID:name').index()).search("").draw();
     } else {
         table.column(table.column('GROUP_ID:name').index()).search('^\\b' + group_select.options[group_select.selectedIndex].value + '\\b$', true, false).draw();
-    }
+    }*/
 
     if (agency_select.options[agency_select.selectedIndex].value == "all") {
         table.column(table.column('AGENCY_ID:name').index()).search("").draw();
@@ -193,35 +193,35 @@ function ApplyFilters() {
 }
 
 /*$('#submitBtn').click(function () {
-    alert($('#form').serialize());
-    $.ajax({
-        url: "nova_api_add.php",
-        type: 'post',
-        async: true,
-        headers: {"cache-control": "no-cache"},
-        cache: false,
-        data: {data: JSON.stringify($('#form').serializeArray())},
-        dataType: "text",
-        success: function (return_data) {
-            if (return_data == "QUERY_ERROR" || return_data == "DB_OPEN_ERROR") {
-                alert("ERREUR: base de données innaccessible...");
-                return;
-            } else if (return_data == "ID_ALREADY_EXISTS") {
-                alert("Le ID Démo existe déjà dans la base de données, merci de choisir un nouveau nom...");
-                document.getElementsByName('id_demo').focus();
-                return;
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("ERROR !");
-        }
-    });
-});*/
+ alert($('#form').serialize());
+ $.ajax({
+ url: "nova_api_add.php",
+ type: 'post',
+ async: true,
+ headers: {"cache-control": "no-cache"},
+ cache: false,
+ data: {data: JSON.stringify($('#form').serializeArray())},
+ dataType: "text",
+ success: function (return_data) {
+ if (return_data == "QUERY_ERROR" || return_data == "DB_OPEN_ERROR") {
+ alert("ERREUR: base de données innaccessible...");
+ return;
+ } else if (return_data == "ID_ALREADY_EXISTS") {
+ alert("Le ID Démo existe déjà dans la base de données, merci de choisir un nouveau nom...");
+ document.getElementsByName('id_demo').focus();
+ return;
+ }
+ },
+ error: function (XMLHttpRequest, textStatus, errorThrown) {
+ alert("ERROR !");
+ }
+ });
+ });*/
 
 function GetAllQuizInfoFromServer(type) {
 
     $.ajax({
-        url: "/" + account + "/report/reportData",
+        url: "/" + account + "/fr/report/reportData",
         type: 'get',
         async: true,
         headers: {"cache-control": "no-cache"},
@@ -250,7 +250,7 @@ function GetAllQuizInfoFromServer(type) {
 }
 
 function compareSecondColumn(a, b) {
-    
+
     if (a[1] === b[1]) {
         return 0;
     } else {
@@ -421,13 +421,13 @@ function LoadDataTable() {
         option.value = corporate_id_unique[j][0];
         corporate_id_select.add(option);
     }
-    for (var k = 0; k < group_id_unique.length; k++) {
-        var group_id_select = document.getElementById("filter_group_id");
-        var option = document.createElement("option");
-        option.text = group_id_unique[k][1];
-        option.value = group_id_unique[k][0];
-        group_id_select.add(option);
-    }
+    /*for (var k = 0; k < group_id_unique.length; k++) {
+     var group_id_select = document.getElementById("filter_group_id");
+     var option = document.createElement("option");
+     option.text = group_id_unique[k][1];
+     option.value = group_id_unique[k][0];
+     group_id_select.add(option);
+     }*/
     for (var m = 0; m < agency_id_unique.length; m++) {
         var agency_id_select = document.getElementById("filter_agency_id");
         var option = document.createElement("option");

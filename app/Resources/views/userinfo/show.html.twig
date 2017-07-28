@@ -9,61 +9,52 @@
             </li>
         </ul>
         <div class="tab-content">
-            <table class="table table-hover table-responsive">
-                <tbody>
-                    <tr>
-                        <th>Nom d'utilisateur</th>
-                        <td>{{ userInfo.username }}</td>
-                    </tr>
-                    <tr>
-                        <th>Prénom</th>
-                        <td>{{ userInfo.firstName }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nom de famille</th>
-                        <td>{{ userInfo.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Courriel</th>
-                        <td>{{ userInfo.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>Utilisateur actif?</th>
-                        <td>{% if userInfo.isActive %}Oui{% else %}No{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th>Changer mot de passe?</th>
-                        <td>{% if userInfo.forcePsw %}Oui{% else %}No{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th>Groupe</th>
-                        <td>{{ userInfo.departmentAuthorization.departmentInfo.name}}</td>
-                    </tr>
-                    <tr>
-                        <th>Créé</th>
-                        <td>{% if userInfo.createdOn %}{{ userInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th>Modifié</th>
-                        <td>{% if userInfo.modifiedOn %}{{ userInfo.modifiedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <a class="btn-default add" href="{{ path('user_edit', { 'id': userInfo.id, 'account': account }) }}">Éditer {{ userInfo.firstName }} {{ userInfo.name }}</a>
+            <div class="tab-pane active" >
+                <div class="addItem">
+                    <table class="table table-hover table-responsive">
+                        <tbody>
+                            <tr>
+                                <th>{{ "user.username"|trans|capitalize }}</th>
+                                <td>{{ userInfo.username }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "user.firstname"|trans|capitalize }}</th>
+                                <td>{{ userInfo.firstName }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "user.lastname"|trans|capitalize }}</th>
+                                <td>{{ userInfo.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "user.email"|trans|capitalize }}</th>
+                                <td>{{ userInfo.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "user.actif"|trans|capitalize }}</th>
+                                <td>{% if userInfo.isActive %}{{ "general.yes"|trans|capitalize }}{% else %}{{ "general.no"|trans|capitalize }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "user.forcePsw"|trans|capitalize }}</th>
+                                <td>{% if userInfo.forcePsw %}{{ "general.yes"|trans|capitalize }}{% else %}{{ "general.no"|trans|capitalize }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "general.group"|trans|capitalize }}</th>
+                                <td>{{ userInfo.departmentAuthorization.departmentInfo.name}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "general.created"|trans|capitalize }}</th>
+                                <td>{% if userInfo.createdOn %}{{ userInfo.createdOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "general.edited"|trans|capitalize }}</th>
+                                <td>{% if userInfo.modifiedOn %}{{ userInfo.modifiedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="add" href="{{ path('user_edit', { 'id': userInfo.id, 'account': account }) }}">{{ "general.edit"|trans|capitalize }} {{ userInfo.firstName }} {{ userInfo.name }}</a>
+                </div>
+            </div>
         </div>
-        <ul>
-            {#<li>
-                <a href="{{ path('user_index', { 'account': account }) }}">Back to the list</a>
-            </li>#}
-            <li>
-
-            </li>
-            {#<li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-                {{ form_end(delete_form) }}
-            </li>#}
-        </ul>
     </div>
 {% endblock %}
 {% block javascripts %}

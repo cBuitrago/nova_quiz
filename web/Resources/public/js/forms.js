@@ -1,6 +1,6 @@
 validator_submit_form = true;
 window.addEventListener("load", function () {
-
+    
     $("form").submit(function (event) {
         if (validator_submit_form) {
             event.preventDefault();
@@ -19,7 +19,7 @@ function validateForm(e) {
     var validator = false;
     $(e.target).find('input').each(function () {
         if (!validateFormInput($(this)[0])) {
-            
+
             validator = true;
             return false;
         }
@@ -92,10 +92,10 @@ function validateFormInput(inpt) {
      if (a.search('address') != -1) {
      var pattern = /^.{0,256}$/;
      }
-     
-     if (pattern_name === 'number') {
-     var pattern = /^[0-9]{0,256}$/;
-     }*/
+     */
+    if (pattern_name === 'number') {
+        var pattern = /^[0-9]{1,256}$/;
+    }
     if (pattern === undefined) {
         inpt.focus();
         return false;

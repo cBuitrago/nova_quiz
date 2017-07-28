@@ -20,7 +20,11 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 /**
  * Accountinfo controller.
  * @Security("has_role('ROLE_ADMIN')")
- * @Route("{account}/account")
+ * @Route("{account}/{_locale}/account", 
+ *      defaults={"_locale":"fr"},
+ *      requirements={
+ *          "_locale": "fr|en|es"
+ *      })
  */
 class AccountInfoController extends Controller {
 

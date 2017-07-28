@@ -67,6 +67,7 @@ var unknownError = "Ouch";
 
 /** UTILITY **/
 function validateInput(inpt, a) {
+    
     if (inpt.type == 'checkbox' || inpt.type == 'hidden') {
         return true;
     }

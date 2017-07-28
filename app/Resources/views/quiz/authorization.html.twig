@@ -13,13 +13,12 @@
     <ul class="nav nav-tabs">
         {% include 'quiz/navbar.html.twig' with page %}
         <li class="active">
-            <a href="{{ path('quiz_new', { 'account': account }) }}">Groupes de {{ quiz.quizId }}</a>
+            <a href="{{ path('quiz_new', { 'account': account }) }}">{{ quiz.quizId }}</a>
         </li>
     </ul>
-    <h1>Groupes Quiz</h1>
     <form method="POST" id="add_quiz_form">
         <div class="containerEdit">
-            <h2 class="text-center">Groupes</h2>
+            <h2 class="text-center">{{ "general.group.plural"|trans|capitalize }}</h2>
             <div class="start-tree">
                 {% include 'departmentTreeCheckBox.html.twig' with {'departments': departments, 'checked': quiz} %}
             </div>
@@ -27,7 +26,7 @@
                 <input type="hidden" name="edit_quiz_authorization" value="true" >
                 <button type="submit" class="nv-btn-default nv-principal-color" id="onAddQuiz" 
                         data-toggle="tooltip" data-placement="left" title="ajouter quiz">
-                    Gestion Groupes
+                    {{ "quiz.updateGroups"|trans|capitalize }}
                 </button>
             </div>
         </div>

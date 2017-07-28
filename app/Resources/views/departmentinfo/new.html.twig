@@ -8,14 +8,14 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>Ajouter groupe</h1>
+                <h1>{{ "group.create"|trans|capitalize }}</h1>
                 <form method="POST" >
-                    {{ forms.input("name", null, "text", null, "Nom du groupe", null, "name", null) }}
-                    <h2 class="text-center">Groupe parent</h2>
+                    {{ forms.input("name", null, "text", null, "group.name"|trans|capitalize, null, "name", null) }}
+                    <h2 class="text-center">{{ "group.parent"|trans|capitalize }}</h2>
                     <div class="start-tree">
                         {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
                     </div>
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "ajouter groupe", "Créer groupe") }}
+                    {{ forms.button_form("submit", "add", null, "tooltip", "left", "group.create"|trans|capitalize, "group.create"|trans|capitalize) }}
                 </form>
             </div>
         </div>

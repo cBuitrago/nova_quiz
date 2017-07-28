@@ -1,11 +1,11 @@
 {% if is_granted('ROLE_ADMIN') %}
 <li class="{% if page.active == 'index' %}active{% endif %}">
-    <a href="{{ path('user_index', { 'account': account }) }}">Liste des utilisateurs</a>
+    <a href="{{ path('user_index', { 'account': account }) }}">{{ "user.nav.usersList"|trans|capitalize }}</a>
 </li>
 <li class="{% if page.active == 'new' %}active{% endif %}">
-    <a href="{{ path('user_new', { 'account': account }) }}">Créer utilisateur</a>
+    <a href="{{ path('user_new', { 'account': account }) }}">{{ "user.nav.userCreate"|trans|capitalize }}</a>
 </li>
 <li class="{% if page.active == 'list' %}active{% endif %}">
-    <a href="{{ path('user_new_list', { 'account': account }) }}">Créer liste des utilisateurs</a>
+    <a href="{{ path('user_new_list', { 'account': account }) }}">{{ "user.nav.usersCreate"|trans|capitalize }}</a>
 </li>
 {% endif %}

@@ -10,64 +10,38 @@
     <ul class="nav nav-tabs">
         {% include 'quiz/navbar.html.twig' with page %}
     </ul>
-    <h1>Ajouter Quiz</h1>
     <form method="POST" id="add_quiz_form">
         <input type="hidden" name="QUIZ_TYPE" value="TYPE_A">
         <div class="containerEdit">
+            {{ forms.single_input_label_first("QUIZ_ID", "text", null, "QUIZ_ID", "quiz.name"|trans|capitalize, "text") }}
+            {{ forms.single_input_label_first("TIME_TO_COMPLETE", "text", null, "TIME_TO_COMPLETE", "TIME_TO_COMPLETE"|trans|capitalize, "number") }}
+            {{ forms.single_input_label_last("LOCKED_ON_COMPLETION", "checkbox", null, "LOCKED_ON_COMPLETION", "LOCKED_ON_COMPLETION"|trans|capitalize, "none", null) }}
+            {{ forms.single_input_label_last("IS_USER_CAN_DISPLAY_CHART", "checkbox", null, "IS_USER_CAN_DISPLAY_CHART", "IS_USER_CAN_DISPLAY_CHART"|trans|capitalize, "none", null) }}
+            {{ forms.single_input_label_last("IS_USER_CAN_DISPLAY_QA", "checkbox", null, "IS_USER_CAN_DISPLAY_QA", "IS_USER_CAN_DISPLAY_QA"|trans|capitalize, "none", null) }}
+            {{ forms.single_input_label_last("IS_ENABLED", "checkbox", null, "IS_ENABLED", "IS_ENABLED"|trans|capitalize, "none", null) }}
+            {{ forms.single_input_label_last("IS_USER_SEE_GOOD_ANSWER", "checkbox", null, "IS_USER_SEE_GOOD_ANSWER", "IS_USER_SEE_GOOD_ANSWER"|trans|capitalize, "none", null) }}
             <div class="single-input">
-                <label for="QUIZ_ID">Nom du quiz</label>
-                <input type="text" name="QUIZ_ID" id="QUIZ_ID" >
-            </div>
-            <div class="single-input">
-                <label for="TIME_TO_COMPLETE">Temps aloué ( secondes )</label>
-                <input type="text" name="TIME_TO_COMPLETE" id="TIME_TO_COMPLETE" >
-            </div>
-            <div class="single-input">
-                <label for="QUIZ_DATA">Données du quiz</label>
+                <label for="QUIZ_DATA">{{ "quiz.data"|trans|capitalize }}</label>
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#startDataQuiz">
-                    Commencer
+                    {{ "quiz.btnData"|trans|capitalize }}
                 </button>
             </div>
-            <div class="single-input">
-                <input type="checkbox" name="LOCKED_ON_COMPLETION" id="LOCKED_ON_COMPLETION" >
-                <label for="LOCKED_ON_COMPLETION">Vérouillé lorsque complété</label>
-            </div>
-            <div class="single-input">
-                <input type="checkbox" name="IS_USER_CAN_DISPLAY_CHART" id="IS_USER_CAN_DISPLAY_CHART" >
-                <label for="IS_USER_CAN_DISPLAY_CHART">Rapport avec graphique de résultat</label>
-            </div>
-            <div class="single-input">
-                <input type="checkbox" name="IS_USER_CAN_DISPLAY_QA" id="IS_USER_CAN_DISPLAY_QA" >
-                <label for="IS_USER_CAN_DISPLAY_QA">Rapport avec questions/réponses</label>
-            </div>
-            <div class="single-input">
-                <input type="checkbox" name="IS_ENABLED" id="IS_ENABLED" >
-                <label for="IS_ENABLED">Quiz actif</label>
-            </div>
-            <div class="single-input">
-                <input type="checkbox" name="IS_USER_SEE_GOOD_ANSWER" id="IS_USER_SEE_GOOD_ANSWER" >
-                <label for="IS_USER_SEE_GOOD_ANSWER">Rapport avec visualisation des bonnes réponses</label>
-            </div>
             {% if accountInfos %}
-                <h2 class="text-center">Lier compte</h2>
+                <h2 class="text-center">{{ "quiz.addAccount"|trans|capitalize }}</h2>
                 {% for accountInfo in accountInfos %}
                     {% if accountInfo != app.user.getAccountInfo() %}
-                        <div class="single-input">
-                            <input type="checkbox" name="quiz_account" id="quiz_account_{{ accountInfo.id }}" value="{{ accountInfo.id }}">
-                            <label for="quiz_account_{{ accountInfo.id }}">{{ accountInfo.name }}</label>
-                        </div>
+                        {{ forms.single_input_label_last("quiz_account", "checkbox", accountInfo.id, "quiz_account_"~accountInfo.id, accountInfo.name, "none") }}
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <h2 class="text-center">Ajouter Groupes</h2>
+            <h2 class="text-center">{{ "quiz.addDepartment"|trans|capitalize }}</h2>
             <div class="start-tree">
                 {% include 'departmentTreeCheckBox.html.twig' with {'departments': departments, 'checked': null} %}
             </div>
-
             <div>
                 <button type="button" class="nv-btn-default nv-principal-color" id="onAddQuiz" 
                         data-toggle="tooltip" data-placement="left" title="ajouter quiz" >
-                    Ajouter Quiz
+                    {{ "quiz.create"|trans|capitalize }}
                 </button>
             </div>
         </div>
@@ -77,7 +51,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Données du quiz</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{ "quiz.data"|trans|capitalize }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel-group" id="accordion" role="tablist" >
@@ -85,14 +59,14 @@
                             <div class="panel-heading" role="tab" >
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse" >
-                                        Titre du Quiz
+                                        {{ "quiz.title"|trans|capitalize }}
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <div class="single-input">
-                                        <label for="QUIZ_TITLE">Titre du quiz</label>
+                                        <label for="QUIZ_TITLE">{{ "quiz.title"|trans|capitalize }}</label>
                                         <input type="text" name="QUIZ_TITLE" id="QUIZ_TITLE" >
                                     </div>
                                     <div class="modal-footer">

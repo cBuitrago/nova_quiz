@@ -405,7 +405,7 @@ function CreateGroupReportPDF() {
     }
 
     $.ajax({
-        url: "/" + account + "/report/average_type_b",
+        url: "/" + account + "/fr/report/average_type_b",
         type: 'post',
         async: true,
         headers: {"cache-control": "no-cache"},
