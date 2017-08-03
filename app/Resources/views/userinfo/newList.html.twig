@@ -8,24 +8,28 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>{{ "user.create.various"|trans|capitalize }}  
-                    <a tabindex="0" class="" role="button" data-animation="true"
-                       data-toggle="popover" data-trigger="focus"
-                       title="{{ "user.create.popover.title"|trans|capitalize }}" 
-                       data-content="{{ "user.create.popover.content"|trans|capitalize }}">
-                       <span class="glyphicon glyphicon-info-sign"></span>
-                    </a>
-                </h1>
                 <form method="POST" >
-                    {{ forms.input_label("notification", null, "checkbox", null, null, "notification", "user.create.various.notification"|trans|capitalize, "none", null) }}
-                    {{ forms.label_textarea("users_list", null, "user.create.various.textarea.placeholder"|trans|capitalize, "users_list", "user.create.various.textarea.label"|trans|capitalize, "none") }}
-                    {{ forms.input_label("rdm_psw", null, "checkbox", null, null, "rdm_psw", "user.create.various.pswforce"|trans|capitalize, "none", true) }}
-                    <div class="js-psw hide">
-                        {{ forms.input("password", null, "password", null, "user.psw"|trans|capitalize, "password", "password", null) }}
+                    <div class="col-lg-6 col-sm-12">
+                        <h1>{{ "user.create.various"|trans|capitalize }}  
+                            <a tabindex="0" class="" role="button" data-animation="true"
+                               data-toggle="popover" data-trigger="focus"
+                               title="{{ "user.create.popover.title"|trans|capitalize }}" 
+                               data-content="{{ "user.create.popover.content"|trans|capitalize }}">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </a>
+                        </h1>
+                        {{ forms.input_label("notification", null, "checkbox", null, null, "notification", "user.create.various.notification"|trans|capitalize, "none", null) }}
+                        {{ forms.label_textarea("users_list", null, "user.create.various.textarea.placeholder"|trans|capitalize, "users_list", "user.create.various.textarea.label"|trans|capitalize, "none") }}
+                        {{ forms.input_label("rdm_psw", null, "checkbox", null, null, "rdm_psw", "user.create.various.pswforce"|trans|capitalize, "none", true) }}
+                        <div class="js-psw hide">
+                            {{ forms.input("password", null, "password", null, "user.psw"|trans|capitalize, "password", "password", null) }}
+                        </div>
                     </div>
-                    <h2 class="text-center">{{ "user.group"|trans|capitalize }}</h2>
-                    <div class="start-tree">
-                        {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                    <div class="col-lg-6 col-sm-12">
+                        <h2 class="text-center">{{ "user.group"|trans|capitalize }}</h2>
+                        <div class="start-tree">
+                            {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                        </div>
                     </div>
                     {{ forms.button_form("button", "add", "usersList", "tooltip", "left", "user.create.various"|trans|capitalize, "user.create.various"|trans|capitalize) }}
                 </form>

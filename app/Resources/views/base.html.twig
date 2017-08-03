@@ -28,9 +28,9 @@
                     <ul class="dropdown-menu" aria-labelledby="profile-dropdown">
                         <li><a href="{{ path('user_profile', { 'account': account }) }}">{{ "general.profile"|trans }}</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{{ path(route, route_params|merge({_locale: 'fr'}))}}">{{ "base.fr"|trans|upper }}</a></li>
-                        <li><a href="{{ path(route, route_params|merge({_locale: 'en'}))}}">{{ "base.en"|trans|upper }}</a></li>
-                        <li><a href="{{ path(route, route_params|merge({_locale: 'es'}))}}">{{ "base.es"|trans|upper }}</a></li>
+                        <li><a href="{{ path(route, route_params|merge({_locale: 'fr'})) }}">{{ "base.fr"|trans|upper }}</a></li>
+                        <li><a href="{{ path(route, route_params|merge({_locale: 'en'})) }}">{{ "base.en"|trans|upper }}</a></li>
+                        <li><a href="{{ path(route, route_params|merge({_locale: 'es'})) }}">{{ "base.es"|trans|upper }}</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/{{ account }}/{{ app.request.locale }}/logout">{{ "base.logout"|trans|capitalize }}</a></li>
                     </ul>

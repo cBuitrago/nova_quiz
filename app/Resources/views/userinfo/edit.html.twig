@@ -11,18 +11,23 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>{{ userInfo.firstName }} {{ userInfo.name }}</h1>
+
                 <form method="POST" >
-                    {{ forms.input("username", userInfo.username, "text", null, "user.username"|trans|capitalize, null, "text", null, null) }}
-                    {{ forms.input("email", userInfo.email, "text", null, "user.email"|trans|capitalize, null, "email", null, null) }}
-                    {{ forms.double_input("firstname", userInfo.firstName, "text", null, "user.firstname"|trans|capitalize, null, null, "name",
+                    <div class="col-lg-6 col-sm-12">
+                        <h1>{{ userInfo.firstName }} {{ userInfo.name }}</h1>
+                        {{ forms.input("username", userInfo.username, "text", null, "user.username"|trans|capitalize, null, "text", null, null) }}
+                        {{ forms.input("email", userInfo.email, "text", null, "user.email"|trans|capitalize, null, "email", null, null) }}
+                        {{ forms.double_input("firstname", userInfo.firstName, "text", null, "user.firstname"|trans|capitalize, null, null, "name",
                             "name", userInfo.name, "text", null, "user.lastname"|trans|capitalize, null, null, "name") }}
-                    {{ forms.input_label("isActive", null, "checkbox", null, null, "isActive", "user.actif"|trans|capitalize, "none", userInfo.isActive) }}
-                    {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "user.forcePsw"|trans|capitalize, "none", userInfo.forcePsw) }}
-                    {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "user.isAdmin"|trans|capitalize, "none", userInfo.isAdmin) }}
-                    <h2 class="text-center">{{ "user.group"|trans|capitalize }}</h2>
-                    <div class="start-tree">
-                        {% include 'departmentTree.html.twig' with {'departments': departments, 'checked':userInfo.departmentAuthorization.departmentInfo.id} %}
+                        {{ forms.input_label("isActive", null, "checkbox", null, null, "isActive", "user.actif"|trans|capitalize, "none", userInfo.isActive) }}
+                        {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "user.forcePsw"|trans|capitalize, "none", userInfo.forcePsw) }}
+                        {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "user.isAdmin"|trans|capitalize, "none", userInfo.isAdmin) }}
+                    </div>
+                    <div class="col-lg-6 col-sm-12 bottom-margin">
+                        <h2 class="text-center">{{ "user.group"|trans|capitalize }}</h2>
+                        <div class="start-tree">
+                            {% include 'departmentTree.html.twig' with {'departments': departments, 'checked':userInfo.departmentAuthorization.departmentInfo.id} %}
+                        </div>
                     </div>
                     {{ forms.button_form("submit", "add", null, "tooltip", "left", "user.edit"|trans, "user.edit"|trans|capitalize ) }}
                 </form>

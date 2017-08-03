@@ -121,6 +121,7 @@ class UserInfoController extends Controller {
         }
 
         if (count($request->request) > 0) {
+            
             $encoder = $this->container->get('security.password_encoder');
             if (trim($request->request->get('n1password')) !== trim($request->request->get('n2password'))) {
                 return $this->render('security/password.html.twig', array(
@@ -136,6 +137,7 @@ class UserInfoController extends Controller {
             $em->flush();
 
             return $this->redirectToRoute("quiz_index", array('account' => $account));
+            
         }
 
         return $this->render('userinfo/password.html.twig', array(
@@ -195,7 +197,6 @@ class UserInfoController extends Controller {
                     ->setAccountInfo($departmentInfo->getAccountInfo())
                     ->setForcePsw($force)
                     ->setRoles($roles);
-
             $em->persist($userInfo);
             $em->flush();
 

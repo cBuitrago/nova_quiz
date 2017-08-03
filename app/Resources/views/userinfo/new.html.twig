@@ -8,20 +8,24 @@
     <div class="tab-content">
         <div class="tab-pane active" >
             <div class="addItem">
-                <h1>{{ 'user.create'|trans|capitalize }}</h1>
                 <form method="POST" >
-                    {{ forms.input("username", null, "text", null, "user.username"|trans|capitalize, null, "text", null, null) }}
-                    {{ forms.input("email", null, "text", null, "user.email"|trans|capitalize, null, "email", null, null) }}
-                    {{ forms.double_input("firstname", null, "text", null, "user.firstname"|trans|capitalize, null, null, "name",
+                    <div class="col-lg-6 col-sm-12">
+                        <h1>{{ 'user.create'|trans|capitalize }}</h1>
+                        {{ forms.input("username", null, "text", null, "user.username"|trans|capitalize, null, "text", null, null) }}
+                        {{ forms.input("email", null, "text", null, "user.email"|trans|capitalize, null, "email", null, null) }}
+                        {{ forms.double_input("firstname", null, "text", null, "user.firstname"|trans|capitalize, null, null, "name",
                             "name", null, "text", null, "user.lastname"|trans|capitalize, null, null, "name") }}
-                    {{ forms.input("password", null, "password", null, "user.psw"|trans|capitalize, null, "password", null, null) }}
-                    {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "user.forcePsw"|trans|capitalize, "none", null) }}
-                    {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "user.isAdmin"|trans|capitalize, "none", null) }}
-                    <h2 class="text-center">{{ "user.group"|trans|capitalize }}</h2>
-                    <div class="start-tree">
-                        {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                        {{ forms.input("password", null, "password", null, "user.psw"|trans|capitalize, null, "password", null, null) }}
+                        {{ forms.input_label("forcePsw", null, "checkbox", null, null, "forcePsw", "user.forcePsw"|trans|capitalize, "none", null) }}
+                        {{ forms.input_label("role_admin", null, "checkbox", null, null, "role_admin", "user.isAdmin"|trans|capitalize, "none", null) }}
                     </div>
-                    {{ forms.button_form("submit", "add", null, "tooltip", "left", 'user.create'|trans|capitalize, 'user.create'|trans|capitalize) }}
+                    <div class="col-lg-6 col-sm-12 bottom-margin">
+                        <h2 class="text-center">{{ "user.group"|trans|capitalize }}</h2>
+                        <div class="start-tree">
+                            {% include 'departmentTree.html.twig' with {'departments': departments, 'checked': null} %}
+                        </div>
+                    </div>
+                    {{ forms.button_form("submit", "add clearfix", null, "tooltip", "left", 'user.create'|trans|capitalize, 'user.create'|trans|capitalize) }}
                 </form>
             </div>
         </div>

@@ -402,6 +402,9 @@ div.tab-content .dataTables_wrapper .dataTables_paginate .paginate_button.previo
 div.tab-content .filters {
   overflow: auto;
   margin: 0 25px 30px 25px;
+  /*.fil-select:nth-of-type(5){
+            width: 18%;
+        }*/
 }
 div.tab-content .filters div.rapUsagerHead {
   width: 100%;
@@ -438,19 +441,16 @@ div.tab-content .filters .fil-select.right label {
   width: 50%;
 }
 div.tab-content .filters .fil-select:nth-of-type(1) {
-  width: 17%;
+  width: 25%;
 }
 div.tab-content .filters .fil-select:nth-of-type(2) {
-  width: 26%;
+  width: 25%;
 }
 div.tab-content .filters .fil-select:nth-of-type(3) {
-  width: 19%;
+  width: 25%;
 }
 div.tab-content .filters .fil-select:nth-of-type(4) {
-  width: 20%;
-}
-div.tab-content .filters .fil-select:nth-of-type(5) {
-  width: 18%;
+  width: 25%;
 }
 div.tab-content .filters div.rapUsagerBody {
   margin-bottom: 25px;

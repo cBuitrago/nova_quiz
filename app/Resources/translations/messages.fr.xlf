@@ -522,6 +522,10 @@
                 <source>dataTable.sProcessing</source>
                 <target>Traitement en cours...</target>
             </trans-unit>
+            <trans-unit id="dataTable.sSearch">
+                <source>dataTable.sSearch</source>
+                <target>Rechercher : </target>
+            </trans-unit>
             <trans-unit id="dataTable.sLengthMenu1">
                 <source>dataTable.sLengthMenu1</source>
                 <target>Afficher</target>

@@ -11,15 +11,15 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active">
-                <table id="all_users" class="display" width="100%">
+                <table id="all_data" class="display table-responsive" width="100%">
                     <thead>
                         <tr>
                             <th>{{ "user.firstname"|trans|capitalize }}</th>
                             <th>{{ "user.lastname"|trans|capitalize }}</th>
                                 {% if is_granted('ROLE_GOD') == true %}
-                                <th>{{ "general.account"|trans|capitalize }}</th> 
+                                <th class="visible-lg">{{ "general.account"|trans|capitalize }}</th> 
                                 {% endif %}
-                            <th>{{ "general.group"|trans|capitalize }}</th>
+                            <th class="hidden-xs hidden-sm">{{ "general.group"|trans|capitalize }}</th>
                             <th class="text-center">{{ "general.edit"|trans|capitalize }}</th>
                         </tr>
                     </thead>
@@ -33,12 +33,12 @@
                                     <a href="{{ path('user_show', { 'id': userInfo.id, 'account': account }) }}">{{ userInfo.firstName|capitalize }}</a>
                                 </td>
                                 {% if is_granted('ROLE_GOD') == true %}
-                                    <td>
-                                        {{ userInfo.accountInfo.name }}
+                                    <td class="visible-lg">
+                                        <a href="{{ path('accountinfo_show', { 'id': userInfo.accountInfo.id, 'account': account }) }}">{{ userInfo.accountInfo.name }}</a>
                                     </td>
                                 {% endif %}
-                                <td>
-                                    {{ userInfo.departmentAuthorization.departmentInfo.name }}
+                                <td class="hidden-xs hidden-sm">
+                                    <a href="{{ path('departmentinfo_show', { 'id': userInfo.departmentAuthorization.departmentInfo.id, 'account': account }) }}">{{ userInfo.departmentAuthorization.departmentInfo.name }}</a>
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ path('user_edit', { 'id': userInfo.id, 'account': account  }) }}">
@@ -58,39 +58,5 @@
     {{ parent() }}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" >
-        $(document).ready(function () {
-            var table = $('#all_users').DataTable({
-                language: {
-                    sProcessing: "{{ "dataTable.sProcessing"|trans|capitalize }}",
-                    sSearch: "",
-                    sLengthMenu: "{{ "dataTable.sLengthMenu1"|trans|capitalize }} _MENU_ {{ "dataTable.elements"|trans }}",
-                    sInfo: "{{ "dataTable.sInfo1"|trans|capitalize }} _START_ {{ "dataTable.sInfo2"|trans }} _END_ {{ "dataTable.sInfo3"|trans }} _TOTAL_ {{ "dataTable.elements"|trans }}",
-                    sInfoEmpty: "{{ "dataTable.sInfoEmpty"|trans|capitalize }}",
-                    sInfoFiltered: "{{ "dataTable.sInfoFiltered1"|trans }} _MAX_ {{ "dataTable.sInfoFiltered2"|trans }}",
-                    sInfoPostFix: "",
-                    sLoadingRecords: "{{ "dataTable.sLoadingRecords"|trans|capitalize }}",
-                    sZeroRecords: "{{ "dataTable.sZeroRecords"|trans|capitalize }}",
-                    sEmptyTable: "{{ "dataTable.sEmptyTable"|trans|capitalize }}",
-                    oPaginate: {
-                        sFirst: "{{ "dataTable.paginate.sFirst"|trans|capitalize }}",
-                        sPrevious: "< {{ "dataTable.paginate.sPrevious"|trans|capitalize }}",
-                        sNext: "{{ "dataTable.paginate.sNext"|trans|capitalize }} >",
-                        sLast: "{{ "dataTable.paginate.sLast"|trans|capitalize }}"
-                    },
-                    oAria: {
-                        sSortAscending: "{{ "dataTable.aria.sSortAscending"|trans|capitalize }}",
-                        sSortDescending: "{{ "dataTable.aria.sSortDescending"|trans|capitalize }}"
-                    },
-                    select: {
-                        rows: {
-                            _: "&nbsp; %d {{ "dataTable.select.rows"|trans }}",
-                            0: "&nbsp;",
-                            1: "&nbsp; {{ "dataTable.select.rows1"|trans }}"
-                        }
-                    }
-                }
-            })
-        });
-    </script>
+    {% include 'dataTable.html.twig' %}
 {% endblock %}
